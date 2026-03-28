@@ -108,10 +108,18 @@ export default function News() {
         </div>
 
         {/* Tabs */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12 border-b border-border pb-4">
+        <div
+          role="tablist"
+          aria-label="ニュースカテゴリー"
+          className="flex flex-wrap justify-center gap-4 mb-12 border-b border-border pb-4"
+        >
           {tabs.map((tab) => (
             <button
               key={tab}
+              role="tab"
+              aria-selected={activeTab === tab}
+              aria-controls="news-panel"
+              id={`tab-${tab}`}
               onClick={() => setActiveTab(tab)}
               className={`px-6 py-2 font-medium transition-all duration-300 ${
                 activeTab === tab
@@ -125,7 +133,12 @@ export default function News() {
         </div>
 
         {/* News List */}
-        <div className="space-y-4 max-w-4xl mx-auto">
+        <div
+          id="news-panel"
+          role="tabpanel"
+          aria-labelledby={`tab-${activeTab}`}
+          className="space-y-4 max-w-4xl mx-auto"
+        >
           {currentNews.map((news) => (
             <a
               key={news.id}

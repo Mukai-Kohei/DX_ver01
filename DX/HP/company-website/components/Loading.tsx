@@ -15,7 +15,7 @@ export default function Loading() {
       const tl = gsap.timeline({
         onComplete: () => {
           // アニメーション完了後、bodyのoverflow制御を解除
-          document.body.style.overflow = 'auto';
+          document.body.classList.remove('loading');
           setIsComplete(true);
         },
       });
@@ -45,11 +45,11 @@ export default function Loading() {
     }, overlayRef);
 
     // 初期状態でbodyのスクロールを無効化
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('loading');
 
     return () => {
       ctx.revert();
-      document.body.style.overflow = 'auto';
+      document.body.classList.remove('loading');
     };
   }, []);
 
