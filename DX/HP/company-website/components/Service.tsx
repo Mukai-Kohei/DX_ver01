@@ -126,10 +126,23 @@ export default function Service() {
   return (
     <section
       ref={sectionRef}
-      className="section-padding bg-white"
+      className="section-padding bg-pattern-dots relative overflow-hidden"
       id="service"
     >
-      <div className="container-custom">
+      {/* Top wave from white */}
+      <div className="absolute top-0 left-0 w-full pointer-events-none">
+        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block">
+          <path d="M0,0 Q720,60 1440,0 L1440,0 L0,0 Z" fill="white"/>
+        </svg>
+      </div>
+      {/* Bottom wave to white */}
+      <div className="absolute bottom-0 left-0 w-full pointer-events-none">
+        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block">
+          <path d="M0,60 Q720,0 1440,60 L1440,60 L0,60 Z" fill="white"/>
+        </svg>
+      </div>
+
+      <div className="container-custom relative z-10">
         {/* Header */}
         <div ref={titleRef} className="text-center mb-12 md:mb-16 space-y-4">
           <p className="font-en text-sm text-primary font-semibold tracking-widest">

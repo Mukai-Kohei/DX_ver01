@@ -223,3 +223,52 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
+
+/* Background Patterns */
+.bg-pattern-dots {
+  background-color: var(--color-bg-light);
+  background-image: radial-gradient(rgba(0, 87, 184, 0.12) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+.bg-pattern-grid {
+  background-color: var(--color-bg-light);
+  background-image:
+    linear-gradient(rgba(0, 87, 184, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 87, 184, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-pattern-diagonal {
+  background-color: var(--color-bg-light);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 20px,
+    rgba(0, 87, 184, 0.04) 20px,
+    rgba(0, 87, 184, 0.04) 21px
+  );
+}
+
+/* Section Decorative Elements */
+.section-badge {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--color-primary);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.section-badge::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 2px;
+  background-color: var(--color-primary);
+}

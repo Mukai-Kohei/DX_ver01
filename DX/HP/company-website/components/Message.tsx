@@ -80,10 +80,33 @@ export default function Message() {
   return (
     <section
       ref={sectionRef}
-      className="section-padding bg-white"
+      className="section-padding bg-white relative overflow-hidden"
       id="message"
     >
-      <div className="container-custom">
+      {/* Decorative background glow — top right */}
+      <div
+        className="absolute top-0 right-0 w-[480px] h-[480px] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at top right, rgba(0,160,233,0.08) 0%, transparent 65%)',
+        }}
+      />
+      {/* Decorative background glow — bottom left */}
+      <div
+        className="absolute bottom-0 left-0 w-[360px] h-[360px] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at bottom left, rgba(0,87,184,0.07) 0%, transparent 65%)',
+        }}
+      />
+      {/* Subtle dot pattern — right half */}
+      <div
+        className="absolute inset-y-0 right-0 w-1/2 pointer-events-none opacity-40"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(0,87,184,0.1) 1.5px, transparent 1.5px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+
+      <div className="container-custom relative z-10">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Left: Text */}
           <div ref={textRef} className="space-y-6">
@@ -153,3 +176,4 @@ export default function Message() {
     </section>
   );
 }
+

@@ -84,10 +84,31 @@ export default function Business() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-bg-light overflow-hidden"
+      className="relative overflow-hidden"
       id="business"
+      style={{
+        background: 'linear-gradient(160deg, #f0f4f9 0%, #e8f0f8 50%, #f5f7fa 100%)',
+      }}
     >
-      <div ref={triggerRef} className="relative min-h-screen">
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(0,87,184,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,87,184,0.05) 1px, transparent 1px)
+          `,
+          backgroundSize: '60px 60px',
+        }}
+      />
+      {/* Glow accent */}
+      <div
+        className="absolute top-0 right-0 w-[400px] h-[400px] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(0,160,233,0.12) 0%, transparent 65%)',
+        }}
+      />
+      <div ref={triggerRef} className="relative min-h-screen z-10">
         <div className="container-custom h-screen flex items-center">
           <div className="w-full grid md:grid-cols-12 gap-8 items-center">
             {/* Left Column: Fixed Info */}
