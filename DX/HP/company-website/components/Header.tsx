@@ -10,6 +10,7 @@ const navLinks = [
   { href: '#news', label: 'NEWS' },
   { href: '#company', label: 'COMPANY' },
   { href: '#recruit', label: 'RECRUIT' },
+  { href: '#contact', label: 'CONTACT' },
 ];
 
 export default function Header() {
@@ -34,11 +35,7 @@ export default function Header() {
       }`}
     >
       <div className="container-custom">
-        <div
-          className={`flex items-center justify-between transition-all duration-300 ${
-            scrolled ? 'h-16 md:h-20' : 'h-16 md:h-20'
-          }`}
-        >
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <div
@@ -50,76 +47,70 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="font-en text-sm font-medium link-underline hover:opacity-80 transition-opacity"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Contact Button + Hamburger */}
-          <div className="flex items-center gap-4">
-            <Link
-              href="#contact"
-              className={`btn transition-all duration-300 ${
-                scrolled
-                  ? 'bg-primary text-white hover:bg-primary-dark'
-                  : 'bg-white text-primary hover:bg-opacity-90'
-              } px-6 py-2 md:px-8 md:py-3 text-sm md:text-base`}
-            >
-              CONTACT
-            </Link>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              className="lg:hidden flex flex-col gap-1.5 w-6 h-6 justify-center"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              <span
-                className={`block h-0.5 w-full transition-all duration-300 ${
-                  scrolled ? 'bg-text-main' : 'bg-white'
-                } ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}
-              />
-              <span
-                className={`block h-0.5 w-full transition-all duration-300 ${
-                  scrolled ? 'bg-text-main' : 'bg-white'
-                } ${mobileMenuOpen ? 'opacity-0' : ''}`}
-              />
-              <span
-                className={`block h-0.5 w-full transition-all duration-300 ${
-                  scrolled ? 'bg-text-main' : 'bg-white'
-                } ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}
-              />
-            </button>
-          </div>
+          {/* Hamburger only */}
+          <button
+            className="flex flex-col gap-1.5 w-7 h-7 justify-center items-center"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span
+              className={`block h-0.5 w-6 transition-all duration-300 ${
+                scrolled ? 'bg-text-main' : 'bg-white'
+              } ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}
+            />
+            <span
+              className={`block h-0.5 w-6 transition-all duration-300 ${
+                scrolled ? 'bg-text-main' : 'bg-white'
+              } ${mobileMenuOpen ? 'opacity-0' : ''}`}
+            />
+            <span
+              className={`block h-0.5 w-6 transition-all duration-300 ${
+                scrolled ? 'bg-text-main' : 'bg-white'
+              } ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}
+            />
+          </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Menu Overlay */}
       <div
-        className={`lg:hidden fixed top-16 md:top-20 left-0 w-full bg-white shadow-lg transition-all duration-300 overflow-hidden ${
-          mobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+        className={`fixed top-0 left-0 w-full h-full transition-all duration-500 ${
+          mobileMenuOpen
+            ? 'opacity-100 pointer-events-auto'
+            : 'opacity-0 pointer-events-none'
         }`}
+        style={{ background: 'rgba(0,18,54,0.97)', zIndex: 90 }}
+        onClick={() => setMobileMenuOpen(false)}
       >
-        <nav className="container-custom py-6 flex flex-col gap-4">
-          {navLinks.map((link) => (
+        <nav
+          className="flex flex-col items-center justify-center h-full gap-8"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {navLinks.map((link, i) => (
             <Link
               key={link.href}
               href={link.href}
-              className="font-en text-sm font-medium text-text-main hover:text-primary transition-colors py-2 border-b border-border"
+              className={`font-en text-2xl md:text-3xl font-bold text-white tracking-widest transition-all duration-300 hover:text-secondary ${
+                mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? `${i * 60}ms` : '0ms' }}
               onClick={() => setMobileMenuOpen(false)}
             >
               {link.label}
             </Link>
           ))}
         </nav>
+
+        {/* Close button */}
+        <button
+          className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-label="Close menu"
+          style={{ zIndex: 100 }}
+        >
+          <span className="block w-6 h-0.5 bg-white rotate-45 absolute" />
+          <span className="block w-6 h-0.5 bg-white -rotate-45 absolute" />
+        </button>
       </div>
     </header>
   );
