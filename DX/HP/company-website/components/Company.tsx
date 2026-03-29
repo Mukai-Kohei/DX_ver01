@@ -71,7 +71,7 @@ export default function Company() {
           </div>
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mt-10 md:mt-12">
+          <div className="flex flex-col items-center sm:flex-row sm:items-stretch gap-3 sm:gap-4 justify-center mt-10 md:mt-12">
             <a href="#" className="btn btn-primary text-sm sm:text-base px-8 py-3">
               会社案内PDF
             </a>
