@@ -223,3 +223,45 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
+
+/* Pattern Utilities */
+.bg-pattern-dots {
+  background-color: #F5F7FA;
+  background-image: radial-gradient(rgba(0, 87, 184, 0.08) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+.bg-pattern-grid {
+  background-color: #F5F7FA;
+  background-image:
+    linear-gradient(rgba(0, 87, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 87, 184, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.bg-pattern-diagonal {
+  background-color: #F5F7FA;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(0, 87, 184, 0.04) 0px,
+    rgba(0, 87, 184, 0.04) 1px,
+    transparent 1px,
+    transparent 20px
+  );
+}
+
+/* Section Badge */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+  background-color: rgba(0, 87, 184, 0.08);
+  color: var(--color-primary);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

@@ -3,9 +3,60 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import Image from 'next/image';
 
 gsap.registerPlugin(ScrollTrigger);
+
+function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
+  if (variant === 1) {
+    return (
+      <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, #1a0a3e 0%, #3730a3 50%, #0057B8 100%)' }}>
+        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.08) 1.5px, transparent 1.5px)', backgroundSize: '20px 20px' }} />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#a5b4fc" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+            </svg>
+          </div>
+          <span className="font-en text-xs font-bold tracking-widest text-indigo-200">SERVICE DESIGN</span>
+        </div>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(99,102,241,0.3) 0%, transparent 60%)' }} />
+      </div>
+    );
+  }
+  if (variant === 2) {
+    return (
+      <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, #020E28 0%, #01234F 60%, #003D82 100%)' }}>
+        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(0,160,233,0.1) 1.5px, transparent 1.5px)', backgroundSize: '20px 20px' }} />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(0,160,233,0.12)', border: '1px solid rgba(0,160,233,0.3)' }}>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#00A0E9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <span className="font-en text-xs font-bold tracking-widest text-sky-300">SYSTEM DEV</span>
+        </div>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(0,160,233,0.2) 0%, transparent 60%)' }} />
+      </div>
+    );
+  }
+  return (
+    <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, #002020 0%, #065f46 60%, #0d9488 100%)' }}>
+      <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(52,211,153,0.1) 1.5px, transparent 1.5px)', backgroundSize: '20px 20px' }} />
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+        <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(52,211,153,0.12)', border: '1px solid rgba(52,211,153,0.3)' }}>
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+          </svg>
+        </div>
+        <span className="font-en text-xs font-bold tracking-widest text-emerald-300">CONSULTING</span>
+      </div>
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(52,211,153,0.2) 0%, transparent 60%)' }} />
+    </div>
+  );
+}
 
 export default function Business() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -16,48 +67,25 @@ export default function Business() {
     if (!sectionRef.current || !textRef.current || !imagesRef.current) return;
 
     const ctx = gsap.context(() => {
-      // テキストアニメーション
       gsap.fromTo(
         textRef.current,
+        { opacity: 0, y: 30 },
         {
-          opacity: 0,
-          y: 30,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            once: true,
-          },
+          opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
         }
       );
 
-      // 画像のstaggerアニメーション
       const images = imagesRef.current?.querySelectorAll('.business-image');
       if (images && images.length > 0) {
         gsap.fromTo(
           images,
+          { opacity: 0, scale: 0.8, rotate: 0 },
           {
-            opacity: 0,
-            scale: 0.8,
-            rotate: 0,
-          },
-          {
-            opacity: 1,
-            scale: 1,
+            opacity: 1, scale: 1,
             rotate: (index) => [3, -2, 4][index] || 0,
-            duration: 0.6,
-            stagger: 0.2,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: imagesRef.current,
-              start: 'top 80%',
-              once: true,
-            },
+            duration: 0.6, stagger: 0.2, ease: 'power2.out',
+            scrollTrigger: { trigger: imagesRef.current, start: 'top 80%', once: true },
           }
         );
       }
@@ -67,11 +95,7 @@ export default function Business() {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="section-padding bg-white"
-      id="business"
-    >
+    <section ref={sectionRef} className="section-padding bg-white" id="business">
       <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Left: Text */}
@@ -103,45 +127,30 @@ export default function Business() {
             </div>
           </div>
 
-          {/* Right: Collage Images */}
+          {/* Right: Collage Panels */}
           <div ref={imagesRef} className="relative h-[400px] md:h-[500px]">
-            {/* Image 1 */}
+            {/* Panel 1 */}
             <div
               className="business-image absolute top-0 left-0 w-[45%] h-[50%] rounded-xl overflow-hidden shadow-lg"
               style={{ transform: 'rotate(3deg)' }}
             >
-              <Image
-                src="https://placehold.co/400x500/0057B8/FFFFFF?text=Service+Design"
-                alt="サービスデザイン"
-                fill
-                className="object-cover"
-              />
+              <DesignPanel variant={1} />
             </div>
 
-            {/* Image 2 */}
+            {/* Panel 2 */}
             <div
               className="business-image absolute top-[20%] right-0 w-[50%] h-[55%] rounded-xl overflow-hidden shadow-lg"
               style={{ transform: 'rotate(-2deg)' }}
             >
-              <Image
-                src="https://placehold.co/400x500/00A0E9/FFFFFF?text=System+Dev"
-                alt="システム開発"
-                fill
-                className="object-cover"
-              />
+              <DesignPanel variant={2} />
             </div>
 
-            {/* Image 3 */}
+            {/* Panel 3 */}
             <div
               className="business-image absolute bottom-0 left-[15%] w-[48%] h-[48%] rounded-xl overflow-hidden shadow-lg"
               style={{ transform: 'rotate(4deg)' }}
             >
-              <Image
-                src="https://placehold.co/400x500/003D82/FFFFFF?text=Consulting"
-                alt="コンサルティング"
-                fill
-                className="object-cover"
-              />
+              <DesignPanel variant={3} />
             </div>
           </div>
         </div>

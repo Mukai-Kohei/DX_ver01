@@ -3,6 +3,27 @@
 export default function ContactCTA() {
   return (
     <section className="relative py-12 md:py-16 bg-primary overflow-hidden" id="contact">
+      {/* Grid overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
+          backgroundSize: '80px 80px',
+        }}
+      />
+      {/* Radial glow center */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(0,160,233,0.25) 0%, transparent 65%)' }}
+      />
+      {/* SVG decorative circles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-5" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="300" cy="300" r="280" fill="none" stroke="white" strokeWidth="1"/>
+          <circle cx="300" cy="300" r="220" fill="none" stroke="white" strokeWidth="1"/>
+          <circle cx="300" cy="300" r="160" fill="none" stroke="white" strokeWidth="1"/>
+        </svg>
+      </div>
       {/* Wave Background SVG */}
       <div className="absolute inset-0 opacity-10">
         <svg
