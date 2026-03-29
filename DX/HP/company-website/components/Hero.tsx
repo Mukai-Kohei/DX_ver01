@@ -60,55 +60,47 @@ export default function Hero() {
     >
       {/* ===== BACKGROUND LAYERS ===== */}
 
-      {/* Layer 1: Deep dark gradient base */}
+      {/* Layer 1: Deep navy gradient base — Trust & Authority */}
       <div className="absolute inset-0 z-0" style={{
-        background: 'linear-gradient(135deg, #040812 0%, #001236 40%, #003d82 80%, #00518c 100%)'
+        background: 'linear-gradient(160deg, #020E28 0%, #01234F 40%, #0052A8 80%, #006AC0 100%)'
       }} />
 
-      {/* Layer 2: Grid pattern overlay */}
+      {/* Layer 2: Grid pattern overlay — max 5% opacity (ux-ui-design guideline) */}
       <div
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)
+            linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
           `,
           backgroundSize: '80px 80px',
         }}
       />
 
-      {/* Layer 3: SVG geometric decorations */}
+      {/* Layer 3: SVG geometric decorations — clean circles only (no diagonals) */}
       <svg
         className="absolute inset-0 w-full h-full z-0"
         viewBox="0 0 1440 900"
         preserveAspectRatio="xMidYMid slice"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Diagonal lines */}
-        <line x1="-100" y1="900" x2="1340" y2="0" stroke="rgba(0,160,233,0.2)" strokeWidth="1"/>
-        <line x1="100" y1="900" x2="1540" y2="0" stroke="rgba(0,160,233,0.15)" strokeWidth="1"/>
-        <line x1="300" y1="900" x2="1740" y2="0" stroke="rgba(0,160,233,0.1)" strokeWidth="1"/>
-        <line x1="-300" y1="900" x2="1140" y2="0" stroke="rgba(0,160,233,0.1)" strokeWidth="1"/>
+        {/* Circle decorations — top right (refined opacity) */}
+        <circle cx="1200" cy="180" r="130" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
+        <circle cx="1200" cy="180" r="220" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1"/>
+        <circle cx="1200" cy="180" r="340" fill="none" stroke="rgba(0,144,210,0.06)" strokeWidth="1"/>
 
-        {/* Circle decorations — top right */}
-        <circle cx="1200" cy="180" r="130" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="1"/>
-        <circle cx="1200" cy="180" r="220" fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="1"/>
-        <circle cx="1200" cy="180" r="320" fill="none" stroke="rgba(0,160,233,0.08)" strokeWidth="1"/>
+        {/* Circle decorations — bottom left (refined opacity) */}
+        <circle cx="180" cy="760" r="100" fill="none" stroke="rgba(0,144,210,0.10)" strokeWidth="1"/>
+        <circle cx="180" cy="760" r="180" fill="none" stroke="rgba(0,144,210,0.06)" strokeWidth="1"/>
 
-        {/* Circle decorations — bottom left */}
-        <circle cx="180" cy="740" r="90" fill="none" stroke="rgba(0,160,233,0.2)" strokeWidth="1"/>
-        <circle cx="180" cy="740" r="160" fill="none" stroke="rgba(0,160,233,0.12)" strokeWidth="1"/>
-
-        {/* Dot accents */}
-        <circle cx="1300" cy="600" r="3" fill="rgba(0,160,233,0.5)"/>
-        <circle cx="1320" cy="620" r="2" fill="rgba(0,160,233,0.4)"/>
-        <circle cx="1280" cy="630" r="2" fill="rgba(255,255,255,0.3)"/>
-        <circle cx="140" cy="200" r="3" fill="rgba(0,160,233,0.5)"/>
-        <circle cx="160" cy="180" r="2" fill="rgba(255,255,255,0.3)"/>
-        <circle cx="120" cy="220" r="2" fill="rgba(0,160,233,0.4)"/>
+        {/* Subtle dot accents */}
+        <circle cx="1300" cy="580" r="2.5" fill="rgba(0,160,233,0.35)"/>
+        <circle cx="1325" cy="610" r="1.5" fill="rgba(255,255,255,0.2)"/>
+        <circle cx="145" cy="210" r="2.5" fill="rgba(0,160,233,0.35)"/>
+        <circle cx="120" cy="235" r="1.5" fill="rgba(255,255,255,0.2)"/>
       </svg>
 
-      {/* Layer 4: Radial glow — top right */}
+      {/* Layer 4: Radial glow — top right (refined, -30% opacity) */}
       <div
         className="absolute z-0 pointer-events-none"
         style={{
@@ -116,13 +108,13 @@ export default function Hero() {
           right: '-5%',
           width: '600px',
           height: '600px',
-          background: 'radial-gradient(circle, rgba(0,160,233,0.2) 0%, transparent 65%)',
+          background: 'radial-gradient(circle, rgba(0,100,200,0.14) 0%, transparent 65%)',
           borderRadius: '50%',
-          filter: 'blur(40px)',
+          filter: 'blur(50px)',
         }}
       />
 
-      {/* Layer 5: Radial glow — bottom left */}
+      {/* Layer 5: Radial glow — bottom left (refined, -30% opacity) */}
       <div
         className="absolute z-0 pointer-events-none"
         style={{
@@ -130,23 +122,23 @@ export default function Hero() {
           left: '-5%',
           width: '500px',
           height: '500px',
-          background: 'radial-gradient(circle, rgba(0,87,184,0.35) 0%, transparent 65%)',
+          background: 'radial-gradient(circle, rgba(0,55,130,0.22) 0%, transparent 65%)',
           borderRadius: '50%',
-          filter: 'blur(60px)',
+          filter: 'blur(70px)',
         }}
       />
 
-      {/* Layer 6: Center subtle spotlight */}
+      {/* Layer 6: Center subtle spotlight (refined) */}
       <div
         className="absolute z-0 pointer-events-none"
         style={{
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '800px',
+          width: '900px',
           height: '500px',
-          background: 'radial-gradient(ellipse, rgba(0,87,184,0.15) 0%, transparent 70%)',
-          filter: 'blur(20px)',
+          background: 'radial-gradient(ellipse, rgba(0,82,168,0.10) 0%, transparent 70%)',
+          filter: 'blur(30px)',
         }}
       />
 
@@ -155,19 +147,20 @@ export default function Hero() {
         {/* Catch Copy */}
         <div ref={catchCopyRef} className="mb-12">
           <h1 className="font-en font-bold text-white">
-            <div className="catch-line text-3xl md:text-5xl lg:text-6xl mb-2 opacity-0">
+            <div className="catch-line text-3xl md:text-5xl lg:text-6xl mb-3 opacity-0 tracking-wide" style={{ letterSpacing: '0.04em' }}>
               What the future
             </div>
-            <div className="catch-line text-3xl md:text-5xl lg:text-6xl mb-2 opacity-0">
+            <div className="catch-line text-3xl md:text-5xl lg:text-6xl mb-3 opacity-0 tracking-wide" style={{ letterSpacing: '0.04em' }}>
               of IT needs is
             </div>
             <div
               className="catch-line text-4xl md:text-6xl lg:text-7xl opacity-0"
               style={{
-                background: 'linear-gradient(90deg, #ffffff 0%, #00A0E9 60%, #ffffff 100%)',
+                background: 'linear-gradient(90deg, #ffffff 0%, #7EC8F0 50%, #ffffff 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
+                letterSpacing: '0.02em',
               }}
             >
               &quot;charm.&quot;
@@ -179,13 +172,13 @@ export default function Hero() {
         <div ref={logoRef} className="opacity-0">
           <div className="inline-flex items-center justify-center px-8 py-4 rounded-lg"
             style={{
-              background: 'rgba(255,255,255,0.08)',
-              backdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255,255,255,0.2)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+              background: 'rgba(255,255,255,0.06)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255,255,255,0.18)',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)',
             }}
           >
-            <span className="font-en text-xl md:text-2xl font-bold text-white tracking-wider">
+            <span className="font-en text-xl md:text-2xl font-bold text-white" style={{ letterSpacing: '0.15em' }}>
               COMPANY LOGO
             </span>
           </div>
@@ -197,7 +190,7 @@ export default function Hero() {
         ref={scrollDownRef}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 opacity-0 flex flex-col items-center gap-3"
       >
-        <span className="font-en text-xs text-white tracking-[0.3em] opacity-60">
+        <span className="font-en text-xs text-white tracking-[0.35em] opacity-50 font-light">
           SCROLL
         </span>
         <div className="relative w-px h-16 overflow-hidden">
