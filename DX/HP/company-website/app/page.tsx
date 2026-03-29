@@ -5,13 +5,11 @@ import Lenis from 'lenis';
 import Header from '@/components/Header';
 import Loading from '@/components/Loading';
 import Hero from '@/components/Hero';
-import Message from '@/components/Message';
 import Business from '@/components/Business';
 import Service from '@/components/Service';
 import PickupProduct from '@/components/PickupProduct';
 import News from '@/components/News';
 import Company from '@/components/Company';
-import Recruit from '@/components/Recruit';
 import ContactCTA from '@/components/ContactCTA';
 import Footer from '@/components/Footer';
 
@@ -41,13 +39,11 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Message />
         <Business />
         <Service />
         <PickupProduct />
         <News />
         <Company />
-        <Recruit />
         <ContactCTA />
       </main>
       <Footer />

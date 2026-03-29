@@ -9,7 +9,6 @@ const navLinks = [
   { href: '#service', label: 'SERVICE' },
   { href: '#news', label: 'NEWS' },
   { href: '#company', label: 'COMPANY' },
-  { href: '#recruit', label: 'RECRUIT' },
 ];
 
 export default function Header() {
@@ -63,20 +62,8 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Contact Button + Hamburger */}
-          <div className="flex items-center gap-4">
-            <Link
-              href="#contact"
-              className={`btn transition-all duration-300 ${
-                scrolled
-                  ? 'bg-primary text-white hover:bg-primary-dark'
-                  : 'bg-white text-primary hover:bg-opacity-90'
-              } px-6 py-2 md:px-8 md:py-3 text-sm md:text-base`}
-            >
-              CONTACT
-            </Link>
-
-            {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Toggle */}
+          <div className="flex items-center">
             <button
               className="lg:hidden flex flex-col gap-1.5 w-6 h-6 justify-center"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

@@ -2,7 +2,7 @@
 
 export default function ContactCTA() {
   return (
-    <section className="relative section-padding bg-primary overflow-hidden" id="contact">
+    <section className="relative py-12 md:py-16 bg-primary overflow-hidden" id="contact">
       {/* Wave Background SVG */}
       <div className="absolute inset-0 opacity-10">
         <svg
@@ -20,37 +20,37 @@ export default function ContactCTA() {
       </div>
 
       <div className="container-custom relative z-10">
-        <div className="max-w-3xl mx-auto text-center space-y-8">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
           <div>
-            <p className="font-en text-sm text-white font-semibold tracking-widest mb-4 opacity-90">
+            <p className="font-en text-sm text-white font-semibold tracking-widest mb-3 opacity-90">
               CONTACT US
             </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">
               お問い合わせ
             </h2>
-            <p className="text-white text-lg opacity-90 leading-relaxed">
+            <p className="text-white text-base opacity-90 leading-relaxed">
               サービスに関するご質問やご相談など、
               <br className="hidden sm:block" />
               お気軽にお問い合わせください。
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
             <a
               href="#"
-              className="btn bg-white text-primary hover:bg-opacity-90 px-12 py-4 text-lg"
+              className="btn bg-white text-primary hover:bg-opacity-90 px-10 py-3 text-base"
             >
               お問い合わせフォーム
             </a>
             <a
               href="tel:03-1234-5678"
-              className="btn btn-outline px-12 py-4 text-lg"
+              className="btn btn-outline px-10 py-3 text-base"
             >
               <span className="font-en">TEL: 03-1234-5678</span>
             </a>
           </div>
 
-          <p className="text-white text-sm opacity-75 pt-4">
+          <p className="text-white text-sm opacity-75 pt-2">
             受付時間: 平日 9:00〜18:00（土日祝日を除く）
           </p>
         </div>
