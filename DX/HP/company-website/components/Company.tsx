@@ -40,7 +40,7 @@ export default function Company() {
   return (
     <section ref={sectionRef} className="section-padding bg-bg-light" id="company">
       <div className="container-custom">
-        <div ref={contentRef} className="max-w-3xl mx-auto">
+        <div ref={contentRef} className="max-w-2xl mx-auto w-full">
           {/* Header */}
           <div className="text-center mb-10 md:mb-12 space-y-3">
             <p className="font-en text-sm text-primary font-semibold tracking-widest">
@@ -71,7 +71,7 @@ export default function Company() {
           </div>
 
           {/* Buttons */}
-          <div className="flex flex-col items-center sm:flex-row sm:items-stretch gap-3 sm:gap-4 justify-center mt-10 md:mt-12">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-10 md:mt-12">
             <a href="#" className="btn btn-primary text-sm sm:text-base px-8 py-3">
               会社案内PDF
             </a>

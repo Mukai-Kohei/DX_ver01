@@ -56,7 +56,7 @@ export default function ContactCTA() {
             </p>
           </div>
 
-          <div className="flex flex-col items-center sm:flex-row sm:items-stretch gap-4 justify-center pt-2">
+          <div className="flex flex-wrap justify-center gap-4 pt-2">
             <a
               href="#"
               className="btn bg-white text-primary hover:bg-opacity-90 px-10 py-3 text-base"
