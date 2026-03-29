@@ -7,15 +7,12 @@ import Loading from '@/components/Loading';
 import Hero from '@/components/Hero';
 import Business from '@/components/Business';
 import Service from '@/components/Service';
-import PickupProduct from '@/components/PickupProduct';
-import News from '@/components/News';
 import Company from '@/components/Company';
 import ContactCTA from '@/components/ContactCTA';
 import Footer from '@/components/Footer';
 
 export default function Home() {
   useEffect(() => {
-    // Lenisスムーススクロールの初期化
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -41,8 +38,6 @@ export default function Home() {
         <Hero />
         <Business />
         <Service />
-        <PickupProduct />
-        <News />
         <Company />
         <ContactCTA />
       </main>
