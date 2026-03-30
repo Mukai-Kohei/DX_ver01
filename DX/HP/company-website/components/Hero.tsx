@@ -88,7 +88,7 @@ export default function Hero() {
 
       {/* Deep navy gradient */}
       <div className="absolute inset-0 z-0" style={{
-        background: 'linear-gradient(160deg, #0D47A1 0%, #1565C0 40%, #1E88E5 75%, #42A5F5 100%)',
+        background: 'linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%)',
       }} />
 
       {/* Grid overlay — 5% opacity (ux-ui-design guideline) */}
@@ -99,12 +99,12 @@ export default function Hero() {
 
       {/* Depth: vignette — edges darker, creates 3D depth */}
       <div className="absolute inset-0 z-0 pointer-events-none" style={{
-        background: 'radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(8,35,100,0.45) 100%)',
+        background: 'radial-gradient(ellipse at 50% 50%, transparent 35%, rgba(8,35,100,0.28) 100%)',
       }} />
 
       {/* Depth: left-side shadow — reinforces light-source-from-right feel */}
       <div className="absolute inset-0 z-0 pointer-events-none" style={{
-        background: 'linear-gradient(to right, rgba(5,25,85,0.38) 0%, transparent 50%)',
+        background: 'linear-gradient(to right, rgba(10,40,110,0.22) 0%, transparent 50%)',
       }} />
 
       {/* Depth: center-right spotlight — lights up the diagram area */}
@@ -175,7 +175,7 @@ export default function Hero() {
             <div ref={diagramRef} className="opacity-0 flex justify-center">
               <svg
                 viewBox="0 0 400 370"
-                className="w-full max-w-[260px] sm:max-w-[320px] md:max-w-[400px]"
+                className="w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[540px]"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 {/* Outer atmosphere circle */}
