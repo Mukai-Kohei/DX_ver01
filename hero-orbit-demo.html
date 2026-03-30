@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOPビュー — スクロール連動オービット</title>
+<style>
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; }
+
+body {
+  font-family: 'Segoe UI', 'Noto Sans JP', sans-serif;
+  background: #081428;
+  overflow-x: hidden;
+}
+
+/* ── Scroll indicator keyframe (matches Hero.tsx) ── */
+@keyframes scrollLine {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  40%  { opacity: 1; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+
+/* ── Spacers before / after ── */
+.spacer {
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b1830;
+  color: rgba(255,255,255,0.20);
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════
+   PINNED HERO SECTION
+══════════════════════════════════════════ */
+#heroSection { /* GSAP adds spacer height */ }
+
+.hero-sticky {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Background layers (match Hero.tsx exactly) ── */
+.bg-gradient {
+  position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%);
+}
+.bg-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.bg-vignette {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 35%, rgba(8,35,100,0.28) 100%);
+}
+.bg-left-shadow {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(to right, rgba(10,40,110,0.22) 0%, transparent 50%);
+}
+.bg-spotlight {
+  position: absolute; z-index: 0; pointer-events: none;
+  top: 5%; right: 5%; width: 55%; height: 90%;
+  background: radial-gradient(ellipse at 60% 45%, rgba(100,185,255,0.18) 0%, transparent 60%);
+}
+
+/* ── Decorative circles (match Hero.tsx SVG) ── */
+.deco-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+  overflow: visible;
+}
+
+/* ── Watermark number ── */
+.watermark {
+  position: absolute;
+  right: -2%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(160px, 22vw, 280px);
+  font-weight: 900;
+  color: rgba(255,255,255,0.045);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  user-select: none;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* ── Content layout ── */
+.hero-content {
+  position: relative; z-index: 10;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5%, 80px);
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+}
+
+/* ══════════════════════════════════════════
+   LEFT: CATCH COPY (Hero.tsx match)
+══════════════════════════════════════════ */
+.hero-left { color: #fff; }
+
+.hero-h1 {
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+}
+
+.catch-line {
+  display: block;
+  font-size: clamp(26px, 3.6vw, 52px);
+  margin-bottom: 4px;
+}
+
+.catch-charm {
+  font-size: clamp(30px, 4.2vw, 60px);
+  background: linear-gradient(90deg, #ffffff 0%, #7EC8F0 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.02em;
+  display: block;
+}
+
+.hero-sub {
+  margin-top: 24px;
+  font-size: clamp(13px, 1.1vw, 15px);
+  line-height: 1.85;
+  color: rgba(255,255,255,0.70);
+  max-width: 320px;
+}
+
+/* ── SCROLL indicator (match Hero.tsx) ── */
+.scroll-ind {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.scroll-ind span {
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: rgba(255,255,255,0.50);
+  text-transform: uppercase;
+  font-weight: 300;
+}
+.scroll-line-wrap {
+  position: relative;
+  width: 1px;
+  height: 64px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.12);
+}
+.scroll-line-inner {
+  position: absolute;
+  top: 0; width: 100%;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.85), transparent);
+  animation: scrollLine 1.8s ease-in-out infinite;
+}
+
+/* ══════════════════════════════════════════
+   RIGHT: ORBIT DIAGRAM
+══════════════════════════════════════════ */
+.hero-right {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Orbit canvas — fixed 480×480, scaled for responsiveness */
+.orbit-canvas {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+  .orbit-canvas { transform: scale(0.88); transform-origin: center; }
+}
+@media (max-width: 1000px) {
+  .orbit-canvas { transform: scale(0.74); transform-origin: center; }
+}
+@media (max-width: 768px) {
+  .hero-content { grid-template-columns: 1fr; }
+  .orbit-canvas { transform: scale(0.62); transform-origin: top center; }
+  .hero-right   { margin-top: -60px; }
+}
+
+/* SVG fills canvas */
+.ring-svg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+}
+
+/* Active-position beacon at 270° (top): coords (240, 70) */
+.active-beacon {
+  position: absolute;
+  width: 16px; height: 16px;
+  margin: -8px; /* centers on coordinate */
+  border-radius: 50%;
+  background: rgba(255,255,255,0.82);
+  box-shadow:
+    0 0 0 6px rgba(255,255,255,0.15),
+    0 0 20px 5px rgba(180,230,255,0.55);
+  z-index: 4;
+  pointer-events: none;
+  left: 240px; top: 70px;
+}
+
+/* Center circle */
+.orbit-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 116px; height: 116px;
+  border-radius: 50%;
+  background: rgba(140,205,255,0.52);
+  border: 1.8px solid rgba(220,240,255,0.68);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 2px; text-align: center;
+  box-shadow: 0 0 32px rgba(100,180,255,0.22), inset 0 1px 0 rgba(255,255,255,0.20);
+  z-index: 2;
+}
+.oc-num {
+  font-size: 9px; letter-spacing: 0.22em;
+  color: rgba(10,60,140,0.80); font-weight: 700;
+  transition: opacity .28s ease, transform .28s ease;
+}
+.oc-title {
+  font-size: 13px; font-weight: 800;
+  color: #0D47A1; letter-spacing: 0.08em;
+}
+.oc-sub {
+  font-size: 7.5px; letter-spacing: 0.16em;
+  color: rgba(10,60,140,0.55); text-transform: uppercase;
+}
+
+/* ── Orbit nodes ── */
+.orbit-node {
+  position: absolute;
+  width: 104px; height: 104px;
+  margin: -52px; /* centers node on its coordinate */
+  z-index: 3;
+  cursor: default;
+}
+
+.node-inner {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: rgba(140,205,255,0.52);
+  border: 2px solid rgba(220,240,255,0.72);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 4px;
+  /* NOT inside rotating parent → icons always upright ✓ */
+  transition:
+    background .45s ease,
+    border-color .45s ease,
+    box-shadow .45s ease,
+    transform .45s ease;
+}
+
+/* active state */
+.orbit-node.is-active .node-inner {
+  background: rgba(190,232,255,0.72);
+  border-color: rgba(255,255,255,0.90);
+  box-shadow:
+    0 0 0 4px rgba(255,255,255,0.20),
+    0 0 30px rgba(180,228,255,0.60);
+  transform: scale(1.18);
+}
+
+/* inactive: slightly dimmed */
+.orbit-node.is-inactive .node-inner {
+  background: rgba(140,205,255,0.35);
+  border-color: rgba(220,240,255,0.44);
+  opacity: 0.72;
+}
+
+/* node labels (below/around the canvas, positioned by JS) */
+.node-label {
+  position: absolute;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.45;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity .45s ease, font-weight .45s ease;
+}
+.orbit-node.is-active  .node-label { color: #fff; font-weight: 600; }
+.orbit-node.is-inactive .node-label { opacity: 0.60; }
+</style>
+</head>
+<body>
+
+<!-- ── Spacer before ── -->
+<div class="spacer">↓ &nbsp;Scroll Down&nbsp; ↓</div>
+
+<!-- ══ PINNED HERO ══ -->
+<section id="heroSection">
+  <div class="hero-sticky">
+
+    <!-- Background layers -->
+    <div class="bg-gradient"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-vignette"></div>
+    <div class="bg-left-shadow"></div>
+    <div class="bg-spotlight"></div>
+
+    <!-- Decorative circles (match Hero.tsx SVG) -->
+    <svg class="deco-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <circle cx="1200" cy="180" r="130" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <circle cx="1200" cy="180" r="220" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <circle cx="180"  cy="760" r="100" fill="none" stroke="rgba(0,144,210,0.10)"  stroke-width="1"/>
+      <circle cx="180"  cy="760" r="180" fill="none" stroke="rgba(0,144,210,0.06)"  stroke-width="1"/>
+      <circle cx="1300" cy="580" r="2.5" fill="rgba(0,160,233,0.35)"/>
+      <circle cx="145"  cy="210" r="2.5" fill="rgba(0,160,233,0.35)"/>
+    </svg>
+
+    <!-- Watermark -->
+    <div class="watermark" id="watermark">01</div>
+
+    <!-- Main content -->
+    <div class="hero-content">
+
+      <!-- LEFT: Catch copy -->
+      <div class="hero-left">
+        <h1 class="hero-h1">
+          <span class="catch-line">What the future</span>
+          <span class="catch-line">of IT needs is</span>
+          <span class="catch-charm">&ldquo;charm.&rdquo;</span>
+        </h1>
+        <p class="hero-sub">
+          デジタルトランスフォーメーションで<br>
+          お客様のビジネスに新たな価値を。
+        </p>
+      </div>
+
+      <!-- RIGHT: Orbit diagram -->
+      <div class="hero-right">
+        <div class="orbit-canvas" id="orbitCanvas">
+
+          <!--
+            Orbit ring SVG (static background).
+            Canvas 480×480, center (240,240), orbit radius 170.
+
+            Nodes start at:
+              Node 0 (Webアプリ)  : 270° = top     (240, 70)
+              Node 1 (システム)    : 150° = lo-left  (93, 325)
+              Node 2 (DX)         :  30° = lo-right (387, 325)
+
+            CW rotation +120° per step (total +240° for 3 steps):
+              step 0: Node 0 at top (active)
+              step 1: Node 1 at top (active)
+              step 2: Node 2 at top (active)  ← image_10.png state
+          -->
+          <svg class="ring-svg" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- atmosphere circle -->
+            <circle cx="240" cy="240" r="225"
+                    fill="rgba(60,130,240,0.14)"
+                    stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <!-- dashed orbit ring r=170 (animated dashoffset via GSAP) -->
+            <circle id="ringDash" cx="240" cy="240" r="170"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.28)" stroke-width="1"
+                    stroke-dasharray="5 9"/>
+            <!--
+              Active-position arc at 270° (12 o'clock / top).
+              SVG stroke starts at 0° (right, 3 o'clock) and goes CW.
+              rotate(-93°) shifts start to just before 12 o'clock:
+              → 36px arc appears centered at the top of the ring.
+            -->
+            <circle cx="240" cy="240" r="170"
+                    stroke="rgba(255,255,255,0.65)" stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-dasharray="36 10000"
+                    transform="rotate(-93 240 240)"/>
+          </svg>
+
+          <!-- Active beacon dot at 270° (top): (240, 70) -->
+          <div class="active-beacon"></div>
+
+          <!-- Center circle (text updates via JS) -->
+          <div class="orbit-center">
+            <span class="oc-num" id="ocNum">[ 01 ]</span>
+            <span class="oc-title">SERVICES</span>
+            <span class="oc-sub">DX · SOLUTIONS</span>
+          </div>
+
+          <!-- ── Node 0: Webアプリ開発 (starts at top = active) ── -->
+          <div class="orbit-node is-active" data-index="0">
+            <div class="node-inner">
+              <!-- PC / monitor icon (type=web) -->
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none"
+                   stroke="#0D60B8" stroke-width="1.5"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+                <line x1="8"  y1="21" x2="16" y2="21"/>
+              </svg>
+            </div>
+            <!-- Label positioned by JS -->
+            <div class="node-label" id="label0">Webアプリ開発</div>
+          </div>
+
+          <!-- ── Node 1: システム開発・クラウド (starts lower-left) ── -->
+          <div class="orbit-node is-inactive" data-index="1">
+            <div class="node-inner">
+              <!-- Server icon -->
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none"
+                   stroke="#0D60B8" stroke-width="1.4"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3"  width="20" height="7"  rx="1.5"/>
+                <rect x="2" y="12" width="20" height="7"  rx="1.5"/>
+                <circle cx="18" cy="6.5"  r="1.8" fill="#0D60B8" stroke="none"/>
+                <circle cx="18" cy="15.5" r="1.8" fill="#0D60B8" stroke="none"/>
+              </svg>
+            </div>
+            <div class="node-label" id="label1">システム開発<br>・クラウド</div>
+          </div>
+
+          <!-- ── Node 2: DXコンサルティング (starts lower-right) ── -->
+          <div class="orbit-node is-inactive" data-index="2">
+            <div class="node-inner">
+              <!-- Gear / consulting icon (matches Hero.tsx consulting) -->
+              <svg width="34" height="34" viewBox="-14 -14 28 28" fill="none"
+                   stroke="#0D60B8">
+                <circle r="7.5" stroke-width="1.5"/>
+                <circle r="3.5" fill="rgba(126,200,240,0.45)" stroke-width="0"/>
+                <!-- 6 teeth at 60° intervals -->
+                <line x1="8"    y1="0"    x2="12"   y2="0"    stroke-width="2.8" stroke-linecap="round"/>
+                <line x1="4"    y1="6.93" x2="6"    y2="10.39" stroke-width="2.8" stroke-linecap="round"/>
+                <line x1="-4"   y1="6.93" x2="-6"   y2="10.39" stroke-width="2.8" stroke-linecap="round"/>
+                <line x1="-8"   y1="0"    x2="-12"  y2="0"    stroke-width="2.8" stroke-linecap="round"/>
+                <line x1="-4"   y1="-6.93" x2="-6"  y2="-10.39" stroke-width="2.8" stroke-linecap="round"/>
+                <line x1="4"    y1="-6.93" x2="6"   y2="-10.39" stroke-width="2.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="node-label" id="label2">DX<br>コンサルティング</div>
+          </div>
+
+        </div><!-- /orbit-canvas -->
+      </div><!-- /hero-right -->
+
+    </div><!-- /hero-content -->
+
+    <!-- SCROLL indicator (match Hero.tsx) -->
+    <div class="scroll-ind">
+      <span>SCROLL</span>
+      <div class="scroll-line-wrap">
+        <div class="scroll-line-inner"></div>
+      </div>
+    </div>
+
+  </div><!-- /hero-sticky -->
+</section>
+
+<!-- ── Spacer after ── -->
+<div class="spacer">↑ &nbsp;Next Section&nbsp; ↑</div>
+
+
+<!--
+  GSAP: CDN primary, local fallback.
+  If CDN is unreachable (offline/dev env), ./gsap.min.js and ./ScrollTrigger.min.js are used.
+-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        onerror="this.onerror=null;this.src='./gsap.min.js'"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+        onerror="this.onerror=null;this.src='./ScrollTrigger.min.js'"></script>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ════════════════════════════════════════════
+   GEOMETRY
+   Canvas 480×480, center CX=CY=240, radius R=170
+
+   Initial angles (CW from right = SVG convention):
+     Node 0 (Webアプリ)    : 270° → top         → (240,  70)
+     Node 1 (システム)      : 150° → lower-left   → ( 93, 325)
+     Node 2 (DXコンサル)   :  30° → lower-right  → (387, 325)
+
+   CW rotation +120° per scroll step (total +240° over 2 steps):
+     step 0 →   0°: Node 0 at top  (active)
+     step 1 → +120°: Node 1 at top  (active)
+     step 2 → +240°: Node 2 at top  (active)  ← matches image_10.png
+
+   After +240° CW:
+     Node 0: 270°+240° = 510° = 150° (lo-left  = 7-8 o'clock)  ✓
+     Node 1: 150°+240° = 390° =  30° (lo-right = 4-5 o'clock)  ✓
+     Node 2:  30°+240° = 270°        (top = 12 o'clock, active) ✓
+════════════════════════════════════════════ */
+const CX = 240, CY = 240, R = 170;
+const D2R = Math.PI / 180;
+
+/* Initial angles for each node */
+const BASE = [270, 150, 30];
+
+/* Node label offsets from center (so labels don't overlap ring): */
+/* top node  → label above  (translateY negative)               */
+/* lo-left   → label below-left                                 */
+/* lo-right  → label below-right                                */
+const LABEL_OFFSETS = [
+  /* Node 0 (top): label above center, shifted up */
+  { dx: 0,   dy: -72 },
+  /* Node 1 (lo-left): label below-left */
+  { dx: -8,  dy:  72 },
+  /* Node 2 (lo-right): label below-right */
+  { dx:  8,  dy:  72 },
+];
+
+/* ── Service data ── */
+const SERVICES = [
+  { num: '[ 01 ]', wm: '01' },
+  { num: '[ 02 ]', wm: '02' },
+  { num: '[ 03 ]', wm: '03' },
+];
+
+/* ── DOM refs ── */
+const nodes    = [...document.querySelectorAll('.orbit-node')];
+const labels   = nodes.map((n, i) => document.getElementById('label' + i));
+const ocNum    = document.getElementById('ocNum');
+const watermark = document.getElementById('watermark');
+const ringDash = document.getElementById('ringDash');
+
+/* ── Position all nodes + labels based on current rotation ── */
+function positionNodes(rotDeg) {
+  nodes.forEach((node, i) => {
+    const angleDeg = BASE[i] + rotDeg;
+    const a = angleDeg * D2R;
+    const x = CX + R * Math.cos(a);
+    const y = CY + R * Math.sin(a);
+
+    /* Center node on computed position */
+    node.style.left = x + 'px';
+    node.style.top  = y + 'px';
+
+    /* Position label: relative to node center + offset */
+    const lbl = labels[i];
+    if (lbl) {
+      /* Label is inside the node div (absolute), so offset from node center */
+      /* node is 104×104, center at 52,52 */
+      const off = LABEL_OFFSETS[i];
+      lbl.style.left      = (52 + off.dx) + 'px';
+      lbl.style.top       = (52 + off.dy) + 'px';
+      lbl.style.transform = 'translate(-50%, -50%)';
+    }
+  });
+}
+
+/* ── Cross-fade center number + watermark ── */
+let currentStep = -1;
+
+function updateUI(step) {
+  step = Math.max(0, Math.min(2, step));
+  if (step === currentStep) return;
+  currentStep = step;
+
+  const s = SERVICES[step];
+
+  /* Active / inactive classes */
+  nodes.forEach((n, i) => {
+    n.classList.toggle('is-active',   i === step);
+    n.classList.toggle('is-inactive', i !== step);
+  });
+
+  /* Fade out center number + watermark */
+  ocNum.style.opacity     = '0';
+  ocNum.style.transform   = 'translateY(4px)';
+  watermark.style.opacity = '0';
+
+  setTimeout(() => {
+    ocNum.textContent       = s.num;
+    watermark.textContent   = s.wm;
+    ocNum.style.opacity     = '1';
+    ocNum.style.transform   = 'translateY(0)';
+    watermark.style.opacity = '1';
+  }, 280);
+}
+
+/* ── Set initial positions ── */
+positionNodes(0);
+currentStep = 0; /* prevent updateUI no-op on first call */
+
+/* ════════════════════════════════════════════
+   GSAP SCROLL ANIMATION
+   - pin: true  (section locked while scrolling through steps)
+   - scrub: 1   (1s lag = smooth, physical feel)
+   - snap: 3 positions (0 / 0.5 / 1.0 = steps 0 / 1 / 2)
+   - end: +=200vh (200vh scroll distance = 2 steps × 100vh each)
+
+   Timeline:
+     proxy.rot  : 0 → +240° (CW, drives positionNodes)
+     ringDash   : stroke-dashoffset animates (ring appears to rotate)
+════════════════════════════════════════════ */
+const proxy = { rot: 0 };
+
+/* Circumference of orbit ring r=170: 2π×170 ≈ 1068.1px */
+/* 240° arc = 1068.1 × (240/360) ≈ 712px */
+/* Positive dashoffset: dashes shift backward (appear to move CCW vs the CW rotation) */
+/* We'll animate from 0 to +712 so dashes appear to flow — subtle motion cue */
+
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: '#heroSection',
+    start:   'top top',
+    end:     '+=200vh',
+    pin:     true,
+    scrub:   1,           /* smooth 1s lag */
+    snap: {
+      snapTo:   [0, 0.5, 1],
+      duration: { min: 0.30, max: 0.65 },
+      ease:     'power2.inOut',
+    },
+    onUpdate(self) {
+      /* Detect step from smoothed progress */
+      const step = Math.min(2, Math.round(self.progress * 2));
+      updateUI(step);
+    },
+  },
+});
+
+/*
+  Tween 1: rotate proxy.rot 0 → +240 (CW).
+  onUpdate fires every GSAP frame with the scrubbed (smooth) value.
+*/
+tl.to(proxy, {
+  rot: 240,
+  ease: 'none',
+  onUpdate() {
+    positionNodes(proxy.rot);
+  },
+}, 0);
+
+/*
+  Tween 2: animate ring dashoffset so dashes appear to flow clockwise.
+  This gives the subtle visual cue that the ring itself is rotating.
+  1068 = full circumference, +712 = 240° worth of drift.
+*/
+tl.to(ringDash, {
+  attr: { 'stroke-dashoffset': 712 },
+  ease: 'none',
+}, 0);
+</script>
+</body>
+</html>
