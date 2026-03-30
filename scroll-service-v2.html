@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service Scroll v2</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; }
+
+body {
+  font-family: 'Segoe UI', 'Noto Sans JP', sans-serif;
+  background: #081428;
+}
+
+/* ── spacer ── */
+.spacer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b1830;
+  color: rgba(255,255,255,0.22);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════
+   PINNED SECTION
+══════════════════════════════════════════ */
+#svcSection { /* GSAP will add spacer height automatically */ }
+
+.svc-sticky {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg,#1A60C8 0%,#2196F3 45%,#42B4F8 72%,#72CBFF 100%);
+}
+
+/* grid overlay */
+.svc-sticky::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none; z-index:0;
+}
+/* vignette */
+.svc-sticky::after {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 38%, rgba(8,35,100,0.30) 100%);
+  pointer-events: none; z-index:0;
+}
+
+/* ── 2-col layout ── */
+.svc-layout {
+  position:relative; z-index:1;
+  width:100%; max-width:1240px;
+  margin:0 auto; padding:0 52px;
+  display:grid;
+  grid-template-columns: 5fr 6fr;
+  gap:56px;
+  align-items:center;
+}
+
+/* ══════════════════════════════════════════
+   LEFT: TEXT SIDE
+══════════════════════════════════════════ */
+.text-side { color:#fff; }
+
+.s-label {
+  font-size:11px;
+  letter-spacing:0.35em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.55);
+  margin-bottom:24px;
+}
+
+.num-wrap {
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+  margin-bottom:8px;
+}
+
+.big-num {
+  font-size:88px;
+  font-weight:800;
+  line-height:1;
+  letter-spacing:-0.03em;
+  color:#fff;
+  font-variant-numeric:tabular-nums;
+  transition: opacity .28s ease, transform .28s ease;
+}
+
+.total {
+  font-size:22px;
+  font-weight:400;
+  color:rgba(255,255,255,0.32);
+}
+
+.s-name {
+  font-size: clamp(22px,2.8vw,36px);
+  font-weight:700;
+  line-height:1.3;
+  margin-bottom:18px;
+  transition: opacity .28s ease, transform .28s ease;
+}
+
+.s-desc {
+  font-size:15px;
+  line-height:1.95;
+  color:rgba(255,255,255,0.80);
+  max-width:420px;
+  transition: opacity .28s ease, transform .28s ease;
+}
+
+/* progress dots */
+.prog-dots {
+  display:flex;
+  gap:8px;
+  margin-top:36px;
+}
+.pdot {
+  height:3px; width:24px;
+  border-radius:2px;
+  background:rgba(255,255,255,0.20);
+  transition: width .4s ease, background .4s ease;
+}
+.pdot.on {
+  background:#fff;
+  width:44px;
+}
+
+/* ══════════════════════════════════════════
+   RIGHT: ORBIT SIDE
+══════════════════════════════════════════ */
+.orbit-side {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* 520×520 canvas */
+.orbit-canvas {
+  position:relative;
+  width:520px;
+  height:520px;
+  flex-shrink:0;
+}
+
+/* SVG ring (fills canvas) */
+.ring-svg {
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+  overflow:visible;
+}
+
+/* Active-position indicator dot at 9 o'clock (180°): x=65,y=260 */
+.active-dot {
+  position:absolute;
+  width:14px; height:14px;
+  border-radius:50%;
+  margin:-7px; /* center on coordinate */
+  background:rgba(255,255,255,0.70);
+  box-shadow:0 0 0 5px rgba(255,255,255,0.20), 0 0 16px 4px rgba(180,225,255,0.50);
+  pointer-events:none;
+  z-index:2;
+}
+
+/* Center circle */
+.orbit-center {
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:120px; height:120px;
+  border-radius:50%;
+  background:rgba(140,205,255,0.46);
+  border:1.5px solid rgba(220,240,255,0.68);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center; gap:3px;
+  box-shadow:0 0 30px rgba(100,180,255,0.22), inset 0 1px 0 rgba(255,255,255,0.18);
+  z-index:2;
+}
+.oc-label {
+  font-size:9px; letter-spacing:0.3em;
+  color:rgba(10,50,120,0.75); font-weight:700;
+}
+.oc-title {
+  font-size:13px; font-weight:800;
+  color:#0D47A1; letter-spacing:0.05em;
+}
+.oc-sub {
+  font-size:8px; letter-spacing:0.18em;
+  color:rgba(10,50,120,0.50); text-transform:uppercase;
+}
+
+/* ── Orbit nodes (JS positions these) ── */
+.orbit-node {
+  position:absolute;
+  width:108px; height:108px;
+  margin:-54px; /* so left/top point to node center */
+  z-index:3;
+}
+
+.node-inner {
+  width:100%; height:100%;
+  border-radius:50%;
+  background:rgba(140,205,255,0.34);
+  border:1.5px solid rgba(220,240,255,0.48);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:4px;
+  transition:
+    background .45s ease,
+    border-color .45s ease,
+    box-shadow .45s ease,
+    transform .45s ease;
+  will-change: transform;
+}
+
+/* Active node highlight */
+.orbit-node.is-active .node-inner {
+  background:rgba(200,235,255,0.72);
+  border-color:rgba(255,255,255,0.90);
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,0.25),
+    0 0 28px rgba(180,225,255,0.60);
+  transform:scale(1.20);
+}
+
+.n-num {
+  font-size:10px; font-weight:700;
+  letter-spacing:0.08em;
+  color:rgba(255,255,255,0.58);
+}
+.orbit-node.is-active .n-num { color:#fff; }
+.orbit-node.is-active svg { stroke: #0A3A8A; }
+</style>
+</head>
+<body>
+
+<div class="spacer">↓ &nbsp;Scroll Down&nbsp; ↓</div>
+
+<!-- ── Pinned section ── -->
+<section id="svcSection">
+  <div class="svc-sticky">
+    <div class="svc-layout">
+
+      <!-- LEFT -->
+      <div class="text-side">
+        <p class="s-label">[ Services ] &nbsp; DX · Solutions</p>
+
+        <div class="num-wrap">
+          <span class="big-num"  id="bigNum">01</span>
+          <span class="total">&thinsp;/ 03</span>
+        </div>
+
+        <h2 class="s-name" id="svcName">Webアプリ開発</h2>
+        <p  class="s-desc" id="svcDesc">モダンな技術スタックを駆使し、スケーラブルなWebアプリケーションを設計・開発します。ユーザー体験を最優先に、ビジネス成長を支える高品質なシステムを提供します。</p>
+
+        <div class="prog-dots">
+          <span class="pdot on" data-i="0"></span>
+          <span class="pdot"    data-i="1"></span>
+          <span class="pdot"    data-i="2"></span>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="orbit-side">
+        <div class="orbit-canvas" id="orbitCanvas">
+
+          <!-- SVG: outer circle + dashed ring + arc highlight at 9-o'clock -->
+          <svg class="ring-svg" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- faint outer circle -->
+            <circle cx="260" cy="260" r="245"
+                    fill="rgba(140,205,255,0.05)"
+                    stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <!-- dashed orbit ring r=195 -->
+            <circle cx="260" cy="260" r="195"
+                    stroke="rgba(255,255,255,0.18)" stroke-width="1.5"
+                    stroke-dasharray="5 4"/>
+            <!--
+              Active-position arc at 180° (left / 9-o'clock).
+              SVG strokes start at 0° = right (3-o'clock) and go clockwise.
+              Circumference = 2π×195 ≈ 1225.2 px.
+              Half-circumference (to reach 180°) ≈ 612.6 px.
+              stroke-dasharray: "36 10000" → 36 px arc then infinite gap.
+              stroke-dashoffset: -612.6 shifts start of arc to the 180° point.
+            -->
+            <circle cx="260" cy="260" r="195"
+                    stroke="rgba(255,255,255,0.65)" stroke-width="3.5"
+                    stroke-linecap="round"
+                    stroke-dasharray="36 10000"
+                    stroke-dashoffset="-594.6"/>
+          </svg>
+
+          <!-- Glowing dot at 180° position: x=260-195=65, y=260 -->
+          <div class="active-dot" style="left:65px; top:260px;"></div>
+
+          <!-- Static center circle -->
+          <div class="orbit-center">
+            <span class="oc-label">DX</span>
+            <span class="oc-title">SERVICES</span>
+            <span class="oc-sub">solutions</span>
+          </div>
+
+          <!-- Node 0 -->
+          <div class="orbit-node is-active" data-index="0">
+            <div class="node-inner">
+              <span class="n-num">01</span>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                   stroke="#0D60B8" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+                <line x1="8"  y1="21" x2="16" y2="21"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Node 1 -->
+          <div class="orbit-node" data-index="1">
+            <div class="node-inner">
+              <span class="n-num">02</span>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                   stroke="#0D60B8" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3"  width="20" height="7"  rx="1.5"/>
+                <rect x="2" y="12" width="20" height="7"  rx="1.5"/>
+                <circle cx="18" cy="6.5"  r="1.5" fill="#0D60B8"/>
+                <circle cx="18" cy="15.5" r="1.5" fill="#0D60B8"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Node 2 -->
+          <div class="orbit-node" data-index="2">
+            <div class="node-inner">
+              <span class="n-num">03</span>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                   stroke="#0D60B8" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83
+                         M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+              </svg>
+            </div>
+          </div>
+
+        </div><!-- /orbit-canvas -->
+      </div><!-- /orbit-side -->
+
+    </div><!-- /svc-layout -->
+  </div><!-- /svc-sticky -->
+</section>
+
+<div class="spacer">↑ &nbsp;Next Section&nbsp; ↑</div>
+
+<script src="./gsap.min.js"></script>
+<script src="./ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── Service data ── */
+const SERVICES = [
+  {
+    num: '01',
+    name: 'Webアプリ開発',
+    desc: 'モダンな技術スタックを駆使し、スケーラブルなWebアプリケーションを設計・開発します。ユーザー体験を最優先に、ビジネス成長を支える高品質なシステムを提供します。',
+  },
+  {
+    num: '02',
+    name: 'システム開発・クラウド',
+    desc: 'クラウドネイティブなアーキテクチャで企業の基幹システムをモダン化します。AWS・GCPを活用し、安定性とコスト効率を両立したインフラを構築します。',
+  },
+  {
+    num: '03',
+    name: 'DXコンサルティング',
+    desc: 'デジタル変革の戦略立案から実装まで一貫して支援します。業務プロセスの可視化・自動化により、企業の生産性と競争力を高めます。',
+  },
+];
+
+/* ── Geometry ── */
+const CX = 260, CY = 260, R = 195;   // canvas center, orbit radius
+const D2R = Math.PI / 180;
+
+/*
+  BASE_ANGLES[i] = initial angle (degrees) of node i.
+
+  Active highlight is at 180° (9 o'clock, left side of circle).
+
+  We want:
+    step 0 → node 0 at 180°  (active)
+    step 1 → node 1 at 180°  (active)  → after -120° CCW rotation
+    step 2 → node 2 at 180°  (active)  → after -240° CCW rotation
+
+  With -120° CCW per step (total -240° over 2 steps):
+    node 0: start 180°  → after -120° = 60°   → after -240° = -60° = 300°
+    node 1: start 300°  → after -120° = 180°✓ → after -240° = 60°
+    node 2: start  60°  → after -120° = -60° = 300° → after -240° = -180° = 180°✓
+
+  So BASE_ANGLES = [180, 300, 60]
+*/
+const BASE = [180, 300, 60];
+
+/* ── DOM refs ── */
+const nodes   = [...document.querySelectorAll('.orbit-node')];
+const dots    = [...document.querySelectorAll('.pdot')];
+const bigNum  = document.getElementById('bigNum');
+const svcName = document.getElementById('svcName');
+const svcDesc = document.getElementById('svcDesc');
+const FADE    = [bigNum, svcName, svcDesc];
+
+/* ── Position nodes by rotation angle ── */
+function positionNodes(rotDeg) {
+  nodes.forEach((node, i) => {
+    const a   = (BASE[i] + rotDeg) * D2R;
+    const x   = CX + R * Math.cos(a);
+    const y   = CY + R * Math.sin(a);
+    node.style.left = x + 'px';
+    node.style.top  = y + 'px';
+    /*
+      No counter-rotation needed here.
+      Nodes are positioned with absolute left/top, NOT inside a rotating parent,
+      so node-inner icons always face the same direction (upright). ✓
+    */
+  });
+}
+
+/* ── Text cross-fade ── */
+let currentStep = 0;
+
+function updateUI(step) {
+  step = Math.max(0, Math.min(2, step));
+  if (step === currentStep) return;
+  currentStep = step;
+
+  const s = SERVICES[step];
+
+  /* progress dots */
+  dots.forEach((d, i) => d.classList.toggle('on', i === step));
+
+  /* active node */
+  nodes.forEach((n, i) => n.classList.toggle('is-active', i === step));
+
+  /* fade out → swap → fade in */
+  FADE.forEach(el => {
+    el.style.opacity   = '0';
+    el.style.transform = 'translateY(10px)';
+  });
+  setTimeout(() => {
+    bigNum.textContent  = s.num;
+    svcName.textContent = s.name;
+    svcDesc.textContent = s.desc;
+    FADE.forEach(el => {
+      el.style.opacity   = '1';
+      el.style.transform = 'translateY(0)';
+    });
+  }, 280);
+}
+
+/* ── Set initial positions ── */
+positionNodes(0);
+
+/* ── GSAP ScrollTrigger ── */
+/*
+  Use a proxy object animated by a GSAP timeline linked to ScrollTrigger.
+  This ensures the rotation value is SMOOTHED by scrub (not raw scroll position).
+
+  Rotation: 0° → -240° over scroll progress 0→1
+  2 snap points: 0 → 0.5 → 1.0  (= steps 0,1,2)
+*/
+const proxy = { rot: 0 };
+
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: '#svcSection',
+    start:   'top top',
+    end:     '+=200vh',       /* pin for 200vh = 2 steps × 100vh each */
+    pin:     true,
+    scrub:   1,               /* 1s smoothing — tight, direct feel */
+    snap: {
+      snapTo:   [0, 0.5, 1],
+      duration: { min: 0.30, max: 0.60 },
+      ease:     'power2.inOut',
+    },
+    onUpdate(self) {
+      /* Use progress for step detection (fires at smoothed position) */
+      const step = Math.min(2, Math.round(self.progress * 2));
+      updateUI(step);
+    },
+  },
+});
+
+/* Tween proxy.rot 0 → -240° — onUpdate fires every frame with smooth value */
+tl.to(proxy, {
+  rot: -240,
+  ease: 'none',
+  onUpdate() {
+    positionNodes(proxy.rot);
+  },
+}, 0);
+</script>
+</body>
+</html>
