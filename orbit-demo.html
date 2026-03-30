@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orbit Scroll Demo — TOPビュー</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', 'Noto Sans JP', sans-serif;
+    background: #1565C0;
+  }
+
+  /* ====================================================
+     ORBIT SECTION  :  tall scroll area + sticky frame
+  ==================================================== */
+  .orbit-section {
+    height: 500vh; /* 4 steps × 125vh each */
+  }
+
+  .orbit-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%);
+  }
+
+  /* background grid */
+  .orbit-sticky::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  /* vignette */
+  .orbit-sticky::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, transparent 35%, rgba(8,35,100,0.25) 100%);
+    pointer-events: none;
+  }
+
+  .depth-left {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(10,40,110,0.22) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ====================================================
+     TWO-COLUMN LAYOUT
+  ==================================================== */
+  .orbit-layout {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  /* ====================================================
+     LEFT : text panel
+  ==================================================== */
+  .orbit-text { color: white; }
+
+  .orbit-text h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0.03em;
+    margin-bottom: 14px;
+  }
+
+  .orbit-text h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #fff 0%, #a8d8ff 50%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .orbit-sub {
+    font-size: 0.95rem;
+    opacity: 0.72;
+    line-height: 1.75;
+    margin-bottom: 32px;
+  }
+
+  /* Service indicator */
+  .svc-badge {
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    opacity: 0.65;
+    font-family: monospace;
+    margin-bottom: 6px;
+  }
+
+  .svc-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-bottom: 10px;
+  }
+
+  .svc-desc {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    opacity: 0.78;
+    max-width: 360px;
+    min-height: 54px;
+  }
+
+  /* Text fade transitions */
+  .svc-badge, .svc-name, .svc-desc { transition: opacity 0.22s ease; }
+  .text-fade { opacity: 0 !important; }
+
+  /* Progress dots */
+  .progress-dots {
+    display: flex;
+    gap: 7px;
+    margin-top: 28px;
+  }
+
+  .pdot {
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.30);
+    transition: width 0.3s ease, background 0.3s ease;
+    width: 22px;
+  }
+
+  .pdot.on { background: rgba(255,255,255,0.95); width: 36px; }
+
+  /* ====================================================
+     RIGHT : orbit diagram
+     Container: 500×500 px, center at (250,250)
+     Orbit radius: 185 px
+     Node size: 100×100 px (offset = 50)
+  ==================================================== */
+  .orbit-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .orbit-wrap {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    flex-shrink: 0;
+  }
+
+  /* outer atmosphere */
+  .orbit-bg-circle {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(60,130,240,0.20);
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+
+  /* dashed orbit ring  (radius 185 → size 370, offset 65) */
+  .orbit-ring-dash {
+    position: absolute;
+    top:  65px;
+    left: 65px;
+    width:  370px;
+    height: 370px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(255,255,255,0.28);
+  }
+
+  /* center info circle */
+  .orbit-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: rgba(140,205,255,0.52);
+    border: 2px solid rgba(220,240,255,0.68);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    z-index: 10;
+  }
+
+  .c-num {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: rgba(10,60,140,0.78);
+    font-family: monospace;
+    margin-bottom: 4px;
+    transition: opacity 0.22s ease;
+  }
+
+  .c-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: #0D47A1;
+    line-height: 1.35;
+    white-space: pre-line;
+    transition: opacity 0.22s ease;
+  }
+
+  .c-sub {
+    font-size: 7.5px;
+    letter-spacing: 1.5px;
+    color: rgba(10,60,140,0.55);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .c-num.text-fade, .c-name.text-fade { opacity: 0 !important; }
+
+  /* ====================================================
+     ROTATING RING
+     transform-origin at container center (250 250)
+  ==================================================== */
+  .orbit-rotating {
+    position: absolute;
+    inset: 0;
+    transform-origin: 250px 250px;
+  }
+
+  /* Node positions  (center = orbit-center ± radius 185, node 100×100)
+     top:    cx=250, cy=250-185=65   → top:65-50=15,  left:250-50=200
+     right:  cx=250+185=435,cy=250   → top:250-50=200, left:435-50=385
+     bottom: cx=250, cy=250+185=435  → top:435-50=385, left:200
+     left:   cx=250-185=65, cy=250   → top:200,        left:65-50=15
+  */
+  .orbit-node {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    transform-origin: center center;
+  }
+
+  .orbit-node[data-pos="top"]    { top:  15px; left: 200px; }
+  .orbit-node[data-pos="right"]  { top: 200px; left: 385px; }
+  .orbit-node[data-pos="bottom"] { top: 385px; left: 200px; }
+  .orbit-node[data-pos="left"]   { top: 200px; left:  15px; }
+
+  /* node-inner: counter-rotated by GSAP to keep icon upright */
+  .node-inner {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(140,205,255,0.52);
+    border: 2px solid rgba(220,240,255,0.72);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transform-origin: center center;
+    cursor: pointer;
+    transition: filter 0.22s ease, background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .node-inner::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border-radius: 50%;
+    background: rgba(175,225,255,0.28);
+  }
+
+  .node-inner svg { position: relative; z-index: 1; }
+
+  /* hover glow */
+  .node-inner:hover {
+    filter: drop-shadow(0 0 10px rgba(180,225,255,0.70));
+  }
+
+  /* active node (currently at top) */
+  .orbit-node.is-active .node-inner {
+    background: rgba(165,218,255,0.70);
+    border-color: rgba(255,255,255,0.88);
+    filter: drop-shadow(0 0 12px rgba(150,210,255,0.60));
+  }
+
+  /* ====================================================
+     SCROLL-DOWN INDICATOR
+  ==================================================== */
+  .scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .scroll-hint span {
+    font-size: 10px;
+    letter-spacing: 4px;
+    font-family: monospace;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.7), transparent);
+    animation: scrollDown 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    30%  { opacity: 1; }
+    70%  { opacity: 1; }
+    100% { transform: translateY(200%); opacity: 0; }
+  }
+
+  /* ====================================================
+     NEXT SECTION (spacer)
+  ==================================================== */
+  .next-section {
+    height: 100vh;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================================================
+     HERO / ORBIT SCROLL SECTION
+====================================================== -->
+<section class="orbit-section" id="orbitSection">
+  <div class="orbit-sticky" id="orbitSticky">
+    <div class="depth-left"></div>
+
+    <div class="orbit-layout">
+
+      <!-- LEFT : text -->
+      <div class="orbit-text">
+        <h1>
+          What the future<br>
+          of IT needs is<br>
+          <em>&ldquo;charm.&rdquo;</em>
+        </h1>
+        <p class="orbit-sub">
+          デジタルトランスフォーメーションで<br>
+          お客様のビジネスに新たな価値を。
+        </p>
+
+        <p class="svc-badge" id="svcBadge">[ 01 / 04 ]</p>
+        <p class="svc-name"  id="svcName">Webアプリ開発</p>
+        <p class="svc-desc"  id="svcDesc">
+          モダンな技術スタックを活用した、高性能なWebアプリケーションを開発します。
+        </p>
+
+        <div class="progress-dots">
+          <div class="pdot on"></div>
+          <div class="pdot"></div>
+          <div class="pdot"></div>
+          <div class="pdot"></div>
+        </div>
+      </div>
+
+      <!-- RIGHT : orbit -->
+      <div class="orbit-diagram">
+        <div class="orbit-wrap">
+          <div class="orbit-bg-circle"></div>
+          <div class="orbit-ring-dash"></div>
+
+          <!-- center circle -->
+          <div class="orbit-center">
+            <span class="c-num" id="cNum">[ 01 ]</span>
+            <span class="c-name" id="cName">Webアプリ<br>開発</span>
+            <span class="c-sub">DX · Solutions</span>
+          </div>
+
+          <!-- rotating ring -->
+          <div class="orbit-rotating" id="orbitRotating">
+
+            <!-- Node 0 : TOP  (step 0 active) -->
+            <div class="orbit-node is-active" data-pos="top" data-index="0">
+              <div class="node-inner">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none"
+                     stroke="#0D60B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2"/>
+                  <line x1="12" y1="17" x2="12" y2="21"/>
+                  <line x1="8"  y1="21" x2="16" y2="21"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Node 1 : RIGHT  (step 1 active) -->
+            <div class="orbit-node" data-pos="right" data-index="1">
+              <div class="node-inner">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none"
+                     stroke="#0D60B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3"  width="20" height="7"  rx="1.5"/>
+                  <rect x="2" y="12" width="20" height="7"  rx="1.5"/>
+                  <circle cx="18" cy="6.5"  r="1.5" fill="#0D60B8"/>
+                  <circle cx="18" cy="15.5" r="1.5" fill="#0D60B8"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Node 2 : BOTTOM  (step 2 active) -->
+            <div class="orbit-node" data-pos="bottom" data-index="2">
+              <div class="node-inner">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none"
+                     stroke="#0D60B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83
+                           2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33
+                           1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09
+                           A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06
+                           a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15
+                           a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09
+                           A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06
+                           a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68
+                           a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09
+                           a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06
+                           a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9
+                           a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09
+                           a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Node 3 : LEFT  (step 3 active) -->
+            <div class="orbit-node" data-pos="left" data-index="3">
+              <div class="node-inner">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none"
+                     stroke="#0D60B8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"/>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+              </div>
+            </div>
+
+          </div><!-- /orbit-rotating -->
+        </div><!-- /orbit-wrap -->
+      </div>
+
+    </div><!-- /orbit-layout -->
+
+    <!-- scroll hint -->
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+
+  </div><!-- /orbit-sticky -->
+</section>
+
+<!-- next section spacer -->
+<div class="next-section">↓ Next Section</div>
+
+<!-- ======================================================
+     GSAP + ScrollTrigger (CDN)
+====================================================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── Service data ────────────────────────────────────
+   Node order in HTML: [0]=top [1]=right [2]=bottom [3]=left
+   Ring rotates CCW -90° per step.
+   At step S, node[S] is physically at the TOP position.
+   ─────────────────────────────────────────────────── */
+const SERVICES = [
+  {
+    badge: '[ 01 / 04 ]',
+    cNum:  '[ 01 ]',
+    name:  'Webアプリ開発',
+    cName: 'Webアプリ\n開発',
+    desc:  'モダンな技術スタックを活用した、高性能なWebアプリケーションを開発します。',
+  },
+  {
+    badge: '[ 02 / 04 ]',
+    cNum:  '[ 02 ]',
+    name:  'システム開発・クラウド',
+    cName: 'システム開発\nクラウド',
+    desc:  'クラウドネイティブなインフラ設計・構築から運用まで一貫してサポートします。',
+  },
+  {
+    badge: '[ 03 / 04 ]',
+    cNum:  '[ 03 ]',
+    name:  'DXコンサルティング',
+    cName: 'DXコンサル\nティング',
+    desc:  'デジタルトランスフォーメーションの戦略立案から実行まで伴走支援します。',
+  },
+  {
+    badge: '[ 04 / 04 ]',
+    cNum:  '[ 04 ]',
+    name:  'UIデザイン支援',
+    cName: 'UIデザイン\n支援',
+    desc:  'ユーザー中心設計に基づいた、使いやすく美しいインターフェースを提供します。',
+  },
+];
+
+/* ── DOM refs ── */
+const rotating   = document.getElementById('orbitRotating');
+const nodeInners = document.querySelectorAll('.node-inner');
+const allNodes   = document.querySelectorAll('.orbit-node');
+const dots       = document.querySelectorAll('.pdot');
+
+const svcBadge = document.getElementById('svcBadge');
+const svcName  = document.getElementById('svcName');
+const svcDesc  = document.getElementById('svcDesc');
+const cNum     = document.getElementById('cNum');
+const cName    = document.getElementById('cName');
+
+const TEXT_ELS = [svcBadge, svcName, svcDesc, cNum, cName];
+
+/* ── Step state ── */
+let currentStep = 0;
+
+function updateUI(step) {
+  step = Math.max(0, Math.min(3, step));
+  if (step === currentStep) return;
+  currentStep = step;
+
+  const s = SERVICES[step];
+
+  /* progress dots */
+  dots.forEach((d, i) => d.classList.toggle('on', i === step));
+
+  /* active node highlight (which node index is physically at top = step) */
+  allNodes.forEach((n, i) => n.classList.toggle('is-active', i === step));
+
+  /* text cross-fade */
+  TEXT_ELS.forEach(el => el.classList.add('text-fade'));
+
+  setTimeout(() => {
+    svcBadge.textContent = s.badge;
+    svcName.textContent  = s.name;
+    svcDesc.textContent  = s.desc;
+    cNum.textContent     = s.cNum;
+    cName.textContent    = s.cName; /* white-space: pre-line handles \n */
+    TEXT_ELS.forEach(el => el.classList.remove('text-fade'));
+  }, 220);
+}
+
+/* ── GSAP Timeline ── */
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: '#orbitSection',
+    start:   'top top',
+    end:     'bottom bottom',
+    scrub:   1.5,             /* smooth lag */
+    snap: {
+      snapTo:   1 / 4,        /* snap to each 25% = 90° step */
+      duration: { min: 0.25, max: 0.55 },
+      ease:     'power2.inOut',
+    },
+    onUpdate(self) {
+      /* trigger step change slightly before each 25% boundary */
+      const step = Math.min(3, Math.floor(self.progress * 4 + 0.03));
+      updateUI(step);
+    },
+  },
+});
+
+/* Ring rotates counter-clockwise: 0 → -360° */
+tl.to(rotating, { rotation: -360, ease: 'none' }, 0);
+
+/* Counter-rotate each node-inner to keep icons upright: 0 → +360° */
+tl.to(nodeInners, { rotation: 360, ease: 'none' }, 0);
+</script>
+</body>
+</html>
