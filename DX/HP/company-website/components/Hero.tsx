@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 function NodeIcon({ type, cx, cy }: { type: string; cx: number; cy: number }) {
-  const s = '#7EC8F0';
+  const s = '#0D60B8';
   if (type === 'web') {
     return (
       <g stroke={s} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -19,8 +19,8 @@ function NodeIcon({ type, cx, cy }: { type: string; cx: number; cy: number }) {
       <g stroke={s} strokeWidth="1.4" fill="none" strokeLinecap="round">
         <rect x={cx - 11} y={cy - 10} width="22" height="7" rx="1.5" />
         <rect x={cx - 11} y={cy - 1} width="22" height="7" rx="1.5" />
-        <circle cx={cx + 7} cy={cy - 6.5} r="1.8" fill="#00A0E9" stroke="none" />
-        <circle cx={cx + 7} cy={cy + 2.5} r="1.8" fill="#00A0E9" stroke="none" />
+        <circle cx={cx + 7} cy={cy - 6.5} r="1.8" fill="#0D60B8" stroke="none" />
+        <circle cx={cx + 7} cy={cy + 2.5} r="1.8" fill="#0D60B8" stroke="none" />
       </g>
     );
   }
@@ -88,13 +88,29 @@ export default function Hero() {
 
       {/* Deep navy gradient */}
       <div className="absolute inset-0 z-0" style={{
-        background: 'linear-gradient(160deg, #06203C 0%, #0A3568 40%, #1260B8 80%, #1E80D4 100%)',
+        background: 'linear-gradient(160deg, #0D47A1 0%, #1565C0 40%, #1E88E5 75%, #42A5F5 100%)',
       }} />
 
       {/* Grid overlay — 5% opacity (ux-ui-design guideline) */}
       <div className="absolute inset-0 z-0" style={{
         backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
         backgroundSize: '80px 80px',
+      }} />
+
+      {/* Depth: vignette — edges darker, creates 3D depth */}
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(8,35,100,0.45) 100%)',
+      }} />
+
+      {/* Depth: left-side shadow — reinforces light-source-from-right feel */}
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{
+        background: 'linear-gradient(to right, rgba(5,25,85,0.38) 0%, transparent 50%)',
+      }} />
+
+      {/* Depth: center-right spotlight — lights up the diagram area */}
+      <div className="absolute z-0 pointer-events-none" style={{
+        top: '5%', right: '5%', width: '55%', height: '90%',
+        background: 'radial-gradient(ellipse at 60% 45%, rgba(100,185,255,0.18) 0%, transparent 60%)',
       }} />
 
       {/* Decorative circles */}
@@ -163,22 +179,22 @@ export default function Hero() {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 {/* Outer atmosphere circle */}
-                <circle cx="200" cy="200" r="175" fill="rgba(20,70,170,0.28)" stroke="rgba(255,255,255,0.07)" strokeWidth="1"/>
+                <circle cx="200" cy="200" r="175" fill="rgba(60,130,240,0.22)" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
 
                 {/* Orbit ring — dashed */}
-                <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(255,255,255,0.13)" strokeWidth="1" strokeDasharray="5 9"/>
+                <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="1" strokeDasharray="5 9"/>
 
                 {/* Center circle */}
-                <circle cx="200" cy="200" r="56" fill="rgba(18,88,200,0.72)" stroke="rgba(0,180,255,0.55)" strokeWidth="1.8"/>
-                <circle cx="200" cy="200" r="44" fill="rgba(30,110,210,0.32)"/>
-                <text x="200" y="191" textAnchor="middle" fill="rgba(126,200,240,0.85)" fontSize="9" fontFamily="Montserrat, monospace" letterSpacing="3">[ 03 ]</text>
-                <text x="200" y="205" textAnchor="middle" fill="white" fontSize="12" fontWeight="700" fontFamily="Montserrat, sans-serif" letterSpacing="1.5">SERVICES</text>
-                <text x="200" y="219" textAnchor="middle" fill="rgba(255,255,255,0.45)" fontSize="8" fontFamily="Montserrat, sans-serif" letterSpacing="1.5">DX · SOLUTIONS</text>
+                <circle cx="200" cy="200" r="56" fill="rgba(140,205,255,0.52)" stroke="rgba(220,240,255,0.68)" strokeWidth="1.8"/>
+                <circle cx="200" cy="200" r="44" fill="rgba(170,220,255,0.28)"/>
+                <text x="200" y="191" textAnchor="middle" fill="rgba(10,60,140,0.80)" fontSize="9" fontFamily="Montserrat, monospace" letterSpacing="3">[ 03 ]</text>
+                <text x="200" y="205" textAnchor="middle" fill="#0D47A1" fontSize="12" fontWeight="700" fontFamily="Montserrat, sans-serif" letterSpacing="1.5">SERVICES</text>
+                <text x="200" y="219" textAnchor="middle" fill="rgba(10,60,140,0.60)" fontSize="8" fontFamily="Montserrat, sans-serif" letterSpacing="1.5">DX · SOLUTIONS</text>
 
                 {/* Node 1: Top — Web App (label above) */}
                 <g className="orbit-node">
-                  <circle cx="200" cy="60" r="40" fill="rgba(22,75,180,0.72)" stroke="rgba(0,185,255,0.70)" strokeWidth="1.8"/>
-                  <circle cx="200" cy="60" r="29" fill="rgba(30,110,215,0.32)"/>
+                  <circle cx="200" cy="60" r="40" fill="rgba(140,205,255,0.52)" stroke="rgba(220,240,255,0.72)" strokeWidth="2"/>
+                  <circle cx="200" cy="60" r="29" fill="rgba(175,225,255,0.28)"/>
                   <NodeIcon type="web" cx={200} cy={60} />
                   <text x="200" y="15" textAnchor="middle" fill="rgba(255,255,255,0.88)" fontSize="10.5" fontFamily="'Noto Sans JP', sans-serif">Webアプリ開発</text>
                   {/* small tick below label */}
@@ -187,8 +203,8 @@ export default function Hero() {
 
                 {/* Node 2: Bottom-Right — System/Cloud */}
                 <g className="orbit-node">
-                  <circle cx="321" cy="270" r="40" fill="rgba(22,75,180,0.72)" stroke="rgba(0,185,255,0.70)" strokeWidth="1.8"/>
-                  <circle cx="321" cy="270" r="29" fill="rgba(30,110,215,0.32)"/>
+                  <circle cx="321" cy="270" r="40" fill="rgba(140,205,255,0.52)" stroke="rgba(220,240,255,0.72)" strokeWidth="2"/>
+                  <circle cx="321" cy="270" r="29" fill="rgba(175,225,255,0.28)"/>
                   <NodeIcon type="server" cx={321} cy={270} />
                   <text x="321" y="322" textAnchor="middle" fill="rgba(255,255,255,0.88)" fontSize="10.5" fontFamily="'Noto Sans JP', sans-serif">システム開発</text>
                   <text x="321" y="336" textAnchor="middle" fill="rgba(255,255,255,0.88)" fontSize="10.5" fontFamily="'Noto Sans JP', sans-serif">・クラウド</text>
@@ -196,8 +212,8 @@ export default function Hero() {
 
                 {/* Node 3: Bottom-Left — DX Consulting */}
                 <g className="orbit-node">
-                  <circle cx="79" cy="270" r="40" fill="rgba(22,75,180,0.72)" stroke="rgba(0,185,255,0.70)" strokeWidth="1.8"/>
-                  <circle cx="79" cy="270" r="29" fill="rgba(30,110,215,0.32)"/>
+                  <circle cx="79" cy="270" r="40" fill="rgba(140,205,255,0.52)" stroke="rgba(220,240,255,0.72)" strokeWidth="2"/>
+                  <circle cx="79" cy="270" r="29" fill="rgba(175,225,255,0.28)"/>
                   <NodeIcon type="consulting" cx={79} cy={270} />
                   <text x="79" y="322" textAnchor="middle" fill="rgba(255,255,255,0.88)" fontSize="10.5" fontFamily="'Noto Sans JP', sans-serif">DX</text>
                   <text x="79" y="336" textAnchor="middle" fill="rgba(255,255,255,0.88)" fontSize="10.5" fontFamily="'Noto Sans JP', sans-serif">コンサルティング</text>
@@ -245,7 +261,7 @@ export default function Hero() {
         }
         .orbit-node:hover {
           transform: scale(1.13);
-          filter: drop-shadow(0 0 8px rgba(0,185,255,0.55));
+          filter: drop-shadow(0 0 10px rgba(180,225,255,0.70));
         }
       `}</style>
     </section>
