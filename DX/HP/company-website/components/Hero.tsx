@@ -2,52 +2,28 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-function NodeIcon({ type, cx, cy }: { type: string; cx: number; cy: number }) {
-  const s = '#0D60B8';
-  if (type === 'web') {
-    return (
-      <g stroke={s} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
-        <rect x={cx - 12} y={cy - 9} width="24" height="16" rx="2" />
-        <line x1={cx} y1={cy + 7} x2={cx} y2={cy + 11} />
-        <line x1={cx - 6} y1={cy + 11} x2={cx + 6} y2={cy + 11} />
-      </g>
-    );
-  }
-  if (type === 'server') {
-    return (
-      <g stroke={s} strokeWidth="1.4" fill="none" strokeLinecap="round">
-        <rect x={cx - 11} y={cy - 10} width="22" height="7" rx="1.5" />
-        <rect x={cx - 11} y={cy - 1} width="22" height="7" rx="1.5" />
-        <circle cx={cx + 7} cy={cy - 6.5} r="1.8" fill="#0D60B8" stroke="none" />
-        <circle cx={cx + 7} cy={cy + 2.5} r="1.8" fill="#0D60B8" stroke="none" />
-      </g>
-    );
-  }
-  // gear / consulting
-  const teeth = Array.from({ length: 6 }, (_, i) => {
-    const a = (i * 60 * Math.PI) / 180;
-    return { x1: cx + 8 * Math.cos(a), y1: cy + 8 * Math.sin(a), x2: cx + 12 * Math.cos(a), y2: cy + 12 * Math.sin(a) };
-  });
-  return (
-    <g stroke={s} fill="none">
-      <circle cx={cx} cy={cy} r="7.5" strokeWidth="1.5" />
-      <circle cx={cx} cy={cy} r="3.5" fill="rgba(126,200,240,0.45)" strokeWidth={0} />
-      {teeth.map((t, i) => (
-        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} strokeWidth="2.8" strokeLinecap="round" />
-      ))}
-    </g>
-  );
-}
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
-  const heroRef = useRef<HTMLDivElement>(null);
+  const heroRef      = useRef<HTMLDivElement>(null);
   const catchCopyRef = useRef<HTMLDivElement>(null);
-  const diagramRef = useRef<HTMLDivElement>(null);
+  const diagramRef   = useRef<HTMLDivElement>(null);
   const scrollDownRef = useRef<HTMLDivElement>(null);
+
+  // Orbit refs
+  const orbitRingRef = useRef<HTMLDivElement>(null);
+  const inner0Ref    = useRef<HTMLDivElement>(null);
+  const inner1Ref    = useRef<HTMLDivElement>(null);
+  const inner2Ref    = useRef<HTMLDivElement>(null);
+  const cNumRef      = useRef<HTMLSpanElement>(null);
+  const wmRef        = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+
+      /* ── Intro animations ── */
       const lines = catchCopyRef.current?.querySelectorAll('.catch-line');
       if (lines?.length) {
         gsap.fromTo(lines,
@@ -55,75 +31,184 @@ export default function Hero() {
           { opacity: 1, y: 0, duration: 0.8, stagger: 0.25, ease: 'power2.out', delay: 0.4 }
         );
       }
-
       gsap.fromTo(diagramRef.current,
         { opacity: 0, scale: 0.9 },
         { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out', delay: 1.4 }
       );
-
-      const nodes = diagramRef.current?.querySelectorAll('.orbit-node');
-      if (nodes?.length) {
-        gsap.fromTo(nodes,
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.2, ease: 'power2.out', delay: 1.9 }
-        );
-      }
-
       gsap.fromTo(scrollDownRef.current,
         { opacity: 0 },
         { opacity: 1, duration: 0.6, delay: 2.8 }
       );
+
+      /* ──────────────────────────────────────────────────────────
+         SCROLL-LINKED ORBIT ANIMATION
+
+         Architecture: CSS rotate(--a) + GSAP counter-rotate
+
+         .orbit-ring   ← GSAP: rotation 0° → -240° (CCW, scrubbed)
+           .orbit-item[--a=  0deg]  ← CSS positions at 12 o'clock
+             .orbit-inner#inner0    ← GSAP: start   0° → +240°
+           .orbit-item[--a=120deg]  ← CSS positions at  4 o'clock
+             .orbit-inner#inner1    ← GSAP: start -120° → +120°
+           .orbit-item[--a=240deg]  ← CSS positions at  8 o'clock
+             .orbit-inner#inner2    ← GSAP: start -240° →    0°
+
+         All inners change by +240° (same delta) → single tl.to call.
+
+         Steps:
+           0 (ring   0°): Node 0 (Webアプリ)   at top  → active
+           1 (ring -120°): Node 1 (システム)    at top  → active
+           2 (ring -240°): Node 2 (DXコンサル) at top  → active
+      ────────────────────────────────────────────────────────── */
+
+      /* Set initial counter-rotations (cancel each item's CSS --a rotation) */
+      gsap.set(inner0Ref.current, { rotation:    0, transformOrigin: '60px 50px' });
+      gsap.set(inner1Ref.current, { rotation: -120, transformOrigin: '60px 50px' });
+      gsap.set(inner2Ref.current, { rotation: -240, transformOrigin: '60px 50px' });
+
+      let currentStep = 0;
+
+      function updateStep(s: number) {
+        if (s === currentStep) return;
+        currentStep = s;
+
+        /* Toggle active / dim on orbit items */
+        const nodes = orbitRingRef.current?.querySelectorAll<HTMLElement>('.orbit-item');
+        nodes?.forEach((el, i) => {
+          el.classList.toggle('is-active', i === s);
+          el.classList.toggle('is-dim',    i !== s);
+        });
+
+        /* Cross-fade center number */
+        if (cNumRef.current) {
+          gsap.to(cNumRef.current, {
+            opacity: 0, y: 4, duration: 0.16, ease: 'power1.in',
+            onComplete() {
+              if (cNumRef.current) cNumRef.current.textContent = `[ 0${s + 1} ]`;
+              gsap.to(cNumRef.current, { opacity: 1, y: 0, duration: 0.20, ease: 'power1.out' });
+            }
+          });
+        }
+
+        /* Cross-fade watermark */
+        if (wmRef.current) {
+          gsap.to(wmRef.current, {
+            opacity: 0, duration: 0.18,
+            onComplete() {
+              if (wmRef.current) wmRef.current.textContent = `0${s + 1}`;
+              gsap.to(wmRef.current, { opacity: 1, duration: 0.22 });
+            }
+          });
+        }
+      }
+
+      /* GSAP ScrollTrigger timeline */
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start:   'top top',
+          end:     '+=200vh',   /* 2 steps × 100vh */
+          pin:     true,
+          scrub:   1,
+          snap: {
+            snapTo:   [0, 0.5, 1],
+            duration: { min: 0.3, max: 0.65 },
+            ease:     'power2.inOut',
+          },
+          onUpdate(self) {
+            updateStep(Math.min(2, Math.round(self.progress * 2)));
+          },
+        },
+      });
+
+      /* Ring rotates CCW: 0 → -240° */
+      tl.to(orbitRingRef.current, { rotation: -240, ease: 'none' }, 0);
+
+      /* All inners counter-rotate +240° (each from its gsap.set offset) */
+      tl.to(
+        [inner0Ref.current, inner1Ref.current, inner2Ref.current],
+        { rotation: '+=240', ease: 'none' },
+        0
+      );
+
     }, heroRef);
 
     return () => ctx.revert();
   }, []);
 
+  /* ── Icon helpers ── */
+  const WebIcon = () => (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+         stroke="#0D60B8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2"/>
+      <line x1="12" y1="17" x2="12" y2="21"/>
+      <line x1="8"  y1="21" x2="16" y2="21"/>
+    </svg>
+  );
+  const ServerIcon = () => (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+         stroke="#0D60B8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="3"  width="20" height="7"  rx="1.5"/>
+      <rect x="2" y="12" width="20" height="7"  rx="1.5"/>
+      <circle cx="18" cy="6.5"  r="1.8" fill="#0D60B8" stroke="none"/>
+      <circle cx="18" cy="15.5" r="1.8" fill="#0D60B8" stroke="none"/>
+    </svg>
+  );
+  const GearIcon = () => (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+         stroke="#0D60B8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83
+               2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33
+               1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09
+               A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06
+               a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15
+               a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09
+               A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06
+               a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68
+               a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09
+               a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06
+               a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9
+               a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09
+               a1.65 1.65 0 0 0-1.51 1z"/>
+    </svg>
+  );
+
   return (
     <section
       ref={heroRef}
-      className="relative h-screen w-full overflow-hidden flex items-center"
+      className="relative w-full flex items-center"
+      style={{ minHeight: '100vh' }}
       id="hero"
     >
       {/* ===== BACKGROUND LAYERS ===== */}
-
-      {/* Deep navy gradient */}
       <div className="absolute inset-0 z-0" style={{
         background: 'linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%)',
       }} />
-
-      {/* Grid overlay — 5% opacity (ux-ui-design guideline) */}
       <div className="absolute inset-0 z-0" style={{
         backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
         backgroundSize: '80px 80px',
       }} />
-
-      {/* Depth: vignette — edges darker, creates 3D depth */}
       <div className="absolute inset-0 z-0 pointer-events-none" style={{
         background: 'radial-gradient(ellipse at 50% 50%, transparent 35%, rgba(8,35,100,0.28) 100%)',
       }} />
-
-      {/* Depth: left-side shadow — reinforces light-source-from-right feel */}
       <div className="absolute inset-0 z-0 pointer-events-none" style={{
         background: 'linear-gradient(to right, rgba(10,40,110,0.22) 0%, transparent 50%)',
       }} />
-
-      {/* Depth: center-right spotlight — lights up the diagram area */}
       <div className="absolute z-0 pointer-events-none" style={{
         top: '5%', right: '5%', width: '55%', height: '90%',
         background: 'radial-gradient(ellipse at 60% 45%, rgba(100,185,255,0.18) 0%, transparent 60%)',
       }} />
 
-      {/* Decorative circles */}
-      <svg className="absolute inset-0 w-full h-full z-0" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <svg className="absolute inset-0 w-full h-full z-0" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
         <circle cx="1200" cy="180" r="130" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
         <circle cx="1200" cy="180" r="220" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1"/>
-        <circle cx="180"  cy="760" r="100" fill="none" stroke="rgba(0,144,210,0.10)" strokeWidth="1"/>
-        <circle cx="180"  cy="760" r="180" fill="none" stroke="rgba(0,144,210,0.06)" strokeWidth="1"/>
+        <circle cx="180"  cy="760" r="100" fill="none" stroke="rgba(0,144,210,0.10)"  strokeWidth="1"/>
+        <circle cx="180"  cy="760" r="180" fill="none" stroke="rgba(0,144,210,0.06)"  strokeWidth="1"/>
         <circle cx="1300" cy="580" r="2.5" fill="rgba(0,160,233,0.35)"/>
         <circle cx="145"  cy="210" r="2.5" fill="rgba(0,160,233,0.35)"/>
       </svg>
 
-      {/* Radial glows */}
       <div className="absolute z-0 pointer-events-none" style={{
         top: '-5%', right: '-5%', width: '600px', height: '600px',
         background: 'radial-gradient(circle, rgba(0,100,200,0.14) 0%, transparent 65%)',
@@ -134,6 +219,23 @@ export default function Hero() {
         background: 'radial-gradient(circle, rgba(0,55,130,0.22) 0%, transparent 65%)',
         borderRadius: '50%', filter: 'blur(70px)',
       }} />
+
+      {/* ===== WATERMARK ===== */}
+      <div
+        ref={wmRef}
+        className="absolute right-[2%] top-1/2 z-[1] pointer-events-none select-none"
+        style={{
+          transform: 'translateY(-55%)',
+          fontSize: 'clamp(140px, 18vw, 260px)',
+          fontWeight: 900,
+          color: 'rgba(255,255,255,0.045)',
+          letterSpacing: '-0.06em',
+          lineHeight: 1,
+          fontVariantNumeric: 'tabular-nums',
+        }}
+      >
+        01
+      </div>
 
       {/* ===== CONTENT ===== */}
       <div className="relative z-10 w-full">
@@ -173,52 +275,107 @@ export default function Hero() {
 
             {/* Right: Orbit Diagram */}
             <div ref={diagramRef} className="opacity-0 flex justify-center">
-              <svg
-                viewBox="0 0 400 370"
-                className="w-full max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[540px]"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {/* Outer atmosphere circle */}
-                <circle cx="200" cy="200" r="175" fill="rgba(60,130,240,0.22)" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
+              {/*
+                Orbit stage: fixed 500×500 px coordinate space.
+                Scaled down on smaller screens via CSS (see <style jsx> below).
+                Orbit ring r=170 → items at ±170px from center (250,250).
+              */}
+              <div className="orbit-stage relative flex-shrink-0" style={{ width: 500, height: 500 }}>
 
-                {/* Orbit ring — dashed */}
-                <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(255,255,255,0.28)" strokeWidth="1" strokeDasharray="5 9"/>
+                {/* Decorative SVG rings (static, never rotated) */}
+                <svg
+                  className="absolute inset-0 w-full h-full pointer-events-none"
+                  viewBox="0 0 500 500" fill="none"
+                >
+                  <circle cx="250" cy="250" r="235"
+                          fill="rgba(60,130,240,0.22)"
+                          stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
+                  <circle cx="250" cy="250" r="170"
+                          fill="none"
+                          stroke="rgba(255,255,255,0.28)" strokeWidth="1"
+                          strokeDasharray="5 9"/>
+                  {/* Active-position arc at 12 o'clock (270°).
+                      rotate(-93°) centres a 36px arc at the top. */}
+                  <circle cx="250" cy="250" r="170"
+                          fill="none"
+                          stroke="rgba(255,255,255,0.65)" strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeDasharray="36 10000"
+                          transform="rotate(-93 250 250)"/>
+                </svg>
 
-                {/* Center circle */}
-                <circle cx="200" cy="200" r="56" fill="rgba(140,205,255,0.52)" stroke="rgba(220,240,255,0.68)" strokeWidth="1.8"/>
-                <circle cx="200" cy="200" r="44" fill="rgba(170,220,255,0.28)"/>
-                <text x="200" y="191" textAnchor="middle" fill="rgba(10,60,140,0.80)" fontSize="9" fontFamily="Montserrat, monospace" letterSpacing="3">[ 03 ]</text>
-                <text x="200" y="205" textAnchor="middle" fill="#0D47A1" fontSize="12" fontWeight="700" fontFamily="Montserrat, sans-serif" letterSpacing="1.5">SERVICES</text>
-                <text x="200" y="219" textAnchor="middle" fill="rgba(10,60,140,0.60)" fontSize="8" fontFamily="Montserrat, sans-serif" letterSpacing="1.5">DX · SOLUTIONS</text>
+                {/* Center circle — text updated by JS */}
+                <div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full flex flex-col items-center justify-center text-center z-[2]"
+                  style={{
+                    width: 120, height: 120,
+                    background: 'rgba(140,205,255,0.52)',
+                    border: '2px solid rgba(220,240,255,0.68)',
+                    boxShadow: '0 0 32px rgba(100,180,255,0.22), inset 0 1px 0 rgba(255,255,255,0.20)',
+                    gap: 2,
+                  }}
+                >
+                  <span
+                    ref={cNumRef}
+                    style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.25em', color: 'rgba(10,60,140,0.80)' }}
+                  >
+                    [ 01 ]
+                  </span>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: '#0D47A1', letterSpacing: '0.08em' }}>
+                    SERVICES
+                  </span>
+                  <span style={{ fontSize: 7.5, letterSpacing: '0.15em', color: 'rgba(10,60,140,0.55)', textTransform: 'uppercase' }}>
+                    DX · SOLUTIONS
+                  </span>
+                </div>
 
-                {/* Node 1: Top — Web App (label above) */}
-                <g className="orbit-node">
-                  <circle cx="200" cy="60" r="40" fill="rgba(140,205,255,0.52)" stroke="rgba(220,240,255,0.72)" strokeWidth="2"/>
-                  <circle cx="200" cy="60" r="29" fill="rgba(175,225,255,0.28)"/>
-                  <NodeIcon type="web" cx={200} cy={60} />
-                  <text x="200" y="15" textAnchor="middle" fill="rgba(255,255,255,0.88)" fontSize="10.5" fontFamily="'Noto Sans JP', sans-serif">Webアプリ開発</text>
-                  {/* small tick below label */}
-                  <line x1="200" y1="19" x2="200" y2="20" stroke="rgba(0,160,233,0.4)" strokeWidth="1"/>
-                </g>
+                {/* ═══ ORBIT RING — GSAP rotates this ═══
+                    transform-origin: 50% 50% = center (250,250).
+                    Items inside are zero-size anchors positioned on the circle
+                    via CSS: rotate(--a) translateY(calc(var(--r) * -1))        */}
+                <div ref={orbitRingRef} className="absolute inset-0">
 
-                {/* Node 2: Bottom-Right — System/Cloud */}
-                <g className="orbit-node">
-                  <circle cx="321" cy="270" r="40" fill="rgba(140,205,255,0.52)" stroke="rgba(220,240,255,0.72)" strokeWidth="2"/>
-                  <circle cx="321" cy="270" r="29" fill="rgba(175,225,255,0.28)"/>
-                  <NodeIcon type="server" cx={321} cy={270} />
-                  <text x="321" y="322" textAnchor="middle" fill="rgba(255,255,255,0.88)" fontSize="10.5" fontFamily="'Noto Sans JP', sans-serif">システム開発</text>
-                  <text x="321" y="336" textAnchor="middle" fill="rgba(255,255,255,0.88)" fontSize="10.5" fontFamily="'Noto Sans JP', sans-serif">・クラウド</text>
-                </g>
+                  {/* Item 0 — top (--a=0°) — Webアプリ開発 */}
+                  <div
+                    className="orbit-item is-active"
+                    style={{ '--a': '0deg', '--r': '170px' } as React.CSSProperties}
+                  >
+                    <div ref={inner0Ref} className="orbit-inner">
+                      <div className="node-circle">
+                        <WebIcon />
+                      </div>
+                      <span className="node-label">Webアプリ開発</span>
+                    </div>
+                  </div>
 
-                {/* Node 3: Bottom-Left — DX Consulting */}
-                <g className="orbit-node">
-                  <circle cx="79" cy="270" r="40" fill="rgba(140,205,255,0.52)" stroke="rgba(220,240,255,0.72)" strokeWidth="2"/>
-                  <circle cx="79" cy="270" r="29" fill="rgba(175,225,255,0.28)"/>
-                  <NodeIcon type="consulting" cx={79} cy={270} />
-                  <text x="79" y="322" textAnchor="middle" fill="rgba(255,255,255,0.88)" fontSize="10.5" fontFamily="'Noto Sans JP', sans-serif">DX</text>
-                  <text x="79" y="336" textAnchor="middle" fill="rgba(255,255,255,0.88)" fontSize="10.5" fontFamily="'Noto Sans JP', sans-serif">コンサルティング</text>
-                </g>
-              </svg>
+                  {/* Item 1 — lower-right (--a=120°) — システム開発・クラウド */}
+                  <div
+                    className="orbit-item is-dim"
+                    style={{ '--a': '120deg', '--r': '170px' } as React.CSSProperties}
+                  >
+                    <div ref={inner1Ref} className="orbit-inner">
+                      <div className="node-circle">
+                        <ServerIcon />
+                      </div>
+                      <span className="node-label">システム開発<br />・クラウド</span>
+                    </div>
+                  </div>
+
+                  {/* Item 2 — lower-left (--a=240°) — DXコンサルティング */}
+                  <div
+                    className="orbit-item is-dim"
+                    style={{ '--a': '240deg', '--r': '170px' } as React.CSSProperties}
+                  >
+                    <div ref={inner2Ref} className="orbit-inner">
+                      <div className="node-circle">
+                        <GearIcon />
+                      </div>
+                      <span className="node-label">DX<br />コンサルティング</span>
+                    </div>
+                  </div>
+
+                </div>{/* /orbit-ring */}
+              </div>{/* /orbit-stage */}
             </div>
 
           </div>
@@ -239,7 +396,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom wave into white */}
+      {/* Bottom wave */}
       <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none">
         <svg viewBox="0 0 1440 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block">
           <path d="M0,72 L0,36 Q360,-4 720,36 Q1080,76 1440,36 L1440,72 Z" fill="white"/>
@@ -251,18 +408,70 @@ export default function Hero() {
           0%   { transform: translateY(-100%); opacity: 0; }
           30%  { opacity: 1; }
           70%  { opacity: 1; }
-          100% { transform: translateY(200%);  opacity: 0; }
+          100% { transform: translateY(200%); opacity: 0; }
         }
-        .orbit-node {
-          transform-box: fill-box;
-          transform-origin: center;
-          cursor: pointer;
-          transition: transform 0.22s ease-out, filter 0.22s ease-out;
+
+        /* ── Orbit stage responsive scaling ── */
+        .orbit-stage { transform-origin: center center; }
+        @media (max-width: 1200px) { .orbit-stage { transform: scale(0.82); } }
+        @media (max-width:  900px) { .orbit-stage { transform: scale(0.62); transform-origin: top center; } }
+
+        /* ── Orbit item: zero-size anchor, CSS-positioned on ring ──
+           rotate(--a) places it on the circle;
+           translateY(-r) moves it to the correct radius.          */
+        .orbit-item {
+          position: absolute;
+          top: 50%; left: 50%;
+          width: 0; height: 0;
+          overflow: visible;
+          transform: rotate(var(--a)) translateY(calc(var(--r) * -1));
         }
-        .orbit-node:hover {
-          transform: scale(1.13);
-          filter: drop-shadow(0 0 10px rgba(180,225,255,0.70));
+
+        /* ── Orbit inner: icon circle + label.
+           GSAP counter-rotates this to keep content upright.
+           transform-origin = center of node circle (60px, 50px).  */
+        .orbit-inner {
+          position: absolute;
+          width: 120px; height: 160px;
+          top: 0; left: 0;
+          margin-top: -50px;
+          margin-left: -60px;
+          display: flex; flex-direction: column;
+          align-items: center; gap: 8px;
+          transform-origin: 60px 50px;
         }
+
+        /* ── Node circle ── */
+        .node-circle {
+          width: 100px; height: 100px;
+          border-radius: 50%; flex-shrink: 0;
+          background: rgba(140,205,255,0.52);
+          border: 2px solid rgba(220,240,255,0.72);
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center; gap: 4px;
+          transition: background .40s, border-color .40s, box-shadow .40s, transform .40s;
+        }
+        .orbit-item.is-active .node-circle {
+          background: rgba(200,238,255,0.74);
+          border-color: rgba(255,255,255,0.92);
+          box-shadow: 0 0 0 4px rgba(255,255,255,0.20), 0 0 28px rgba(180,228,255,0.60);
+          transform: scale(1.16);
+        }
+        .orbit-item.is-dim .node-circle {
+          background: rgba(140,205,255,0.28);
+          border-color: rgba(220,240,255,0.36);
+          opacity: 0.55;
+        }
+
+        /* ── Node label ── */
+        .node-label {
+          font-size: 10.5px; line-height: 1.45;
+          text-align: center; white-space: nowrap;
+          color: rgba(255,255,255,0.88);
+          transition: opacity .40s, font-weight .40s;
+        }
+        .orbit-item.is-active .node-label { color: #fff; font-weight: 600; }
+        .orbit-item.is-dim    .node-label { opacity: 0.50; }
       `}</style>
     </section>
   );
