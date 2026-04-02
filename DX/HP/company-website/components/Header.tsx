@@ -18,21 +18,13 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    /* Hero section is pinned for +=500vh — stay transparent until past that zone */
     const update = () => {
-      const heroPinned = document.body.classList.contains('hero-pinned');
-      setScrolled(!heroPinned && window.scrollY > 50);
+      setScrolled(window.scrollY > window.innerHeight * 5.2);
     };
 
     window.addEventListener('scroll', update, { passive: true });
-
-    /* Re-evaluate when hero-pinned class is added/removed */
-    const mo = new MutationObserver(update);
-    mo.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-    return () => {
-      window.removeEventListener('scroll', update);
-      mo.disconnect();
-    };
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
   return (

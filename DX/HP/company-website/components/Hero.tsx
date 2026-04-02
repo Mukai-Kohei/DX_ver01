@@ -55,32 +55,33 @@ export default function Hero() {
            2 (ring -240°): Node 2 (DXコンサル) at 12 o'clock → active
       ────────────────────────────────────────────────────────── */
 
-      /* Set initial counter-rotations (cancel each item's CSS --a rotation) */
-      gsap.set(inner0Ref.current, { rotation:    0, transformOrigin: '60px 50px' });
-      gsap.set(inner1Ref.current, { rotation: -120, transformOrigin: '60px 50px' });
-      gsap.set(inner2Ref.current, { rotation: -240, transformOrigin: '60px 50px' });
+      /* Set initial counter-rotations — each inner cancels its CSS --a offset */
+      gsap.set(inner0Ref.current, { rotation:    0 });
+      gsap.set(inner1Ref.current, { rotation: -120 });
+      gsap.set(inner2Ref.current, { rotation: -240 });
 
       let currentStep = 0;
-      let ringRotation = 0;
 
       function rotateTo(newStep: number) {
-        const diff = newStep - currentStep;
-        if (diff === 0) return;
+        if (newStep === currentStep) return;
         currentStep = newStep;
-        ringRotation += diff * -120;
 
-        /* Animate ring to new absolute rotation */
+        /* Ring: absolute target  0 → -120 → -240 */
         gsap.to(orbitRingRef.current, {
-          rotation: ringRotation,
+          rotation: newStep * -120,
           duration: 0.7,
           ease: 'power2.inOut',
-          overwrite: true,
+          overwrite: 'auto',
         });
-        /* Counter-rotate all inners by same delta (keeps icons upright) */
-        gsap.to(
-          [inner0Ref.current, inner1Ref.current, inner2Ref.current],
-          { rotation: `+=${diff * 120}`, duration: 0.7, ease: 'power2.inOut', overwrite: true }
-        );
+
+        /* Inners: absolute targets — formula: newStep*120 − a_offset
+           inner0 (a=  0°): 0, 120, 240
+           inner1 (a=120°): -120, 0, 120
+           inner2 (a=240°): -240, -120, 0
+           Total per inner = ring_rot(−120*S) + a + inner = 0 → always upright  */
+        gsap.to(inner0Ref.current, { rotation: newStep * 120,         duration: 0.7, ease: 'power2.inOut', overwrite: 'auto' });
+        gsap.to(inner1Ref.current, { rotation: newStep * 120 - 120,   duration: 0.7, ease: 'power2.inOut', overwrite: 'auto' });
+        gsap.to(inner2Ref.current, { rotation: newStep * 120 - 240,   duration: 0.7, ease: 'power2.inOut', overwrite: 'auto' });
 
         /* Toggle active / dim on orbit items */
         const nodes = orbitRingRef.current?.querySelectorAll<HTMLElement>('.orbit-item');
@@ -112,9 +113,6 @@ export default function Hero() {
         }
       }
 
-      /* Signal header to stay transparent while hero is pinned */
-      document.body.classList.add('hero-pinned');
-
       ScrollTrigger.create({
         trigger: heroRef.current,
         start:   'top top',
@@ -126,8 +124,6 @@ export default function Hero() {
           duration: { min: 0.5, max: 0.9 },
           ease:     'power2.inOut',
         },
-        onEnterBack() { document.body.classList.add('hero-pinned'); },
-        onLeave()     { document.body.classList.remove('hero-pinned'); },
         onUpdate(self) {
           rotateTo(Math.min(2, Math.round(self.progress * 2)));
         },
@@ -135,10 +131,7 @@ export default function Hero() {
 
     }, heroRef);
 
-    return () => {
-      ctx.revert();
-      document.body.classList.remove('hero-pinned');
-    };
+    return () => ctx.revert();
   }, []);
 
   /* ── Icon helpers ── */
