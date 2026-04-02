@@ -18,12 +18,21 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 100);
+    const update = () => {
+      const heroPinned = document.body.classList.contains('hero-pinned');
+      setScrolled(!heroPinned && window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', update, { passive: true });
+
+    /* Re-evaluate when hero-pinned class is added/removed */
+    const mo = new MutationObserver(update);
+    mo.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    return () => {
+      window.removeEventListener('scroll', update);
+      mo.disconnect();
+    };
   }, []);
 
   return (

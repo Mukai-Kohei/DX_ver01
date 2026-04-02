@@ -41,24 +41,18 @@ export default function Hero() {
       );
 
       /* ──────────────────────────────────────────────────────────
-         SCROLL-LINKED ORBIT ANIMATION
+         SCROLL-LINKED ORBIT ANIMATION  (discrete step mode)
 
-         Architecture: CSS rotate(--a) + GSAP counter-rotate
+         Architecture: CSS rotate(--a) + GSAP discrete snap-rotate
 
-         .orbit-ring   ← GSAP: rotation 0° → -240° (CCW, scrubbed)
-           .orbit-item[--a=  0deg]  ← CSS positions at 12 o'clock
-             .orbit-inner#inner0    ← GSAP: start   0° → +240°
-           .orbit-item[--a=120deg]  ← CSS positions at  4 o'clock
-             .orbit-inner#inner1    ← GSAP: start -120° → +120°
-           .orbit-item[--a=240deg]  ← CSS positions at  8 o'clock
-             .orbit-inner#inner2    ← GSAP: start -240° →    0°
-
-         All inners change by +240° (same delta) → single tl.to call.
+         On scroll, the ring SNAPS to the next 120° position with an
+         eased animation (not scrubbed). The ring holds that position
+         until the next scroll threshold is crossed.
 
          Steps:
-           0 (ring   0°): Node 0 (Webアプリ)   at top  → active
-           1 (ring -120°): Node 1 (システム)    at top  → active
-           2 (ring -240°): Node 2 (DXコンサル) at top  → active
+           0 (ring   0°): Node 0 (Webアプリ)   at 12 o'clock → active
+           1 (ring -120°): Node 1 (システム)    at 12 o'clock → active
+           2 (ring -240°): Node 2 (DXコンサル) at 12 o'clock → active
       ────────────────────────────────────────────────────────── */
 
       /* Set initial counter-rotations (cancel each item's CSS --a rotation) */
@@ -67,16 +61,32 @@ export default function Hero() {
       gsap.set(inner2Ref.current, { rotation: -240, transformOrigin: '60px 50px' });
 
       let currentStep = 0;
+      let ringRotation = 0;
 
-      function updateStep(s: number) {
-        if (s === currentStep) return;
-        currentStep = s;
+      function rotateTo(newStep: number) {
+        const diff = newStep - currentStep;
+        if (diff === 0) return;
+        currentStep = newStep;
+        ringRotation += diff * -120;
+
+        /* Animate ring to new absolute rotation */
+        gsap.to(orbitRingRef.current, {
+          rotation: ringRotation,
+          duration: 0.7,
+          ease: 'power2.inOut',
+          overwrite: true,
+        });
+        /* Counter-rotate all inners by same delta (keeps icons upright) */
+        gsap.to(
+          [inner0Ref.current, inner1Ref.current, inner2Ref.current],
+          { rotation: `+=${diff * 120}`, duration: 0.7, ease: 'power2.inOut', overwrite: true }
+        );
 
         /* Toggle active / dim on orbit items */
         const nodes = orbitRingRef.current?.querySelectorAll<HTMLElement>('.orbit-item');
         nodes?.forEach((el, i) => {
-          el.classList.toggle('is-active', i === s);
-          el.classList.toggle('is-dim',    i !== s);
+          el.classList.toggle('is-active', i === newStep);
+          el.classList.toggle('is-dim',    i !== newStep);
         });
 
         /* Cross-fade center number */
@@ -84,7 +94,7 @@ export default function Hero() {
           gsap.to(cNumRef.current, {
             opacity: 0, y: 4, duration: 0.16, ease: 'power1.in',
             onComplete() {
-              if (cNumRef.current) cNumRef.current.textContent = `[ 0${s + 1} ]`;
+              if (cNumRef.current) cNumRef.current.textContent = `[ 0${newStep + 1} ]`;
               gsap.to(cNumRef.current, { opacity: 1, y: 0, duration: 0.20, ease: 'power1.out' });
             }
           });
@@ -95,45 +105,40 @@ export default function Hero() {
           gsap.to(wmRef.current, {
             opacity: 0, duration: 0.18,
             onComplete() {
-              if (wmRef.current) wmRef.current.textContent = `0${s + 1}`;
+              if (wmRef.current) wmRef.current.textContent = `0${newStep + 1}`;
               gsap.to(wmRef.current, { opacity: 1, duration: 0.22 });
             }
           });
         }
       }
 
-      /* GSAP ScrollTrigger timeline */
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start:   'top top',
-          end:     '+=500vh',   /* 2 steps × 250vh — slower rotation */
-          pin:     true,
-          scrub:   1.5,
-          snap: {
-            snapTo:   [0, 0.5, 1],
-            duration: { min: 0.4, max: 0.8 },
-            ease:     'power2.inOut',
-          },
-          onUpdate(self) {
-            updateStep(Math.min(2, Math.round(self.progress * 2)));
-          },
+      /* Signal header to stay transparent while hero is pinned */
+      document.body.classList.add('hero-pinned');
+
+      ScrollTrigger.create({
+        trigger: heroRef.current,
+        start:   'top top',
+        end:     '+=500vh',
+        pin:     true,
+        /* No scrub — orbit animates with its own ease, not tied to scroll */
+        snap: {
+          snapTo:   [0, 0.5, 1],
+          duration: { min: 0.5, max: 0.9 },
+          ease:     'power2.inOut',
+        },
+        onEnterBack() { document.body.classList.add('hero-pinned'); },
+        onLeave()     { document.body.classList.remove('hero-pinned'); },
+        onUpdate(self) {
+          rotateTo(Math.min(2, Math.round(self.progress * 2)));
         },
       });
 
-      /* Ring rotates CCW: 0 → -240° */
-      tl.to(orbitRingRef.current, { rotation: -240, ease: 'none' }, 0);
-
-      /* All inners counter-rotate +240° (each from its gsap.set offset) */
-      tl.to(
-        [inner0Ref.current, inner1Ref.current, inner2Ref.current],
-        { rotation: '+=240', ease: 'none' },
-        0
-      );
-
     }, heroRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      document.body.classList.remove('hero-pinned');
+    };
   }, []);
 
   /* ── Icon helpers ── */
