@@ -65,14 +65,6 @@ export default function Company() {
               私たちは、お客様のビジネス課題を解決するために、
               システム開発からコンサルティングまで幅広くサポートしています。
             </p>
-            <div className="flex flex-wrap gap-3">
-              <a href="#" className="btn btn-primary">
-                会社案内PDF
-              </a>
-              <a href="#" className="btn btn-secondary">
-                アクセスマップ
-              </a>
-            </div>
           </div>
 
           {/* Right: Table */}

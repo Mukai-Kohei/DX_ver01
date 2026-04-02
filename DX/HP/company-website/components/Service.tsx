@@ -127,9 +127,6 @@ export default function Service() {
       <div className="relative z-10">
         {/* Header */}
         <div ref={titleRef} className="container-custom text-center mb-12 md:mb-16 space-y-4">
-          <p className="font-en text-sm text-primary font-semibold tracking-widest">
-            WHAT_WE_DO
-          </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-main">
             サービス内容
           </h2>

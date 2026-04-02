@@ -2,7 +2,7 @@
 
 export default function ContactCTA() {
   return (
-    <section className="relative py-12 md:py-16 bg-primary overflow-hidden" id="contact">
+    <section className="relative min-h-screen flex items-center bg-primary overflow-hidden" id="contact">
       {/* Grid overlay */}
       <div
         className="absolute inset-0 pointer-events-none"

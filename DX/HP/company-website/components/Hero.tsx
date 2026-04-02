@@ -107,12 +107,12 @@ export default function Hero() {
         scrollTrigger: {
           trigger: heroRef.current,
           start:   'top top',
-          end:     '+=200vh',   /* 2 steps × 100vh */
+          end:     '+=500vh',   /* 2 steps × 250vh — slower rotation */
           pin:     true,
-          scrub:   1,
+          scrub:   1.5,
           snap: {
             snapTo:   [0, 0.5, 1],
-            duration: { min: 0.3, max: 0.65 },
+            duration: { min: 0.4, max: 0.8 },
             ease:     'power2.inOut',
           },
           onUpdate(self) {
@@ -178,7 +178,7 @@ export default function Hero() {
     <section
       ref={heroRef}
       className="relative w-full flex items-center"
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%)' }}
       id="hero"
     >
       {/* ===== BACKGROUND LAYERS ===== */}
