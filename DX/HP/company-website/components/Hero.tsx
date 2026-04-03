@@ -61,17 +61,28 @@ export default function Hero() {
       gsap.set(inner2Ref.current, { rotation: -240 });
 
       let currentStep = 0;
+      let isAnimating = false;
+      let pendingStep: number | null = null;
 
-      function rotateTo(newStep: number) {
-        if (newStep === currentStep) return;
+      function executeRotate(newStep: number) {
         currentStep = newStep;
+        isAnimating = true;
 
         /* Ring: absolute target  0 → -120 → -240 */
         gsap.to(orbitRingRef.current, {
           rotation: newStep * -120,
-          duration: 0.7,
+          duration: 0.65,
           ease: 'power2.inOut',
           overwrite: 'auto',
+          onComplete() {
+            isAnimating = false;
+            /* Pick up any step that arrived while we were animating */
+            if (pendingStep !== null && pendingStep !== currentStep) {
+              const next = pendingStep;
+              pendingStep = null;
+              executeRotate(next);
+            }
+          },
         });
 
         /* Inners: absolute targets — formula: newStep*120 − a_offset
@@ -79,9 +90,9 @@ export default function Hero() {
            inner1 (a=120°): -120, 0, 120
            inner2 (a=240°): -240, -120, 0
            Total per inner = ring_rot(−120*S) + a + inner = 0 → always upright  */
-        gsap.to(inner0Ref.current, { rotation: newStep * 120,         duration: 0.7, ease: 'power2.inOut', overwrite: 'auto' });
-        gsap.to(inner1Ref.current, { rotation: newStep * 120 - 120,   duration: 0.7, ease: 'power2.inOut', overwrite: 'auto' });
-        gsap.to(inner2Ref.current, { rotation: newStep * 120 - 240,   duration: 0.7, ease: 'power2.inOut', overwrite: 'auto' });
+        gsap.to(inner0Ref.current, { rotation: newStep * 120,         duration: 0.65, ease: 'power2.inOut', overwrite: 'auto' });
+        gsap.to(inner1Ref.current, { rotation: newStep * 120 - 120,   duration: 0.65, ease: 'power2.inOut', overwrite: 'auto' });
+        gsap.to(inner2Ref.current, { rotation: newStep * 120 - 240,   duration: 0.65, ease: 'power2.inOut', overwrite: 'auto' });
 
         /* Toggle active / dim on orbit items */
         const nodes = orbitRingRef.current?.querySelectorAll<HTMLElement>('.orbit-item');
@@ -113,12 +124,27 @@ export default function Hero() {
         }
       }
 
+      function rotateTo(newStep: number) {
+        if (newStep === currentStep) return;
+        if (isAnimating) {
+          /* Queue the latest request; previous pending is discarded */
+          pendingStep = newStep;
+          /* Still update UI labels/classes immediately */
+          const nodes = orbitRingRef.current?.querySelectorAll<HTMLElement>('.orbit-item');
+          nodes?.forEach((el, i) => {
+            el.classList.toggle('is-active', i === newStep);
+            el.classList.toggle('is-dim',    i !== newStep);
+          });
+          return;
+        }
+        executeRotate(newStep);
+      }
+
       ScrollTrigger.create({
         trigger: heroRef.current,
         start:   'top top',
         end:     '+=500vh',
         pin:     true,
-        /* No scrub — orbit animates with its own ease, not tied to scroll */
         snap: {
           snapTo:   [0, 0.5, 1],
           duration: { min: 0.5, max: 0.9 },
@@ -290,16 +316,8 @@ export default function Hero() {
                           stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
                   <circle cx="250" cy="250" r="170"
                           fill="none"
-                          stroke="rgba(255,255,255,0.28)" strokeWidth="1"
-                          strokeDasharray="5 9"/>
-                  {/* Active-position arc at 12 o'clock (270°).
-                      rotate(-93°) centres a 36px arc at the top. */}
-                  <circle cx="250" cy="250" r="170"
-                          fill="none"
-                          stroke="rgba(255,255,255,0.65)" strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeDasharray="36 10000"
-                          transform="rotate(-93 250 250)"/>
+                          stroke="rgba(255,255,255,0.14)" strokeWidth="1"
+                          strokeDasharray="4 11"/>
                 </svg>
 
                 {/* Center circle — text updated by JS */}
@@ -450,26 +468,30 @@ export default function Hero() {
           transition: background .40s, border-color .40s, box-shadow .40s, transform .40s;
         }
         .orbit-item.is-active .node-circle {
-          background: rgba(200,238,255,0.74);
-          border-color: rgba(255,255,255,0.92);
-          box-shadow: 0 0 0 4px rgba(255,255,255,0.20), 0 0 28px rgba(180,228,255,0.60);
-          transform: scale(1.16);
+          background: rgba(210,240,255,0.96);  /* fully opaque — hides ring behind */
+          border-color: rgba(255,255,255,0.95);
+          box-shadow: 0 0 0 5px rgba(255,255,255,0.22), 0 0 32px rgba(180,228,255,0.65);
+          transform: scale(1.18);
         }
         .orbit-item.is-dim .node-circle {
-          background: rgba(140,205,255,0.28);
+          background: rgba(140,205,255,0.32);
           border-color: rgba(220,240,255,0.36);
           opacity: 0.55;
         }
 
         /* ── Node label ── */
         .node-label {
-          font-size: 10.5px; line-height: 1.45;
+          font-size: 13px; line-height: 1.5;
+          font-weight: 500;
           text-align: center; white-space: nowrap;
-          color: rgba(255,255,255,0.88);
-          transition: opacity .40s, font-weight .40s;
+          color: rgba(255,255,255,0.90);
+          transition: opacity .40s, font-size .25s, font-weight .25s;
         }
-        .orbit-item.is-active .node-label { color: #fff; font-weight: 600; }
-        .orbit-item.is-dim    .node-label { opacity: 0.50; }
+        .orbit-item.is-active .node-label {
+          color: #fff; font-weight: 700; font-size: 13.5px;
+          text-shadow: 0 0 12px rgba(180,230,255,0.6);
+        }
+        .orbit-item.is-dim    .node-label { opacity: 0.45; font-size: 12px; }
       `}</style>
     </section>
   );
