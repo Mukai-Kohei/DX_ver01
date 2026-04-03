@@ -118,20 +118,15 @@ export default function Message() {
               </h2>
             </div>
 
-            <div className="space-y-4 text-text-sub leading-relaxed">
-              <p>
-                私たちは、テクノロジーの力で未来を創造します。
-                常に挑戦し続け、新しい価値を生み出すことで、
-                社会に貢献していきます。
+            <div className="space-y-5 leading-relaxed">
+              <p className="text-text-sub">
+                テクノロジーが加速度的に進化し、価値観が多様化する時代。
               </p>
-              <p>
-                お客様のビジネスを成功に導くため、
-                最新の技術と豊富な経験を活かし、
-                最適なソリューションを提供します。
+              <p className="text-text-sub">
+                私たちは、最先端の技術力と、領域を越えたプロフェッショナルの知見を繋ぐことで、この地の企業に新たな<strong className="text-text-main font-bold">「魅力」</strong>と<strong className="text-text-main font-bold">「未来を切り拓く力」</strong>を創造します。
               </p>
-              <p>
-                一人ひとりの「魅力」を大切にし、
-                チーム全体で成長し続ける企業文化を築いています。
+              <p className="text-text-main font-semibold border-l-4 border-primary pl-4" style={{ lineHeight: 1.8 }}>
+                「なんとかする」――その想いで、企業の成長を伴走型でサポートします。
               </p>
             </div>
 

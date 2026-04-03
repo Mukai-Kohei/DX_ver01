@@ -34,9 +34,9 @@ const icons: Record<string, React.ReactNode> = {
 const services = [
   {
     id: 1,
-    number: 'SERVICES_01',
-    title: 'Webアプリケーション開発',
-    description: 'モダンな技術スタックを活用した、高性能なWebアプリケーションを開発します。スケーラブルで保守性の高いシステムを提供します。',
+    number: 'SOLUTION_01',
+    title: 'DX推進ソリューション',
+    description: 'テクノロジーの導入により既存の業務プロセスをアップデートし、企業が次なる成長へ投資するための「リソース」と「余白」を創出します。',
     gradient: 'linear-gradient(135deg, #001847 0%, #0057B8 100%)',
     patternColor: 'rgba(0,160,233,0.15)',
     iconKey: 'web',
@@ -44,9 +44,9 @@ const services = [
   },
   {
     id: 2,
-    number: 'SERVICES_02',
-    title: 'システム開発・クラウド',
-    description: 'クラウドネイティブなインフラ設計・構築から運用まで一貫してサポート。最適な環境でビジネスの安定稼働を実現します。',
+    number: 'SOLUTION_02',
+    title: 'デジタルマーケティング支援',
+    description: '時代に即したデジタル接点（Web・SNS）の再構築を通じて顧客体験を最大化し、ビジネスの持続的な成長を伴走型でご支援します。',
     gradient: 'linear-gradient(135deg, #001a2e 0%, #0369a1 100%)',
     patternColor: 'rgba(14,165,233,0.2)',
     iconKey: 'infra',
@@ -54,9 +54,9 @@ const services = [
   },
   {
     id: 3,
-    number: 'SERVICES_03',
-    title: 'DXコンサルティング',
-    description: 'デジタルトランスフォーメーションの戦略立案から実行まで伴走支援。業務効率化とビジネス変革を包括的にサポートします。',
+    number: 'SOLUTION_03',
+    title: 'リレーションシップ構築',
+    description: '多様な経験や専門性を持つプロフェッショナルとの強固なパイプラインを築き、人と人の結びつきから新たな化学反応を生み出します。',
     gradient: 'linear-gradient(135deg, #020E28 0%, #003D82 100%)',
     patternColor: 'rgba(99,102,241,0.18)',
     iconKey: 'support',
@@ -128,10 +128,10 @@ export default function Service() {
         {/* Header */}
         <div ref={titleRef} className="container-custom text-center mb-12 md:mb-16 space-y-4">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-main">
-            サービス内容
+            ソリューション
           </h2>
-          <p className="font-en text-sm text-text-sub tracking-wider">
-            &lt;SOLUTION&gt; 私たちが提供するソリューション
+          <p className="text-sm text-text-sub tracking-wider">
+            私たちが提供する3つのフィールド
           </p>
         </div>
 

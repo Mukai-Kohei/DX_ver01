@@ -269,14 +269,14 @@ export default function Hero() {
             {/* Left: Catch Copy */}
             <div ref={catchCopyRef} className="text-center md:text-left">
               <h1 className="font-en font-bold text-white">
-                <div className="catch-line opacity-0 text-3xl md:text-4xl lg:text-5xl mb-2" style={{ letterSpacing: '0.04em' }}>
-                  What the future
+                <div className="catch-line opacity-0 text-2xl md:text-3xl lg:text-4xl mb-2" style={{ letterSpacing: '0.03em' }}>
+                  What the regional
                 </div>
-                <div className="catch-line opacity-0 text-3xl md:text-4xl lg:text-5xl mb-2" style={{ letterSpacing: '0.04em' }}>
-                  of IT needs is
+                <div className="catch-line opacity-0 text-2xl md:text-3xl lg:text-4xl mb-2" style={{ letterSpacing: '0.03em' }}>
+                  business needs is
                 </div>
                 <div
-                  className="catch-line opacity-0 text-4xl md:text-5xl lg:text-6xl"
+                  className="catch-line opacity-0 text-3xl md:text-4xl lg:text-5xl"
                   style={{
                     background: 'linear-gradient(90deg, #ffffff 0%, #7EC8F0 50%, #ffffff 100%)',
                     WebkitBackgroundClip: 'text',
@@ -285,15 +285,15 @@ export default function Hero() {
                     letterSpacing: '0.02em',
                   }}
                 >
-                  &quot;charm.&quot;
+                  &quot;cross-pollination.&quot;
                 </div>
               </h1>
               <p
-                className="catch-line opacity-0 mt-6 text-sm md:text-base leading-relaxed mx-auto md:mx-0 max-w-xs"
-                style={{ color: 'rgba(255,255,255,0.70)' }}
+                className="catch-line opacity-0 mt-6 text-sm md:text-base leading-relaxed mx-auto md:mx-0 max-w-sm"
+                style={{ color: 'rgba(255,255,255,0.72)' }}
               >
-                デジタルトランスフォーメーションで<br className="hidden md:block" />
-                お客様のビジネスに新たな価値を。
+                これからのビジネスに必要なのは、<br className="hidden md:block" />
+                知と人の「交わり」です。
               </p>
             </div>
 
@@ -360,7 +360,7 @@ export default function Hero() {
                       <div className="node-circle">
                         <WebIcon />
                       </div>
-                      <span className="node-label">Webアプリ開発</span>
+                      <span className="node-label">DX推進<br />ソリューション</span>
                     </div>
                   </div>
 
@@ -373,7 +373,7 @@ export default function Hero() {
                       <div className="node-circle">
                         <ServerIcon />
                       </div>
-                      <span className="node-label">システム開発<br />・クラウド</span>
+                      <span className="node-label">デジタル<br />マーケティング</span>
                     </div>
                   </div>
 
@@ -386,7 +386,7 @@ export default function Hero() {
                       <div className="node-circle">
                         <GearIcon />
                       </div>
-                      <span className="node-label">DX<br />コンサルティング</span>
+                      <span className="node-label">リレーション<br />シップ構築</span>
                     </div>
                   </div>
 

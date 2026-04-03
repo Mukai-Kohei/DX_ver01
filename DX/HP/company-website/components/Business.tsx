@@ -18,7 +18,7 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
               <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
             </svg>
           </div>
-          <span className="font-en text-xs font-bold tracking-widest text-indigo-200">SERVICE DESIGN</span>
+          <span className="font-en text-xs font-bold tracking-widest text-indigo-200">DX SOLUTION</span>
         </div>
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(99,102,241,0.3) 0%, transparent 60%)' }} />
       </div>
@@ -36,7 +36,7 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
               <line x1="12" y1="17" x2="12" y2="21"/>
             </svg>
           </div>
-          <span className="font-en text-xs font-bold tracking-widest text-sky-300">SYSTEM DEV</span>
+          <span className="font-en text-xs font-bold tracking-widest text-sky-300">DIGITAL MARKETING</span>
         </div>
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(0,160,233,0.2) 0%, transparent 60%)' }} />
       </div>
@@ -51,7 +51,7 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
           </svg>
         </div>
-        <span className="font-en text-xs font-bold tracking-widest text-emerald-300">CONSULTING</span>
+        <span className="font-en text-xs font-bold tracking-widest text-emerald-300">RELATIONSHIP</span>
       </div>
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(52,211,153,0.2) 0%, transparent 60%)' }} />
     </div>
@@ -110,13 +110,12 @@ export default function Business() {
             </div>
 
             <div className="space-y-4 text-text-sub leading-relaxed">
-              <p>
-                私たちは、幅広い事業領域でお客様の課題解決に貢献しています。
-                それぞれの分野で専門性を活かし、最高のサービスを提供します。
+              <p className="text-text-main font-semibold text-lg">
+                私たちが挑み続けるフィールド――
               </p>
               <p>
-                サービスデザイン、システム開発、コンサルティング、クラウドソリューションなど、
-                多岐にわたる事業でお客様のビジネスを支援します。
+                DX推進による業務変革、デジタルマーケティングによる顧客体験の最大化、そして多様な才能が交わるリレーションシップの構築。
+                この3つのフィールドで、地域企業の成長と未来を共に創ります。
               </p>
             </div>
 
