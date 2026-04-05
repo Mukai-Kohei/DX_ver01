@@ -16,7 +16,7 @@ export default function DigitalMarketingPage() {
     >
       {/* ── ナビバー ── */}
       <nav style={{ background: '#1e293b', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6" style={{ height: 52, display: 'flex', alignItems: 'center' }}>
+        <div style={{ maxWidth: 1024, margin: '0 auto', padding: '0 24px', height: 52, display: 'flex', alignItems: 'center' }}>
           <Link
             href="/"
             style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#94a3b8', textDecoration: 'none' }}
@@ -29,7 +29,7 @@ export default function DigitalMarketingPage() {
 
       {/* ── ページヘッダー ── */}
       <header style={{ background: '#1e293b', color: '#fff' }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6" style={{ paddingTop: 32, paddingBottom: 32 }}>
+        <div style={{ maxWidth: 1024, margin: '0 auto', padding: '32px 24px' }}>
           <h1 style={{ fontSize: 'clamp(20px, 4vw, 30px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
             マーケティングDX
           </h1>
@@ -41,7 +41,7 @@ export default function DigitalMarketingPage() {
       </header>
 
       {/* ── ページ本体 ── */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6" style={{ paddingTop: 32, paddingBottom: 48 }}>
+      <div style={{ maxWidth: 1024, margin: '0 auto', padding: '32px 24px 48px' }}>
 
         {/* ── As-Is ── */}
         <section style={{ marginBottom: 28 }}>
