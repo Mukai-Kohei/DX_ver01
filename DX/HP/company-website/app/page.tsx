@@ -6,7 +6,6 @@ import Header from '@/components/Header';
 import Loading from '@/components/Loading';
 import Hero from '@/components/Hero';
 import Business from '@/components/Business';
-import Service from '@/components/Service';
 import Company from '@/components/Company';
 import ContactCTA from '@/components/ContactCTA';
 import Footer from '@/components/Footer';
@@ -37,7 +36,6 @@ export default function Home() {
       <main>
         <Hero />
         <Business />
-        <Service />
         <Company />
         <ContactCTA />
       </main>
