@@ -12,10 +12,13 @@ export default function DigitalMarketingPage() {
         minHeight: '100vh',
         background: '#f3f4f6',
         fontFamily: "'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
       }}
     >
       {/* ── 全コンテンツを一つのセンタリングコンテナで包む ── */}
-      <div style={{ maxWidth: 1024, margin: '0 auto', padding: '24px 24px 48px' }}>
+      <div style={{ width: '100%', maxWidth: 1024, padding: '24px 24px 48px', boxSizing: 'border-box' }}>
 
         {/* ── ナビバー ── */}
         <nav style={{ marginBottom: 16 }}>
