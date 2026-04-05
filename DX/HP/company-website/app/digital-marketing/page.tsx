@@ -3,7 +3,7 @@
 import Link from 'next/link';
 
 /* ────────────────────────────────────────────────────────────
-   屋内ゴルフ事業 マーケティングDX
+   マーケティングDX ページ
 ──────────────────────────────────────────────────────────── */
 export default function DigitalMarketingPage() {
   return (
@@ -16,7 +16,7 @@ export default function DigitalMarketingPage() {
     >
       {/* ── ナビ ── */}
       <nav className="sticky top-0 z-20 bg-white/90 backdrop-blur-sm border-b border-slate-200">
-        <div className="max-w-5xl mx-auto px-4 md:px-8 h-14 flex items-center">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
@@ -27,22 +27,22 @@ export default function DigitalMarketingPage() {
         </div>
       </nav>
 
-      <div className="max-w-5xl mx-auto px-4 md:px-8 py-8 md:py-12 space-y-8 md:space-y-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
 
         {/* ── ページタイトル ── */}
         <header className="bg-white rounded-2xl shadow-sm overflow-hidden">
           <div className="h-1.5 w-full" style={{ background: 'linear-gradient(90deg, #0057B8, #10b981)' }} />
-          <div className="p-6 md:p-8">
+          <div className="p-5 sm:p-7">
             <span
               className="inline-block text-xs font-bold tracking-widest mb-3 px-3 py-1 rounded-full"
               style={{ background: '#ecfdf5', color: '#059669' }}
             >
               SOLUTION_02 ／ デジタルマーケティング支援
             </span>
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 mb-2 leading-snug">
-              屋内ゴルフ事業のマーケティングDX
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2 leading-snug">
+              マーケティングDX
             </h1>
-            <p className="text-sm md:text-base text-slate-500 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-500 leading-relaxed">
               MA（マーケティングオートメーション）× LINE活用による<br className="hidden sm:block" />
               「集客・育成・ファン化」の自動仕組み化
             </p>
@@ -56,43 +56,41 @@ export default function DigitalMarketingPage() {
             現状の課題：集客のバラつきと追客漏れによる機会損失
           </h2>
 
+          {/* mobile: stack / lg+: 3-col grid */}
           <div
-            className="rounded-2xl p-4 md:p-6 space-y-3 md:space-y-0 md:grid md:grid-cols-3 md:gap-4"
+            className="rounded-2xl p-4 sm:p-5"
             style={{ background: '#fff5f5', border: '1px solid #fecaca' }}
           >
-            <IssueCard
-              icon={<MegaphoneIcon color="#dc2626" />}
-              title="認知・集客"
-              badge="単発の広告・宣伝"
-              badgeColor="red"
-              body="チラシやSNSで発信しても、興味を持った人を「顧客データ」として蓄積できていない。"
-            />
-            <MobileDownArrow />
-            <IssueCard
-              icon={<UserMinusIcon color="#dc2626" />}
-              title="リード育成（追客）"
-              badge="待ちの姿勢・アナログ"
-              badgeColor="red"
-              body="体験会に来た人へのフォローが手動。継続的なアプローチができず、熱が冷めてしまう。"
-              arrow
-            />
-            <MobileDownArrow />
-            <IssueCard
-              icon={<FrownIcon color="#dc2626" />}
-              title="会員化・リピート"
-              badge="入会率・定着率の低迷"
-              badgeColor="red"
-              body="新規顧客が定着せず、常に「新規獲得」に走り続けなければならない悪循環。"
-              bodyBold
-              arrow
-            />
+            <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-5 gap-3">
+              <IssueCard
+                icon={<MegaphoneIcon color="#dc2626" />}
+                title="認知・集客"
+                badge="単発の広告・宣伝"
+                body="チラシやSNSで発信しても、興味を持った人を「顧客データ」として蓄積できていない。"
+              />
+              <ArrowConnector color="#dc2626" />
+              <IssueCard
+                icon={<UserMinusIcon color="#dc2626" />}
+                title="リード育成（追客）"
+                badge="待ちの姿勢・アナログ"
+                body="体験会に来た人へのフォローが手動。継続的なアプローチができず、熱が冷めてしまう。"
+              />
+              <ArrowConnector color="#dc2626" />
+              <IssueCard
+                icon={<FrownIcon color="#dc2626" />}
+                title="会員化・リピート"
+                badge="入会率・定着率の低迷"
+                body="新規顧客が定着せず、常に「新規獲得」に走り続けなければならない悪循環。"
+                bodyBold
+              />
+            </div>
           </div>
         </section>
 
         {/* ── 変革バナー ── */}
         <div className="flex flex-col items-center gap-2">
           <div
-            className="w-full sm:w-auto text-center text-white font-bold py-3 px-6 rounded-xl shadow-md flex items-center justify-center gap-2 flex-wrap text-sm md:text-base"
+            className="w-full sm:w-auto text-center text-white font-bold py-3 px-6 rounded-xl shadow-md flex items-center justify-center gap-2 flex-wrap text-sm sm:text-base"
             style={{ background: 'linear-gradient(135deg,#059669,#047857)' }}
           >
             <SparklesIcon />
@@ -109,67 +107,40 @@ export default function DigitalMarketingPage() {
           </h2>
 
           <div
-            className="rounded-2xl p-4 md:p-6 space-y-3 md:space-y-0 md:grid md:grid-cols-3 md:gap-4 md:items-stretch"
+            className="rounded-2xl p-4 sm:p-5"
             style={{ background: '#f0fdf4', border: '1px solid #a7f3d0' }}
           >
-            {/* LINE登録 */}
-            <SolutionCard
-              icon={<QrCodeIcon />}
-              title="LINE友だち登録"
-              badge="顧客リストの自動蓄積"
-              body="SNSや店舗QRからLINEへ。登録と同時にアンケート（ゴルフ歴・悩み）を自動回収。"
-            />
+            <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-5 gap-3">
+              {/* LINE登録 */}
+              <SolutionCard
+                icon={<QrCodeIcon />}
+                title="LINE友だち登録"
+                badge="顧客リストの自動蓄積"
+                body="SNSや店舗QRからLINEへ。登録と同時にアンケート（ゴルフ歴・悩み）を自動回収。"
+              />
 
-            {/* モバイル矢印 */}
-            <MobileDownArrow green />
+              <ArrowConnector color="#059669" green />
 
-            {/* ステップ配信 — 強調カード */}
-            <div
-              className="relative rounded-xl p-5 flex flex-col items-center text-center text-white shadow-lg"
-              style={{ background: 'linear-gradient(145deg,#059669,#047857)' }}
-            >
-              <DesktopArrow />
-              <BotIcon />
-              <h3 className="font-bold text-lg mb-2">ステップ配信（MA）</h3>
-              <div
-                className="text-xs font-bold py-1.5 px-3 rounded mb-4 w-full"
-                style={{ background: 'rgba(0,0,0,0.2)' }}
-              >
-                シナリオ別の自動教育
-              </div>
-              <ul className="text-sm text-left w-full space-y-2" style={{ color: '#d1fae5' }}>
-                {[
-                  '1日目：歓迎動画とクーポン配布',
-                  '3日目：最新シミュレーターの凄さ',
-                  '7日目：会員限定の体験会招待',
-                ].map((s) => (
-                  <li key={s} className="flex items-start gap-2">
-                    <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-white" style={{ background: 'rgba(255,255,255,0.25)', fontSize: 9 }}>✓</span>
-                    {s}
-                  </li>
-                ))}
-                <li className="text-xs opacity-60 pl-6">※未開封者には別ルートで再送</li>
-              </ul>
+              {/* ステップ配信 — 強調カード */}
+              <StepCard />
+
+              <ArrowConnector color="#059669" green />
+
+              {/* 高LTV会員 */}
+              <SolutionCard
+                icon={<TrophyIcon />}
+                title="高LTV会員の創出"
+                badge="ストック型収益の安定"
+                badgeCheck
+                body="自動ナーチャリングにより「通う理由」が醸成され、高い入会率と継続率を実現。"
+              />
             </div>
-
-            {/* モバイル矢印 */}
-            <MobileDownArrow green />
-
-            {/* 高LTV会員 */}
-            <SolutionCard
-              icon={<TrophyIcon />}
-              title="高LTV会員の創出"
-              badge="ストック型収益の安定"
-              badgeCheck
-              body="自動ナーチャリングにより「通う理由」が醸成され、高い入会率と継続率を実現。"
-              arrow
-            />
           </div>
         </section>
 
         {/* ── 効果まとめ ── */}
         <section
-          className="rounded-2xl p-5 md:p-6 text-white"
+          className="rounded-2xl p-5 sm:p-6 text-white"
           style={{ background: 'linear-gradient(135deg,#1e293b,#0f172a)' }}
         >
           <div className="flex items-center gap-2 font-bold text-base mb-4">
@@ -220,7 +191,7 @@ function SectionLabel({ color, text }: { color: string; text: string }) {
   return (
     <div className="flex items-center gap-3 mb-3">
       <span
-        className="text-white text-sm font-bold py-0.5 px-4 rounded-full"
+        className="text-white text-sm font-bold py-0.5 px-4 rounded-full flex-shrink-0"
         style={{ background: color }}
       >
         {text}
@@ -230,17 +201,32 @@ function SectionLabel({ color, text }: { color: string; text: string }) {
   );
 }
 
-function MobileDownArrow({ green = false }: { green?: boolean }) {
+/** Mobile: down arrow / Desktop (lg+): right arrow — sits between grid children */
+function ArrowConnector({ color, green = false }: { color: string; green?: boolean }) {
   return (
-    <div className="flex justify-center md:hidden">
-      <div style={{
-        width: 0, height: 0,
-        borderLeft: '10px solid transparent',
-        borderRight: '10px solid transparent',
-        borderTop: `14px solid ${green ? '#059669' : '#dc2626'}`,
-        opacity: 0.4,
-      }} />
-    </div>
+    <>
+      {/* mobile: ↓ */}
+      <div className="flex justify-center lg:hidden">
+        <div style={{
+          width: 0, height: 0,
+          borderLeft: '10px solid transparent',
+          borderRight: '10px solid transparent',
+          borderTop: `14px solid ${color}`,
+          opacity: 0.45,
+        }} />
+      </div>
+      {/* desktop: → inside auto-flow grid — invisible spacer with centered chevron */}
+      <div className="hidden lg:flex items-center justify-center">
+        <div
+          className="w-9 h-9 rounded-full flex items-center justify-center shadow-sm"
+          style={{ background: green ? '#d1fae5' : '#fee2e2' }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -255,41 +241,20 @@ function DownArrow({ color }: { color: string }) {
   );
 }
 
-/* Desktop right-arrow connector (absolute, only on md+) */
-function DesktopArrow() {
-  return (
-    <div className="hidden md:flex absolute top-1/2 -left-5 -translate-y-1/2 z-10 items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
-    </div>
-  );
-}
-
 /* ────────────── Card components ────────────── */
 
 function IssueCard({
-  icon, title, badge, badgeColor, body, bodyBold = false, arrow = false,
+  icon, title, badge, body, bodyBold = false,
 }: {
-  icon: React.ReactNode; title: string; badge: string;
-  badgeColor: 'red' | 'green'; body: string; bodyBold?: boolean; arrow?: boolean;
+  icon: React.ReactNode; title: string; badge: string; body: string; bodyBold?: boolean;
 }) {
   return (
-    <div className="bg-white rounded-xl p-5 flex flex-col items-center text-center relative shadow-sm" style={{ border: '1px solid #fee2e2' }}>
-      {arrow && (
-        <div className="hidden md:flex absolute top-1/2 -left-3 -translate-y-1/2 w-6 h-6 rounded-full bg-white items-center justify-center shadow-sm z-10">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#dc2626" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 18 15 12 9 6"/>
-          </svg>
-        </div>
-      )}
+    <div className="bg-white rounded-xl p-5 flex flex-col items-center text-center shadow-sm" style={{ border: '1px solid #fee2e2' }}>
       <div className="mb-3">{icon}</div>
       <h3 className="font-bold text-base mb-2 text-slate-800">{title}</h3>
       <span
         className="text-xs font-bold py-1.5 px-3 rounded-full mb-3 w-full block"
-        style={badgeColor === 'red'
-          ? { background: '#fee2e2', color: '#991b1b' }
-          : { background: '#d1fae5', color: '#065f46' }}
+        style={{ background: '#fee2e2', color: '#991b1b' }}
       >
         {badge}
       </span>
@@ -301,14 +266,12 @@ function IssueCard({
 }
 
 function SolutionCard({
-  icon, title, badge, badgeCheck = false, body, arrow = false,
+  icon, title, badge, badgeCheck = false, body,
 }: {
-  icon: React.ReactNode; title: string; badge: string;
-  badgeCheck?: boolean; body: string; arrow?: boolean;
+  icon: React.ReactNode; title: string; badge: string; badgeCheck?: boolean; body: string;
 }) {
   return (
-    <div className="bg-white rounded-xl p-5 flex flex-col items-center text-center relative shadow-sm" style={{ border: '2px solid #a7f3d0' }}>
-      {arrow && <DesktopArrow />}
+    <div className="bg-white rounded-xl p-5 flex flex-col items-center text-center shadow-sm" style={{ border: '2px solid #a7f3d0' }}>
       <div className="mb-3">{icon}</div>
       <h3 className="font-bold text-base mb-2 text-slate-800">{title}</h3>
       <span
@@ -323,6 +286,37 @@ function SolutionCard({
         {badge}
       </span>
       <p className="text-sm text-slate-600 leading-relaxed">{body}</p>
+    </div>
+  );
+}
+
+function StepCard() {
+  return (
+    <div
+      className="rounded-xl p-5 flex flex-col items-center text-center text-white shadow-lg"
+      style={{ background: 'linear-gradient(145deg,#059669,#047857)' }}
+    >
+      <BotIcon />
+      <h3 className="font-bold text-lg mb-2">ステップ配信（MA）</h3>
+      <div
+        className="text-xs font-bold py-1.5 px-3 rounded mb-4 w-full"
+        style={{ background: 'rgba(0,0,0,0.2)' }}
+      >
+        シナリオ別の自動教育
+      </div>
+      <ul className="text-sm text-left w-full space-y-2" style={{ color: '#d1fae5' }}>
+        {[
+          '1日目：歓迎動画とクーポン配布',
+          '3日目：最新シミュレーターの凄さ',
+          '7日目：会員限定の体験会招待',
+        ].map((s) => (
+          <li key={s} className="flex items-start gap-2">
+            <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-white" style={{ background: 'rgba(255,255,255,0.25)', fontSize: 9 }}>✓</span>
+            {s}
+          </li>
+        ))}
+        <li className="text-xs opacity-60 pl-6">※未開封者には別ルートで再送</li>
+      </ul>
     </div>
   );
 }
