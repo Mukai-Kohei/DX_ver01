@@ -8,18 +8,18 @@ import Link from 'next/link';
 export default function DigitalMarketingPage() {
   return (
     <div
-      className="min-h-screen"
       style={{
-        background: 'linear-gradient(160deg, #f0f4f8 0%, #e8eef5 100%)',
+        minHeight: '100vh',
+        background: '#f3f4f6',
         fontFamily: "'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif",
       }}
     >
-      {/* ── ナビ ── */}
-      <nav className="sticky top-0 z-20 bg-white/90 backdrop-blur-sm border-b border-slate-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center">
+      {/* ── ナビバー ── */}
+      <nav style={{ background: '#1e293b', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6" style={{ height: 52, display: 'flex', alignItems: 'center' }}>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#94a3b8', textDecoration: 'none' }}
           >
             <ChevronLeft />
             トップページに戻る
@@ -27,106 +27,93 @@ export default function DigitalMarketingPage() {
         </div>
       </nav>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
+      {/* ── ページヘッダー ── */}
+      <header style={{ background: '#1e293b', color: '#fff' }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6" style={{ paddingTop: 32, paddingBottom: 32 }}>
+          <h1 style={{ fontSize: 'clamp(20px, 4vw, 30px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
+            マーケティングDX
+          </h1>
+          <p style={{ fontSize: 'clamp(12px, 2vw, 14px)', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
+            MA（マーケティングオートメーション）× LINE活用による「集客・育成・ファン化」の自動仕組み化
+          </p>
+        </div>
+        <div style={{ height: 4, background: 'linear-gradient(90deg, #0057B8, #10b981)' }} />
+      </header>
 
-        {/* ── ページタイトル ── */}
-        <header className="bg-white rounded-2xl shadow-sm overflow-hidden">
-          <div className="h-1.5 w-full" style={{ background: 'linear-gradient(90deg, #0057B8, #10b981)' }} />
-          <div className="p-5 sm:p-7">
-            <span
-              className="inline-block text-xs font-bold tracking-widest mb-3 px-3 py-1 rounded-full"
-              style={{ background: '#ecfdf5', color: '#059669' }}
-            >
-              SOLUTION_02 ／ デジタルマーケティング支援
-            </span>
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2 leading-snug">
-              マーケティングDX
-            </h1>
-            <p className="text-sm sm:text-base text-slate-500 leading-relaxed">
-              MA（マーケティングオートメーション）× LINE活用による<br className="hidden sm:block" />
-              「集客・育成・ファン化」の自動仕組み化
-            </p>
-          </div>
-        </header>
+      {/* ── ページ本体 ── */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6" style={{ paddingTop: 32, paddingBottom: 48 }}>
 
         {/* ── As-Is ── */}
-        <section>
-          <SectionLabel color="#dc2626" text="As-Is" />
-          <h2 className="text-base sm:text-lg font-bold text-slate-700 mb-4">
-            現状の課題：集客のバラつきと追客漏れによる機会損失
-          </h2>
-
-          {/* mobile: stack / lg+: 3-col grid */}
-          <div
-            className="rounded-2xl p-4 sm:p-5"
-            style={{ background: '#fff5f5', border: '1px solid #fecaca' }}
-          >
-            <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-5 gap-3">
+        <section style={{ marginBottom: 28 }}>
+          <SectionLabel color="#dc2626" text="As-Is" label="現状の課題：集客のバラつきと追客漏れによる機会損失" />
+          <div style={{ background: '#fff1f2', border: '1px solid #fecaca', borderRadius: 16, padding: 20 }}>
+            <CardRow>
               <IssueCard
-                icon={<MegaphoneIcon color="#dc2626" />}
+                icon={<MegaphoneIcon />}
                 title="認知・集客"
                 badge="単発の広告・宣伝"
                 body="チラシやSNSで発信しても、興味を持った人を「顧客データ」として蓄積できていない。"
               />
-              <ArrowConnector color="#dc2626" />
+              <Arrow color="#ef4444" />
               <IssueCard
-                icon={<UserMinusIcon color="#dc2626" />}
+                icon={<UserMinusIcon />}
                 title="リード育成（追客）"
                 badge="待ちの姿勢・アナログ"
                 body="体験会に来た人へのフォローが手動。継続的なアプローチができず、熱が冷めてしまう。"
               />
-              <ArrowConnector color="#dc2626" />
+              <Arrow color="#ef4444" />
               <IssueCard
-                icon={<FrownIcon color="#dc2626" />}
+                icon={<FrownIcon />}
                 title="会員化・リピート"
                 badge="入会率・定着率の低迷"
                 body="新規顧客が定着せず、常に「新規獲得」に走り続けなければならない悪循環。"
                 bodyBold
               />
-            </div>
+            </CardRow>
           </div>
         </section>
 
         {/* ── 変革バナー ── */}
-        <div className="flex flex-col items-center gap-2">
-          <div
-            className="w-full sm:w-auto text-center text-white font-bold py-3 px-6 rounded-xl shadow-md flex items-center justify-center gap-2 flex-wrap text-sm sm:text-base"
-            style={{ background: 'linear-gradient(135deg,#059669,#047857)' }}
-          >
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, marginBottom: 28 }}>
+          <div style={{
+            background: 'linear-gradient(135deg,#059669,#047857)',
+            color: '#fff',
+            fontWeight: 700,
+            padding: '12px 28px',
+            borderRadius: 40,
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            fontSize: 'clamp(13px, 2.5vw, 15px)',
+            boxShadow: '0 4px 12px rgba(5,150,105,0.35)',
+            textAlign: 'center',
+          }}>
             <SparklesIcon />
             MA × LINEステップ配信による自動ナーチャリング
           </div>
-          <DownArrow color="#059669" />
+          <div style={{
+            width: 0, height: 0,
+            borderLeft: '14px solid transparent',
+            borderRight: '14px solid transparent',
+            borderTop: '18px solid #059669',
+          }} />
         </div>
 
         {/* ── To-Be ── */}
-        <section>
-          <SectionLabel color="#059669" text="To-Be" />
-          <h2 className="text-base sm:text-lg font-bold text-slate-700 mb-4">
-            DX化後の姿：自動で「ファン」が育ち、会員が増え続ける仕組み
-          </h2>
-
-          <div
-            className="rounded-2xl p-4 sm:p-5"
-            style={{ background: '#f0fdf4', border: '1px solid #a7f3d0' }}
-          >
-            <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-5 gap-3">
-              {/* LINE登録 */}
+        <section style={{ marginBottom: 28 }}>
+          <SectionLabel color="#059669" text="To-Be" label="DX化後の姿：自動で「ファン」が育ち、会員が増え続ける仕組み" />
+          <div style={{ background: '#f0fdf4', border: '1px solid #a7f3d0', borderRadius: 16, padding: 20 }}>
+            <CardRow>
               <SolutionCard
                 icon={<QrCodeIcon />}
                 title="LINE友だち登録"
                 badge="顧客リストの自動蓄積"
+                badgeCheck
                 body="SNSや店舗QRからLINEへ。登録と同時にアンケート（ゴルフ歴・悩み）を自動回収。"
               />
-
-              <ArrowConnector color="#059669" green />
-
-              {/* ステップ配信 — 強調カード */}
+              <Arrow color="#059669" green />
               <StepCard />
-
-              <ArrowConnector color="#059669" green />
-
-              {/* 高LTV会員 */}
+              <Arrow color="#059669" green />
               <SolutionCard
                 icon={<TrophyIcon />}
                 title="高LTV会員の創出"
@@ -134,20 +121,24 @@ export default function DigitalMarketingPage() {
                 badgeCheck
                 body="自動ナーチャリングにより「通う理由」が醸成され、高い入会率と継続率を実現。"
               />
-            </div>
+            </CardRow>
           </div>
         </section>
 
         {/* ── 効果まとめ ── */}
         <section
-          className="rounded-2xl p-5 sm:p-6 text-white"
-          style={{ background: 'linear-gradient(135deg,#1e293b,#0f172a)' }}
+          style={{
+            background: 'linear-gradient(135deg,#1e293b,#0f172a)',
+            borderRadius: 16,
+            padding: '20px 24px',
+            color: '#fff',
+          }}
         >
-          <div className="flex items-center gap-2 font-bold text-base mb-4">
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, fontSize: 15, marginBottom: 16 }}>
             <TargetIcon />
             導入により期待される効果
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="effects-grid">
             {[
               { label: '追客漏れ', value: 'ゼロへ', color: '#6ee7b7' },
               { label: '体験→入会率', value: '1.5倍〜', color: '#6ee7b7' },
@@ -155,89 +146,141 @@ export default function DigitalMarketingPage() {
             ].map(({ label, value, color }) => (
               <div
                 key={label}
-                className="rounded-xl p-4 text-center"
-                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+                style={{
+                  background: 'rgba(255,255,255,0.07)',
+                  border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: 12,
+                  padding: '14px 12px',
+                  textAlign: 'center',
+                }}
               >
-                <p className="text-xs text-slate-400 mb-1">{label}</p>
-                <p className="text-xl font-bold" style={{ color }}>{value}</p>
+                <p style={{ fontSize: 12, color: '#94a3b8', marginBottom: 4 }}>{label}</p>
+                <p style={{ fontSize: 20, fontWeight: 700, color, margin: 0 }}>{value}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* ── フッターCTA ── */}
-        <div className="text-center pb-4">
-          <p className="text-sm text-slate-500 mb-4">
+        {/* ── CTA ── */}
+        <div style={{ textAlign: 'center', marginTop: 32 }}>
+          <p style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
             この仕組みを貴社でも導入してみませんか？
           </p>
           <Link
             href="/#contact"
-            className="inline-flex items-center gap-2 text-white font-bold py-3 px-8 rounded-full shadow-md transition-transform hover:scale-105"
-            style={{ background: '#0057B8' }}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: '#0057B8',
+              color: '#fff',
+              fontWeight: 700,
+              padding: '12px 32px',
+              borderRadius: 40,
+              textDecoration: 'none',
+              fontSize: 14,
+              boxShadow: '0 4px 12px rgba(0,87,184,0.35)',
+            }}
           >
             お問い合わせはこちら
             <ChevronRight />
           </Link>
         </div>
-
       </div>
+
+      {/* ── responsive styles ── */}
+      <style>{`
+        .card-row {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .card-row > .card-item {
+          width: 100%;
+        }
+        .card-row > .arrow-h { display: none; }
+        .card-row > .arrow-v { display: flex; }
+        .effects-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        @media (min-width: 640px) {
+          .effects-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+        @media (min-width: 900px) {
+          .card-row {
+            flex-direction: row;
+            align-items: stretch;
+          }
+          .card-row > .card-item {
+            flex: 1;
+          }
+          .card-row > .arrow-h { display: flex; }
+          .card-row > .arrow-v { display: none; }
+        }
+      `}</style>
     </div>
   );
 }
 
 /* ────────────── Layout helpers ────────────── */
 
-function SectionLabel({ color, text }: { color: string; text: string }) {
+function SectionLabel({ color, text, label }: { color: string; text: string; label: string }) {
   return (
-    <div className="flex items-center gap-3 mb-3">
-      <span
-        className="text-white text-sm font-bold py-0.5 px-4 rounded-full flex-shrink-0"
-        style={{ background: color }}
-      >
+    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
+      <span style={{
+        background: color,
+        color: '#fff',
+        fontSize: 13,
+        fontWeight: 700,
+        padding: '3px 14px',
+        borderRadius: 20,
+        whiteSpace: 'nowrap',
+        flexShrink: 0,
+      }}>
         {text}
       </span>
-      <div className="flex-1 h-px" style={{ background: `${color}40` }} />
+      <span style={{ fontSize: 'clamp(13px, 2.5vw, 16px)', fontWeight: 700, color: '#334155' }}>
+        {label}
+      </span>
     </div>
   );
 }
 
-/** Mobile: down arrow / Desktop (lg+): right arrow — sits between grid children */
-function ArrowConnector({ color, green = false }: { color: string; green?: boolean }) {
+function CardRow({ children }: { children: React.ReactNode }) {
+  return <div className="card-row">{children}</div>;
+}
+
+function Arrow({ color, green = false }: { color: string; green?: boolean }) {
   return (
     <>
-      {/* mobile: ↓ */}
-      <div className="flex justify-center lg:hidden">
+      {/* horizontal arrow (desktop) */}
+      <div className="arrow-h" style={{ alignItems: 'center', justifyContent: 'center', flexShrink: 0, width: 36 }}>
+        <div style={{
+          width: 32, height: 32, borderRadius: '50%',
+          background: green ? '#d1fae5' : '#fee2e2',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </div>
+      </div>
+      {/* vertical arrow (mobile) */}
+      <div className="arrow-v" style={{ justifyContent: 'center' }}>
         <div style={{
           width: 0, height: 0,
           borderLeft: '10px solid transparent',
           borderRight: '10px solid transparent',
           borderTop: `14px solid ${color}`,
-          opacity: 0.45,
+          opacity: 0.5,
         }} />
       </div>
-      {/* desktop: → inside auto-flow grid — invisible spacer with centered chevron */}
-      <div className="hidden lg:flex items-center justify-center">
-        <div
-          className="w-9 h-9 rounded-full flex items-center justify-center shadow-sm"
-          style={{ background: green ? '#d1fae5' : '#fee2e2' }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="9 18 15 12 9 6"/>
-          </svg>
-        </div>
-      </div>
     </>
-  );
-}
-
-function DownArrow({ color }: { color: string }) {
-  return (
-    <div style={{
-      width: 0, height: 0,
-      borderLeft: '14px solid transparent',
-      borderRight: '14px solid transparent',
-      borderTop: `18px solid ${color}`,
-    }} />
   );
 }
 
@@ -249,16 +292,27 @@ function IssueCard({
   icon: React.ReactNode; title: string; badge: string; body: string; bodyBold?: boolean;
 }) {
   return (
-    <div className="bg-white rounded-xl p-5 flex flex-col items-center text-center shadow-sm" style={{ border: '1px solid #fee2e2' }}>
-      <div className="mb-3">{icon}</div>
-      <h3 className="font-bold text-base mb-2 text-slate-800">{title}</h3>
-      <span
-        className="text-xs font-bold py-1.5 px-3 rounded-full mb-3 w-full block"
-        style={{ background: '#fee2e2', color: '#991b1b' }}
-      >
+    <div className="card-item" style={{
+      background: '#fff',
+      border: '1px solid #fecaca',
+      borderRadius: 12,
+      padding: '20px 16px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+    }}>
+      <div style={{ marginBottom: 10 }}>{icon}</div>
+      <h3 style={{ fontSize: 15, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>{title}</h3>
+      <span style={{
+        display: 'block', width: '100%',
+        background: '#fee2e2', color: '#991b1b',
+        fontSize: 12, fontWeight: 700,
+        padding: '6px 12px', borderRadius: 20, marginBottom: 10,
+      }}>
         {badge}
       </span>
-      <p className={`text-sm leading-relaxed ${bodyBold ? 'font-semibold text-red-600' : 'text-slate-500'}`}>
+      <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0, color: bodyBold ? '#dc2626' : '#64748b', fontWeight: bodyBold ? 600 : 400 }}>
         {body}
       </p>
     </div>
@@ -271,51 +325,79 @@ function SolutionCard({
   icon: React.ReactNode; title: string; badge: string; badgeCheck?: boolean; body: string;
 }) {
   return (
-    <div className="bg-white rounded-xl p-5 flex flex-col items-center text-center shadow-sm" style={{ border: '2px solid #a7f3d0' }}>
-      <div className="mb-3">{icon}</div>
-      <h3 className="font-bold text-base mb-2 text-slate-800">{title}</h3>
-      <span
-        className="text-xs font-bold py-1.5 px-3 rounded-full mb-3 w-full flex items-center justify-center gap-1"
-        style={{ background: '#d1fae5', color: '#065f46' }}
-      >
-        {badgeCheck && (
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-        )}
+    <div className="card-item" style={{
+      background: '#fff',
+      border: '2px solid #a7f3d0',
+      borderRadius: 12,
+      padding: '20px 16px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+    }}>
+      <div style={{ marginBottom: 10 }}>{icon}</div>
+      <h3 style={{ fontSize: 15, fontWeight: 700, color: '#1e293b', marginBottom: 8 }}>{title}</h3>
+      <span style={{
+        display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', gap: 4,
+        background: '#d1fae5', color: '#065f46',
+        fontSize: 12, fontWeight: 700,
+        padding: '6px 12px', borderRadius: 20, marginBottom: 10,
+        boxSizing: 'border-box',
+      }}>
+        {badgeCheck && <CheckIcon />}
         {badge}
       </span>
-      <p className="text-sm text-slate-600 leading-relaxed">{body}</p>
+      <p style={{ fontSize: 13, lineHeight: 1.7, margin: 0, color: '#4b5563' }}>
+        {body}
+      </p>
     </div>
   );
 }
 
 function StepCard() {
   return (
-    <div
-      className="rounded-xl p-5 flex flex-col items-center text-center text-white shadow-lg"
-      style={{ background: 'linear-gradient(145deg,#059669,#047857)' }}
-    >
+    <div className="card-item" style={{
+      background: 'linear-gradient(145deg,#059669,#047857)',
+      borderRadius: 12,
+      padding: '20px 16px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center',
+      color: '#fff',
+    }}>
       <BotIcon />
-      <h3 className="font-bold text-lg mb-2">ステップ配信（MA）</h3>
-      <div
-        className="text-xs font-bold py-1.5 px-3 rounded mb-4 w-full"
-        style={{ background: 'rgba(0,0,0,0.2)' }}
-      >
+      <h3 style={{ fontSize: 17, fontWeight: 700, marginBottom: 8 }}>ステップ配信（MA）</h3>
+      <div style={{
+        background: 'rgba(0,0,0,0.2)',
+        borderRadius: 6,
+        padding: '6px 12px',
+        fontSize: 12,
+        fontWeight: 700,
+        width: '100%',
+        marginBottom: 14,
+        boxSizing: 'border-box',
+      }}>
         シナリオ別の自動教育
       </div>
-      <ul className="text-sm text-left w-full space-y-2" style={{ color: '#d1fae5' }}>
+      <ul style={{ listStyle: 'none', margin: 0, padding: 0, width: '100%', textAlign: 'left', color: '#d1fae5' }}>
         {[
           '1日目：歓迎動画とクーポン配布',
           '3日目：最新シミュレーターの凄さ',
           '7日目：会員限定の体験会招待',
         ].map((s) => (
-          <li key={s} className="flex items-start gap-2">
-            <span className="mt-0.5 flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-white" style={{ background: 'rgba(255,255,255,0.25)', fontSize: 9 }}>✓</span>
+          <li key={s} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 8, fontSize: 13 }}>
+            <span style={{
+              flexShrink: 0, width: 16, height: 16, marginTop: 1,
+              borderRadius: '50%',
+              background: 'rgba(255,255,255,0.25)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 9, color: '#fff',
+            }}>✓</span>
             {s}
           </li>
         ))}
-        <li className="text-xs opacity-60 pl-6">※未開封者には別ルートで再送</li>
+        <li style={{ fontSize: 11, opacity: 0.6, paddingLeft: 24 }}>※未開封者には別ルートで再送</li>
       </ul>
     </div>
   );
@@ -323,28 +405,28 @@ function StepCard() {
 
 /* ────────────── Icons ────────────── */
 
-const I = { width: 40, height: 40, viewBox: '0 0 24 24', fill: 'none', strokeWidth: 1.6, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+const S = { width: 36, height: 36, viewBox: '0 0 24 24', fill: 'none', strokeWidth: 1.5, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
 
-function MegaphoneIcon({ color }: { color: string }) {
-  return <svg {...I} stroke={color}><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>;
+function MegaphoneIcon() {
+  return <svg {...S} stroke="#ef4444"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>;
 }
-function UserMinusIcon({ color }: { color: string }) {
+function UserMinusIcon() {
   return (
-    <svg {...I} stroke={color}>
+    <svg {...S} stroke="#ef4444">
       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="22" y1="11" x2="16" y2="11"/>
     </svg>
   );
 }
-function FrownIcon({ color }: { color: string }) {
+function FrownIcon() {
   return (
-    <svg {...I} stroke={color}>
+    <svg {...S} stroke="#ef4444">
       <circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
     </svg>
   );
 }
 function QrCodeIcon() {
   return (
-    <svg {...I} stroke="#059669">
+    <svg {...S} stroke="#059669">
       <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
       <rect x="14" y="14" width="3" height="3"/><line x1="17" y1="17" x2="20" y2="17"/><line x1="20" y1="14" x2="20" y2="17"/>
     </svg>
@@ -352,7 +434,7 @@ function QrCodeIcon() {
 }
 function BotIcon() {
   return (
-    <svg {...I} stroke="#fde68a" className="mb-3">
+    <svg {...S} stroke="#fde68a" style={{ marginBottom: 10 }}>
       <rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/>
       <line x1="12" y1="7" x2="12" y2="11"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/>
     </svg>
@@ -360,37 +442,44 @@ function BotIcon() {
 }
 function TrophyIcon() {
   return (
-    <svg {...I} stroke="#059669">
+    <svg {...S} stroke="#059669">
       <polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="11"/>
       <path d="M7 4H4a2 2 0 0 0-2 2v2c0 4 3 7 7 7s7-3 7-7V6a2 2 0 0 0-2-2h-3"/>
       <rect x="7" y="2" width="10" height="4" rx="1"/>
     </svg>
   );
 }
+function CheckIcon() {
+  return (
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  );
+}
 function SparklesIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fde68a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fde68a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
       <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5z"/>
     </svg>
   );
 }
 function TargetIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
     </svg>
   );
 }
 function ChevronLeft() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="15 18 9 12 15 6"/>
     </svg>
   );
 }
 function ChevronRight() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="9 18 15 12 9 6"/>
     </svg>
   );
