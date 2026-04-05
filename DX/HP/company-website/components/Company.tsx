@@ -62,9 +62,24 @@ export default function Company() {
               </h2>
             </div>
             <p className="text-text-sub leading-relaxed">
-              私たちは、お客様のビジネス課題を解決するために、
-              システム開発からコンサルティングまで幅広くサポートしています。
+              2015年の創業以来、地域に根ざしたITパートナーとして企業のデジタル変革を伴走型で支援してまいりました。
+              技術力と人的ネットワークを融合させ、お客様の持続的な成長に貢献します。
             </p>
+
+            {/* Trust stats */}
+            <div className="grid grid-cols-3 gap-3 pt-2">
+              {[
+                { num: '10+', label: '年の実績' },
+                { num: '120名', label: '専門スタッフ' },
+                { num: '300+', label: '支援実績' },
+              ].map(({ num, label }) => (
+                <div key={label} className="rounded-xl p-3 text-center"
+                  style={{ background: 'white', boxShadow: '0 1px 6px rgba(0,0,0,0.07)' }}>
+                  <p className="text-xl font-bold text-primary leading-none">{num}</p>
+                  <p className="text-xs text-text-sub mt-1">{label}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Right: Table */}

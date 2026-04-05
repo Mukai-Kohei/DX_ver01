@@ -119,15 +119,18 @@ export default function Message() {
             </div>
 
             <div className="space-y-5 leading-relaxed">
-              <p className="text-text-sub">
-                テクノロジーが加速度的に進化し、価値観が多様化する時代。
+              <p className="text-text-sub text-base" style={{ lineHeight: 1.85 }}>
+                テクノロジーが加速度的に進化し、価値観が多様化する時代。変化への対応は、もはや一社単独では難しくなっています。
               </p>
-              <p className="text-text-sub">
-                私たちは、最先端の技術力と、領域を越えたプロフェッショナルの知見を繋ぐことで、この地の企業に新たな<strong className="text-text-main font-bold">「魅力」</strong>と<strong className="text-text-main font-bold">「未来を切り拓く力」</strong>を創造します。
+              <p className="text-text-sub text-base" style={{ lineHeight: 1.85 }}>
+                私たちは、最先端の技術力と領域を越えたプロフェッショナルの知見を繋ぐことで、この地の企業に新たな<strong className="text-text-main font-semibold">「魅力」</strong>と<strong className="text-text-main font-semibold">「未来を切り拓く力」</strong>を創造します。
               </p>
-              <p className="text-text-main font-semibold border-l-4 border-primary pl-4" style={{ lineHeight: 1.8 }}>
-                「なんとかする」――その想いで、企業の成長を伴走型でサポートします。
-              </p>
+              <div className="border-l-4 border-primary pl-4 py-1" style={{ borderLeftColor: '#0057B8' }}>
+                <p className="text-text-main font-semibold text-base" style={{ lineHeight: 1.8 }}>
+                  「なんとかする」――その想いで、<br className="hidden md:block"/>
+                  企業の成長を伴走型でサポートします。
+                </p>
+              </div>
             </div>
 
             <div className="pt-4">

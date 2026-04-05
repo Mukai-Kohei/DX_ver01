@@ -289,12 +289,30 @@ export default function Hero() {
                 </div>
               </h1>
               <p
-                className="catch-line opacity-0 mt-6 text-sm md:text-base leading-relaxed mx-auto md:mx-0 max-w-sm"
-                style={{ color: 'rgba(255,255,255,0.72)' }}
+                className="catch-line opacity-0 mt-5 text-sm md:text-base leading-relaxed mx-auto md:mx-0 max-w-sm"
+                style={{ color: 'rgba(255,255,255,0.75)' }}
               >
                 これからのビジネスに必要なのは、<br className="hidden md:block" />
                 知と人の「交わり」です。
               </p>
+
+              {/* Trust badge */}
+              <div
+                className="catch-line opacity-0 mt-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full"
+                style={{
+                  background: 'rgba(255,255,255,0.10)',
+                  border: '1px solid rgba(255,255,255,0.22)',
+                  backdropFilter: 'blur(8px)',
+                }}
+              >
+                <span style={{
+                  display: 'inline-block', width: 6, height: 6,
+                  borderRadius: '50%', background: '#7EC8F0', flexShrink: 0,
+                }} />
+                <span className="text-xs font-medium" style={{ color: 'rgba(255,255,255,0.85)', letterSpacing: '0.06em' }}>
+                  地域に根ざした、確かなITパートナー
+                </span>
+              </div>
             </div>
 
             {/* Right: Orbit Diagram */}
