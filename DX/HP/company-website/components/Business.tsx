@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
@@ -136,13 +137,25 @@ export default function Business() {
               <DesignPanel variant={1} />
             </div>
 
-            {/* Panel 2 */}
-            <div
-              className="business-image absolute top-[20%] right-0 w-[50%] h-[55%] rounded-xl overflow-hidden shadow-lg"
+            {/* Panel 2 — DIGITAL MARKETING (clickable) */}
+            <Link
+              href="/digital-marketing"
+              className="business-image absolute top-[20%] right-0 w-[50%] h-[55%] rounded-xl overflow-hidden shadow-lg block group"
               style={{ transform: 'rotate(-2deg)' }}
+              title="デジタルマーケティング支援の詳細を見る"
             >
               <DesignPanel variant={2} />
-            </div>
+              {/* Hover overlay */}
+              <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                style={{ background: 'linear-gradient(to top, rgba(3,105,161,0.85) 0%, transparent 55%)' }}>
+                <span className="text-white text-xs font-bold tracking-widest flex items-center gap-1">
+                  詳細を見る
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </span>
+              </div>
+            </Link>
 
             {/* Panel 3 */}
             <div
