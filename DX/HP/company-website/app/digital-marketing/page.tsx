@@ -14,34 +14,32 @@ export default function DigitalMarketingPage() {
         fontFamily: "'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif",
       }}
     >
-      {/* ── ナビバー ── */}
-      <nav style={{ background: '#1e293b', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-        <div style={{ maxWidth: 1024, margin: '0 auto', padding: '0 24px', height: 52, display: 'flex', alignItems: 'center' }}>
+      {/* ── 全コンテンツを一つのセンタリングコンテナで包む ── */}
+      <div style={{ maxWidth: 1024, margin: '0 auto', padding: '24px 24px 48px' }}>
+
+        {/* ── ナビバー ── */}
+        <nav style={{ marginBottom: 16 }}>
           <Link
             href="/"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#94a3b8', textDecoration: 'none' }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#64748b', textDecoration: 'none' }}
           >
             <ChevronLeft />
             トップページに戻る
           </Link>
-        </div>
-      </nav>
+        </nav>
 
-      {/* ── ページヘッダー ── */}
-      <header style={{ background: '#1e293b', color: '#fff' }}>
-        <div style={{ maxWidth: 1024, margin: '0 auto', padding: '32px 24px' }}>
-          <h1 style={{ fontSize: 'clamp(20px, 4vw, 30px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
-            マーケティングDX
-          </h1>
-          <p style={{ fontSize: 'clamp(12px, 2vw, 14px)', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
-            MA（マーケティングオートメーション）× LINE活用による「集客・育成・ファン化」の自動仕組み化
-          </p>
-        </div>
-        <div style={{ height: 4, background: 'linear-gradient(90deg, #0057B8, #10b981)' }} />
-      </header>
-
-      {/* ── ページ本体 ── */}
-      <div style={{ maxWidth: 1024, margin: '0 auto', padding: '32px 24px 48px' }}>
+        {/* ── ページヘッダー（丸角カード） ── */}
+        <header style={{ background: '#1e293b', color: '#fff', borderRadius: 16, overflow: 'hidden', marginBottom: 28 }}>
+          <div style={{ padding: '28px 28px 24px' }}>
+            <h1 style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
+              マーケティングDX
+            </h1>
+            <p style={{ fontSize: 'clamp(12px, 2vw, 14px)', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
+              MA（マーケティングオートメーション）× LINE活用による「集客・育成・ファン化」の自動仕組み化
+            </p>
+          </div>
+          <div style={{ height: 4, background: 'linear-gradient(90deg, #0057B8, #10b981)' }} />
+        </header>
 
         {/* ── As-Is ── */}
         <section style={{ marginBottom: 28 }}>
