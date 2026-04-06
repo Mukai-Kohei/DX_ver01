@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+// registerPlugin は page.tsx で一元管理
 
 export default function Hero() {
   const heroRef      = useRef<HTMLDivElement>(null);

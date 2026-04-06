@@ -3,9 +3,9 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+// registerPlugin は page.tsx で一元管理
 
 function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
   if (variant === 1) {

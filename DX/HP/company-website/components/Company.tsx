@@ -2,9 +2,9 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+// registerPlugin は page.tsx で一元管理
 
 const companyInfo = [
   { label: '会社名',     value: '株式会社COMPANY' },
