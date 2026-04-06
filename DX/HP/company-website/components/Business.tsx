@@ -81,11 +81,13 @@ export default function Business() {
       if (images && images.length > 0) {
         gsap.fromTo(
           images,
-          { opacity: 0, scale: 0.8, rotate: 0 },
+          { opacity: 0, scale: 0.85 },
           {
-            opacity: 1, scale: 1,
-            rotate: (index) => [3, -2, 4][index] || 0,
-            duration: 0.6, stagger: 0.2, ease: 'power2.out',
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            stagger: 0.2,
+            ease: 'power2.out',
             scrollTrigger: { trigger: imagesRef.current, start: 'top 80%', once: true },
           }
         );
