@@ -54,25 +54,23 @@ export default function ContactCTA() {
         </div>
 
         {/* ── CTA Cards ── */}
+        <style>{`
+          .cta-card {
+            background: rgba(255,255,255,0.10);
+            border: 1px solid rgba(255,255,255,0.18);
+            transition: background 250ms ease, border-color 250ms ease;
+          }
+          .cta-card:hover {
+            background: rgba(255,255,255,0.16);
+            border-color: rgba(255,255,255,0.32);
+          }
+        `}</style>
         <div className="max-w-2xl mx-auto grid md:grid-cols-2 gap-4">
 
           {/* — Form — */}
           <a
             href="#"
-            className="group flex flex-col items-center gap-5 p-8 rounded-2xl text-center
-              transition-all duration-250 cursor-pointer"
-            style={{
-              background: 'rgba(255,255,255,0.10)',
-              border: '1px solid rgba(255,255,255,0.18)',
-            }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.16)';
-              (e.currentTarget as HTMLElement).style.border = '1px solid rgba(255,255,255,0.32)';
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.10)';
-              (e.currentTarget as HTMLElement).style.border = '1px solid rgba(255,255,255,0.18)';
-            }}
+            className="cta-card group flex flex-col items-center gap-5 p-8 rounded-2xl text-center cursor-pointer"
           >
             {/* Icon */}
             <div
@@ -111,20 +109,7 @@ export default function ContactCTA() {
           {/* — Phone — */}
           <a
             href="tel:03-1234-5678"
-            className="group flex flex-col items-center gap-5 p-8 rounded-2xl text-center
-              transition-all duration-250 cursor-pointer"
-            style={{
-              background: 'rgba(255,255,255,0.10)',
-              border: '1px solid rgba(255,255,255,0.18)',
-            }}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.16)';
-              (e.currentTarget as HTMLElement).style.border = '1px solid rgba(255,255,255,0.32)';
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.10)';
-              (e.currentTarget as HTMLElement).style.border = '1px solid rgba(255,255,255,0.18)';
-            }}
+            className="cta-card group flex flex-col items-center gap-5 p-8 rounded-2xl text-center cursor-pointer"
           >
             {/* Icon */}
             <div

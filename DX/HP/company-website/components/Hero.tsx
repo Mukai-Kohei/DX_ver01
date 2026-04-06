@@ -104,10 +104,10 @@ export default function Hero() {
         /* Cross-fade center number */
         if (cNumRef.current) {
           gsap.to(cNumRef.current, {
-            opacity: 0, y: 4, duration: 0.16, ease: 'power1.in',
+            opacity: 0, y: 4, duration: 0.16, ease: 'power1.in', overwrite: 'auto',
             onComplete() {
               if (cNumRef.current) cNumRef.current.textContent = `[ 0${newStep + 1} ]`;
-              gsap.to(cNumRef.current, { opacity: 1, y: 0, duration: 0.20, ease: 'power1.out' });
+              gsap.to(cNumRef.current, { opacity: 1, y: 0, duration: 0.20, ease: 'power1.out', overwrite: 'auto' });
             }
           });
         }
@@ -115,10 +115,10 @@ export default function Hero() {
         /* Cross-fade watermark */
         if (wmRef.current) {
           gsap.to(wmRef.current, {
-            opacity: 0, duration: 0.18,
+            opacity: 0, duration: 0.18, overwrite: 'auto',
             onComplete() {
               if (wmRef.current) wmRef.current.textContent = `0${newStep + 1}`;
-              gsap.to(wmRef.current, { opacity: 1, duration: 0.22 });
+              gsap.to(wmRef.current, { opacity: 1, duration: 0.22, overwrite: 'auto' });
             }
           });
         }
@@ -158,8 +158,7 @@ export default function Hero() {
     }, heroRef);
 
     return () => {
-      ctx.revert();
-      ScrollTrigger.getAll().forEach(t => t.kill()); // 念のため全て解放
+      ctx.revert(); // ctx内の全ScrollTrigger・tweenを正しく解放
     };
   }, []);
 

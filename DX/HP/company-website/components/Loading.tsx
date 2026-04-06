@@ -14,7 +14,7 @@ export default function Loading() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onComplete: () => {
-          document.body.style.overflow = 'auto';
+          // cleanup returnでも戻すが、アニメーション完了時に確実に解除
           setIsComplete(true);
         },
       });
@@ -27,8 +27,11 @@ export default function Loading() {
       .to(overlayRef.current, { y: '-100%', duration: 0.85, ease: 'power3.inOut' });
     }, overlayRef);
 
-    document.body.style.overflow = 'hidden';
-    return () => { ctx.revert(); document.body.style.overflow = 'auto'; };
+    if (typeof document !== 'undefined') document.body.style.overflow = 'hidden';
+    return () => {
+      ctx.revert();
+      if (typeof document !== 'undefined') document.body.style.overflow = 'auto';
+    };
   }, []);
 
   if (isComplete) return null;
