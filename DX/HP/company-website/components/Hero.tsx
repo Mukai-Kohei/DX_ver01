@@ -157,7 +157,10 @@ export default function Hero() {
 
     }, heroRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach(t => t.kill()); // 念のため全て解放
+    };
   }, []);
 
   /* ── Icon helpers ── */
