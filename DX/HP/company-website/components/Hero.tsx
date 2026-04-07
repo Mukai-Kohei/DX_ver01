@@ -145,24 +145,25 @@ export default function Hero() {
       ScrollTrigger.create({
         trigger: heroRef.current,
         start:   'top top',
-        end:     '+=480vh',
+        end:     '+=600vh',
         pin:     true,
         anticipatePin: 1,
         snap: {
-          /* 4 snap points:
-             0     → node 0 (initial)
-             0.333 → node 1
-             0.667 → node 2 (リレーションシップ構築)
-             1.0   → hold on node 2 before unpin          */
-          snapTo:   [0, 1 / 3, 2 / 3, 1],
-          duration: { min: 0.55, max: 0.90 },
-          delay:    0.14,
+          /* 5 snap points:
+             0     (  0vh) → node 0  初期表示
+             0.25  (150vh) → node 1  デジタルマーケティング
+             0.5   (300vh) → node 2  リレーションシップ構築
+             0.75  (450vh) → node 2  ホールド① ← しっかり見せる
+             1.0   (600vh) → node 2  ホールド② ← ここでやっと解除  */
+          snapTo:   [0, 0.25, 0.5, 0.75, 1],
+          duration: { min: 0.55, max: 0.95 },
+          delay:    0.18,
           ease:     'power2.inOut',
           inertia:  false,
         },
         onUpdate(self) {
-          /* floor(progress*3): 0→0, 0.333→1, 0.667→2, 1.0→2 (cap at 2) */
-          rotateTo(Math.min(2, Math.floor(self.progress * 3)));
+          /* floor(progress*4): 0→0, 0.25→1, 0.5→2, 0.75→2, 1.0→2 */
+          rotateTo(Math.min(2, Math.floor(self.progress * 4)));
         },
       });
 

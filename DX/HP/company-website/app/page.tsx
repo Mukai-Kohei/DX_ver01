@@ -20,7 +20,7 @@ export default function Home() {
     // 独自RAFループを使わず、GSAPのticker(ScrollTriggerも使用)に一本化することで
     // 二重スクロール計算の競合を防ぐ
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
