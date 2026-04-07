@@ -21,8 +21,54 @@ export default function Hero() {
   const wmRef        = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    if (!heroRef.current) return;
 
+    /* ── Step state (outside gsap.context so wheel handler can access) ── */
+    let currentStep = 0;
+    let isAnimating = false;
+
+    function executeRotate(newStep: number) {
+      currentStep = newStep;
+      isAnimating = true;
+
+      gsap.to(orbitRingRef.current, {
+        rotation: newStep * -120,
+        duration: 0.65, ease: 'power2.inOut', overwrite: 'auto',
+        onComplete() { isAnimating = false; },
+      });
+      gsap.to(inner0Ref.current, { rotation: newStep * 120,       duration: 0.65, ease: 'power2.inOut', overwrite: 'auto' });
+      gsap.to(inner1Ref.current, { rotation: newStep * 120 - 120, duration: 0.65, ease: 'power2.inOut', overwrite: 'auto' });
+      gsap.to(inner2Ref.current, { rotation: newStep * 120 - 240, duration: 0.65, ease: 'power2.inOut', overwrite: 'auto' });
+
+      const nodes = orbitRingRef.current?.querySelectorAll<HTMLElement>('.orbit-item');
+      nodes?.forEach((el, i) => {
+        el.classList.toggle('is-active', i === newStep);
+        el.classList.toggle('is-dim',    i !== newStep);
+      });
+
+      if (cNumRef.current) {
+        gsap.to(cNumRef.current, {
+          opacity: 0, y: 4, duration: 0.16, ease: 'power1.in', overwrite: 'auto',
+          onComplete() {
+            if (cNumRef.current) cNumRef.current.textContent = `[ 0${newStep + 1} ]`;
+            gsap.to(cNumRef.current, { opacity: 1, y: 0, duration: 0.20, ease: 'power1.out', overwrite: 'auto' });
+          }
+        });
+      }
+      if (wmRef.current) {
+        gsap.to(wmRef.current, {
+          opacity: 0, scale: 0.94, duration: 0.18, overwrite: 'auto',
+          onComplete() {
+            if (wmRef.current) {
+              wmRef.current.textContent = `0${newStep + 1}`;
+              gsap.to(wmRef.current, { opacity: 1, scale: 1, duration: 0.28, ease: 'power2.out', overwrite: 'auto' });
+            }
+          }
+        });
+      }
+    }
+
+    const ctx = gsap.context(() => {
       /* ── Intro animations ── */
       const lines = catchCopyRef.current?.querySelectorAll('.catch-line');
       if (lines?.length) {
@@ -40,137 +86,87 @@ export default function Hero() {
         { opacity: 1, duration: 0.6, delay: 2.8 }
       );
 
-      /* ──────────────────────────────────────────────────────────
-         SCROLL-LINKED ORBIT ANIMATION  (discrete step mode)
-
-         Architecture: CSS rotate(--a) + GSAP discrete snap-rotate
-
-         On scroll, the ring SNAPS to the next 120° position with an
-         eased animation (not scrubbed). The ring holds that position
-         until the next scroll threshold is crossed.
-
-         Steps:
-           0 (ring   0°): Node 0 (Webアプリ)   at 12 o'clock → active
-           1 (ring -120°): Node 1 (システム)    at 12 o'clock → active
-           2 (ring -240°): Node 2 (DXコンサル) at 12 o'clock → active
-      ────────────────────────────────────────────────────────── */
-
-      /* Set initial counter-rotations — each inner cancels its CSS --a offset */
+      /* ── Initial counter-rotations ── */
       gsap.set(inner0Ref.current, { rotation:    0 });
       gsap.set(inner1Ref.current, { rotation: -120 });
       gsap.set(inner2Ref.current, { rotation: -240 });
 
-      let currentStep = 0;
-      let isAnimating = false;
-      let pendingStep: number | null = null;
-
-      function executeRotate(newStep: number) {
-        currentStep = newStep;
-        isAnimating = true;
-
-        /* Ring: absolute target  0 → -120 → -240 */
-        gsap.to(orbitRingRef.current, {
-          rotation: newStep * -120,
-          duration: 0.65,
-          ease: 'power2.inOut',
-          overwrite: 'auto',
-          onComplete() {
-            isAnimating = false;
-            /* Pick up any step that arrived while we were animating */
-            if (pendingStep !== null && pendingStep !== currentStep) {
-              const next = pendingStep;
-              pendingStep = null;
-              executeRotate(next);
-            }
-          },
-        });
-
-        /* Inners: absolute targets — formula: newStep*120 − a_offset
-           inner0 (a=  0°): 0, 120, 240
-           inner1 (a=120°): -120, 0, 120
-           inner2 (a=240°): -240, -120, 0
-           Total per inner = ring_rot(−120*S) + a + inner = 0 → always upright  */
-        gsap.to(inner0Ref.current, { rotation: newStep * 120,         duration: 0.65, ease: 'power2.inOut', overwrite: 'auto' });
-        gsap.to(inner1Ref.current, { rotation: newStep * 120 - 120,   duration: 0.65, ease: 'power2.inOut', overwrite: 'auto' });
-        gsap.to(inner2Ref.current, { rotation: newStep * 120 - 240,   duration: 0.65, ease: 'power2.inOut', overwrite: 'auto' });
-
-        /* Toggle active / dim on orbit items */
-        const nodes = orbitRingRef.current?.querySelectorAll<HTMLElement>('.orbit-item');
-        nodes?.forEach((el, i) => {
-          el.classList.toggle('is-active', i === newStep);
-          el.classList.toggle('is-dim',    i !== newStep);
-        });
-
-        /* Cross-fade center number */
-        if (cNumRef.current) {
-          gsap.to(cNumRef.current, {
-            opacity: 0, y: 4, duration: 0.16, ease: 'power1.in', overwrite: 'auto',
-            onComplete() {
-              if (cNumRef.current) cNumRef.current.textContent = `[ 0${newStep + 1} ]`;
-              gsap.to(cNumRef.current, { opacity: 1, y: 0, duration: 0.20, ease: 'power1.out', overwrite: 'auto' });
-            }
-          });
-        }
-
-        /* Cross-fade watermark */
-        if (wmRef.current) {
-          gsap.to(wmRef.current, {
-            opacity: 0, scale: 0.94, duration: 0.18, overwrite: 'auto',
-            onComplete() {
-              if (wmRef.current) {
-                wmRef.current.textContent = `0${newStep + 1}`;
-                gsap.to(wmRef.current, { opacity: 1, scale: 1, duration: 0.28, ease: 'power2.out', overwrite: 'auto' });
-              }
-            }
-          });
-        }
-      }
-
-      function rotateTo(newStep: number) {
-        if (newStep === currentStep) return;
-        if (isAnimating) {
-          /* Queue the latest request; previous pending is discarded */
-          pendingStep = newStep;
-          /* Still update UI labels/classes immediately */
-          const nodes = orbitRingRef.current?.querySelectorAll<HTMLElement>('.orbit-item');
-          nodes?.forEach((el, i) => {
-            el.classList.toggle('is-active', i === newStep);
-            el.classList.toggle('is-dim',    i !== newStep);
-          });
-          return;
-        }
-        executeRotate(newStep);
-      }
-
+      /*
+        Pin the section.
+        end: +=120vh → after the wheel-interceptor releases control (node3 dwell done),
+        a few natural scroll gestures advance the pin and it releases cleanly.
+        No snap / no onUpdate — node selection is 100% wheel-event driven.
+      */
       ScrollTrigger.create({
         trigger: heroRef.current,
         start:   'top top',
-        end:     '+=600vh',
+        end:     '+=120vh',
         pin:     true,
         anticipatePin: 1,
-        snap: {
-          /* 5 snap points:
-             0     (  0vh) → node 0  初期表示
-             0.25  (150vh) → node 1  デジタルマーケティング
-             0.5   (300vh) → node 2  リレーションシップ構築
-             0.75  (450vh) → node 2  ホールド① ← しっかり見せる
-             1.0   (600vh) → node 2  ホールド② ← ここでやっと解除  */
-          snapTo:   [0, 0.25, 0.5, 0.75, 1],
-          duration: { min: 0.55, max: 0.95 },
-          delay:    0.18,
-          ease:     'power2.inOut',
-          inertia:  false,
-        },
-        onUpdate(self) {
-          /* floor(progress*4): 0→0, 0.25→1, 0.5→2, 0.75→2, 1.0→2 */
-          rotateTo(Math.min(2, Math.floor(self.progress * 4)));
-        },
       });
-
     }, heroRef);
 
+    /* ── Wheel interceptor ──────────────────────────────────────────────
+       capture: true  → runs before Lenis's bubble listener
+       stopPropagation → Lenis never sees the event → scroll stays frozen
+       preventDefault  → no native scroll either
+
+       Logic:
+         node 0 or 1 + scroll down  → advance node (block scroll)
+         node 0 or 1 + scroll up    → go back  (block scroll)
+         node 0          + scroll up  → let through (go back above hero)
+         node 2          + scroll down → count dwell (block until threshold)
+         dwell exhausted             → stop blocking → Lenis advances normally
+    ──────────────────────────────────────────────────────────────────── */
+    let node3Dwell = 0;
+    const NODE3_DWELL = 6; // wheel events to hold on node 3 before releasing
+
+    const isHeroPinned = () => {
+      const rect = heroRef.current?.getBoundingClientRect();
+      return rect ? rect.top > -4 && rect.top < 4 : false;
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (!isHeroPinned()) return;
+
+      if (e.deltaY > 0) {
+        /* ── Scroll DOWN ── */
+        if (currentStep < 2) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!isAnimating) executeRotate(currentStep + 1);
+        } else {
+          /* On node 3: count dwell then release */
+          node3Dwell++;
+          if (node3Dwell <= NODE3_DWELL) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          /* After dwell: event reaches Lenis → scroll advances → pin releases */
+        }
+      } else {
+        /* ── Scroll UP ── */
+        if (currentStep > 0) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!isAnimating) {
+            executeRotate(currentStep - 1);
+            node3Dwell = 0;
+          }
+        }
+        /* currentStep === 0 + scroll up → let through (hero scrolls away upward) */
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+
     return () => {
-      ctx.revert(); // ctx内の全ScrollTrigger・tweenを正しく解放
+      window.removeEventListener('wheel', handleWheel, { capture: true });
+      gsap.killTweensOf([
+        orbitRingRef.current, inner0Ref.current, inner1Ref.current,
+        inner2Ref.current, cNumRef.current, wmRef.current,
+      ]);
+      ctx.revert();
     };
   }, []);
 
