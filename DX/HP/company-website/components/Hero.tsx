@@ -145,15 +145,19 @@ export default function Hero() {
       ScrollTrigger.create({
         trigger: heroRef.current,
         start:   'top top',
-        end:     '+=240vh',
+        end:     '+=360vh',
         pin:     true,
+        anticipatePin: 1,
         snap: {
-          snapTo:   [0, 0.5, 1],
-          duration: { min: 0.45, max: 0.75 },
-          delay:    0.05,
-          ease:     'power2.inOut',
+          snapTo:      [0, 0.5, 1],
+          duration:    { min: 0.5, max: 0.85 },
+          delay:       0.08,
+          ease:        'power2.inOut',
+          inertia:     false,
         },
         onUpdate(self) {
+          /* step 0: 0–0.33, step 1: 0.33–0.67, step 2: 0.67–1.0
+             Using round(progress*2) gives correct 3-step mapping      */
           rotateTo(Math.min(2, Math.round(self.progress * 2)));
         },
       });
