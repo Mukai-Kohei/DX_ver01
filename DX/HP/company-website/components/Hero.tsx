@@ -115,10 +115,12 @@ export default function Hero() {
         /* Cross-fade watermark */
         if (wmRef.current) {
           gsap.to(wmRef.current, {
-            opacity: 0, duration: 0.18, overwrite: 'auto',
+            opacity: 0, scale: 0.94, duration: 0.18, overwrite: 'auto',
             onComplete() {
-              if (wmRef.current) wmRef.current.textContent = `0${newStep + 1}`;
-              gsap.to(wmRef.current, { opacity: 1, duration: 0.22, overwrite: 'auto' });
+              if (wmRef.current) {
+                wmRef.current.textContent = `0${newStep + 1}`;
+                gsap.to(wmRef.current, { opacity: 1, scale: 1, duration: 0.28, ease: 'power2.out', overwrite: 'auto' });
+              }
             }
           });
         }
@@ -143,11 +145,12 @@ export default function Hero() {
       ScrollTrigger.create({
         trigger: heroRef.current,
         start:   'top top',
-        end:     '+=500vh',
+        end:     '+=240vh',
         pin:     true,
         snap: {
           snapTo:   [0, 0.5, 1],
-          duration: { min: 0.5, max: 0.9 },
+          duration: { min: 0.45, max: 0.75 },
+          delay:    0.05,
           ease:     'power2.inOut',
         },
         onUpdate(self) {
@@ -251,10 +254,10 @@ export default function Hero() {
         ref={wmRef}
         className="absolute right-[2%] top-1/2 z-[1] pointer-events-none select-none"
         style={{
-          transform: 'translateY(-55%)',
+          transform: 'translateY(-55%) scale(1)',
           fontSize: 'clamp(140px, 18vw, 260px)',
           fontWeight: 900,
-          color: 'rgba(255,255,255,0.045)',
+          color: 'rgba(255,255,255,0.13)',
           letterSpacing: '-0.06em',
           lineHeight: 1,
           fontVariantNumeric: 'tabular-nums',
