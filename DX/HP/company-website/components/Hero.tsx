@@ -145,20 +145,24 @@ export default function Hero() {
       ScrollTrigger.create({
         trigger: heroRef.current,
         start:   'top top',
-        end:     '+=360vh',
+        end:     '+=480vh',
         pin:     true,
         anticipatePin: 1,
         snap: {
-          snapTo:      [0, 0.5, 1],
-          duration:    { min: 0.5, max: 0.85 },
-          delay:       0.08,
-          ease:        'power2.inOut',
-          inertia:     false,
+          /* 4 snap points:
+             0     → node 0 (initial)
+             0.333 → node 1
+             0.667 → node 2 (リレーションシップ構築)
+             1.0   → hold on node 2 before unpin          */
+          snapTo:   [0, 1 / 3, 2 / 3, 1],
+          duration: { min: 0.55, max: 0.90 },
+          delay:    0.14,
+          ease:     'power2.inOut',
+          inertia:  false,
         },
         onUpdate(self) {
-          /* step 0: 0–0.33, step 1: 0.33–0.67, step 2: 0.67–1.0
-             Using round(progress*2) gives correct 3-step mapping      */
-          rotateTo(Math.min(2, Math.round(self.progress * 2)));
+          /* floor(progress*3): 0→0, 0.333→1, 0.667→2, 1.0→2 (cap at 2) */
+          rotateTo(Math.min(2, Math.floor(self.progress * 3)));
         },
       });
 
