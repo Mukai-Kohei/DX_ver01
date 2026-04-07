@@ -65,12 +65,12 @@ export default function ContactCTA() {
             border-color: rgba(255,255,255,0.32);
           }
         `}</style>
-        <div className="max-w-2xl mx-auto grid md:grid-cols-2 gap-4">
+        <div className="flex justify-center">
 
           {/* — Form — */}
           <a
             href="#"
-            className="cta-card group flex flex-col items-center gap-5 p-8 rounded-2xl text-center cursor-pointer"
+            className="cta-card group flex flex-col items-center gap-5 p-8 rounded-2xl text-center cursor-pointer w-full max-w-sm"
           >
             {/* Icon */}
             <div
@@ -104,39 +104,6 @@ export default function ContactCTA() {
                 <polyline points="9 18 15 12 9 6"/>
               </svg>
             </span>
-          </a>
-
-          {/* — Phone — */}
-          <a
-            href="tel:03-1234-5678"
-            className="cta-card group flex flex-col items-center gap-5 p-8 rounded-2xl text-center cursor-pointer"
-          >
-            {/* Icon */}
-            <div
-              className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ background: 'rgba(255,255,255,0.14)' }}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12
-                  a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72
-                  c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.1a16 16 0 0 0 6 6
-                  l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-            </div>
-
-            {/* Text */}
-            <div className="space-y-1">
-              <p className="text-white font-bold text-lg">お電話でのお問い合わせ</p>
-              <p className="font-en text-2xl font-bold text-white tracking-wide">
-                03-1234-5678
-              </p>
-            </div>
-
-            {/* Hours */}
-            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.60)' }}>
-              平日 9:00〜18:00（土日祝日を除く）
-            </p>
           </a>
 
         </div>
