@@ -170,13 +170,24 @@ export default function Business() {
               </div>
             </Link>
 
-            {/* Panel 3 */}
-            <div
-              className="business-image absolute bottom-0 left-[15%] w-[48%] h-[48%] rounded-xl overflow-hidden shadow-lg"
+            {/* Panel 3 — RELATIONSHIP (clickable) */}
+            <Link
+              href="/relationship"
+              className="business-image absolute bottom-0 left-[15%] w-[48%] h-[48%] rounded-xl overflow-hidden shadow-lg block group"
               style={{ transform: 'rotate(4deg)' }}
+              title="リレーションシップ構築の詳細を見る"
             >
               <DesignPanel variant={3} />
-            </div>
+              <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                style={{ background: 'linear-gradient(to top, rgba(109,40,217,0.85) 0%, transparent 55%)' }}>
+                <span className="text-white text-xs font-bold tracking-widest flex items-center gap-1">
+                  詳細を見る
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </span>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
