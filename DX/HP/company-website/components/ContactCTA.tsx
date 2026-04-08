@@ -3,7 +3,7 @@
 export default function ContactCTA() {
   return (
     <section
-      className="relative py-20 md:py-28 overflow-hidden"
+      className="relative py-28 md:py-40 overflow-hidden"
       id="contact"
       style={{
         background: 'linear-gradient(135deg, #002D6E 0%, #0057B8 55%, #006FD6 100%)',
