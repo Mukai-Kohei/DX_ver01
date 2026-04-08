@@ -22,14 +22,24 @@ export default function ContactPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const FORMSPREE_ID = 'YOUR_FORM_ID'; // ← ここにFormspreeのIDを入れる
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          company: form.company,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          message: form.message,
+          _subject: `【お問い合わせ】${form.company ? form.company + ' / ' : ''}${form.name}様`,
+          _replyto: form.email,
+        }),
       });
       if (res.ok) {
         setStatus('success');
