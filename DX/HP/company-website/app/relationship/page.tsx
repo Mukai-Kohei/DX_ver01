@@ -130,41 +130,72 @@ export default function RelationshipPage() {
         </section>
 
         {/* ── 効果まとめ ── */}
-        <section
-          style={{
-            background: 'linear-gradient(135deg,#1e293b,#0f172a)',
-            borderRadius: 16,
-            padding: '20px 24px',
-            color: '#fff',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, fontSize: 15, marginBottom: 16 }}>
-            <TargetIcon />
-            導入により双方が得る「強烈なメリット」
-          </div>
-          <div className="effects-grid-rel">
-            {[
-              { label: '従業員', value: '立て替えの苦痛が完全に消滅', color: '#93c5fd' },
-              { label: '社長', value: '月末の精算・振込作業がゼロに', color: '#fde68a' },
-              { label: '経営', value: '事前承認で不正利用100%防止', color: '#86efac' },
-            ].map(({ label, value, color }) => (
-              <div
-                key={label}
-                style={{
-                  background: 'rgba(255,255,255,0.07)',
-                  border: '1px solid rgba(255,255,255,0.12)',
+        <section style={{ position: 'relative', overflow: 'hidden', borderRadius: 16,
+          background: 'linear-gradient(135deg,#001D4A 0%,#003D82 45%,#0057B8 100%)',
+          padding: '24px', color: '#fff',
+        }}>
+          <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none',
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px)',
+            backgroundSize: '60px 60px' }} />
+          <div style={{ position: 'relative' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, fontSize: 15, marginBottom: 16 }}>
+              <TargetIcon />
+              導入により双方が得る「強烈なメリット」
+            </div>
+            <div className="effects-grid-rel">
+              {[
+                { label: '従業員', value: '立て替えの苦痛が完全に消滅', color: '#93c5fd' },
+                { label: '社長', value: '月末の精算・振込作業がゼロに', color: '#fde68a' },
+                { label: '経営', value: '事前承認で不正利用100%防止', color: '#86efac' },
+              ].map(({ label, value, color }) => (
+                <div key={label} style={{
+                  background: 'rgba(255,255,255,0.09)',
+                  border: '1px solid rgba(255,255,255,0.18)',
+                  backdropFilter: 'blur(8px)',
                   borderRadius: 12,
-                  padding: '14px 12px',
+                  padding: '16px 12px',
                   textAlign: 'center',
-                }}
-              >
-                <p style={{ fontSize: 12, color: '#94a3b8', marginBottom: 4 }}>{label}</p>
-                <p style={{ fontSize: 14, fontWeight: 700, color, margin: 0 }}>{value}</p>
-              </div>
-            ))}
+                }}>
+                  <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', marginBottom: 6 }}>{label}</p>
+                  <p style={{ fontSize: 15, fontWeight: 700, color, margin: 0 }}>{value}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
+        </div>
+      </div>
+
+      {/* ── Contact CTA ── */}
+      <div style={{ background: 'linear-gradient(135deg,#002D6E 0%,#0057B8 55%,#006FD6 100%)',
+        position: 'relative', overflow: 'hidden', padding: '64px 24px', textAlign: 'center' }}>
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none',
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px)',
+          backgroundSize: '60px 60px' }} />
+        <div style={{ position: 'absolute', top: 0, right: 0, width: 320, height: 320, pointerEvents: 'none',
+          background: 'radial-gradient(circle at 100% 0%, rgba(0,160,233,0.22) 0%, transparent 65%)' }} />
+        <div style={{ position: 'absolute', bottom: 0, left: 0, width: 288, height: 288, pointerEvents: 'none',
+          background: 'radial-gradient(circle at 0% 100%, rgba(0,61,130,0.40) 0%, transparent 65%)' }} />
+        <div style={{ position: 'relative', maxWidth: 480, margin: '0 auto' }}>
+          <span style={{ display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)', marginBottom: 14 }}>
+            CONTACT US
+          </span>
+          <h2 style={{ fontSize: 'clamp(24px,5vw,34px)', fontWeight: 700, color: '#fff', marginBottom: 14, lineHeight: 1.2 }}>
+            お問い合わせ
+          </h2>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.75)', lineHeight: 1.8, marginBottom: 32 }}>
+            サービスに関するご質問やご相談など、<br />お気軽にお問い合わせください。
+          </p>
+          <a href="#" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 10,
+            background: 'rgba(255,255,255,0.10)', border: '1px solid rgba(255,255,255,0.25)',
+            backdropFilter: 'blur(12px)', color: '#fff', fontWeight: 700,
+            padding: '14px 40px', borderRadius: 40, textDecoration: 'none', fontSize: 15,
+          }}>
+            お問い合わせフォームへ
+            <ChevronRight />
+          </a>
         </div>
       </div>
 
