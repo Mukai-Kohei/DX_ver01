@@ -69,7 +69,7 @@ export default function ContactCTA() {
 
           {/* — Form — */}
           <a
-            href="#"
+            href="/contact"
             className="cta-card group flex flex-col items-center gap-5 p-8 rounded-2xl text-center cursor-pointer w-full max-w-sm"
           >
             {/* Icon */}

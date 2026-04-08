@@ -186,7 +186,7 @@ export default function DigitalMarketingPage() {
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.75)', lineHeight: 1.8, marginBottom: 32 }}>
             サービスに関するご質問やご相談など、<br />お気軽にお問い合わせください。
           </p>
-          <a href="#" style={{
+          <a href="/contact" style={{
             display: 'inline-flex', alignItems: 'center', gap: 10,
             background: 'rgba(255,255,255,0.10)', border: '1px solid rgba(255,255,255,0.25)',
             backdropFilter: 'blur(12px)', color: '#fff', fontWeight: 700,
