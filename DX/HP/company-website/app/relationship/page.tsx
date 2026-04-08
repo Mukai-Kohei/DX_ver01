@@ -28,7 +28,7 @@ export default function RelationshipPage() {
           <header style={{ background: 'rgba(255,255,255,0.09)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.18)', borderRadius: 16, overflow: 'hidden', color: '#fff' }}>
             <div style={{ padding: '28px 28px 24px' }}>
               <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', background: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.90)', padding: '3px 12px', borderRadius: 20, marginBottom: 12 }}>
-                SOLUTION_03 ／ リレーションシップ構築
+                SOLUTION_03 ／ DX × MARKETING
               </span>
               <h1 style={{ fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
                 事前承認ウォレットによる経費精算DX

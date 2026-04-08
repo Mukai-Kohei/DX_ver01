@@ -426,7 +426,7 @@ export default function Hero() {
                       <div className="node-circle">
                         <GearIcon />
                       </div>
-                      <span className="node-label">リレーション<br />シップ構築</span>
+                      <span className="node-label">DX ×<br />MARKETING</span>
                     </div>
                   </div>
 

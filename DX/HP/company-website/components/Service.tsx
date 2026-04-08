@@ -55,8 +55,8 @@ const services = [
   {
     id: 3,
     number: 'SOLUTION_03',
-    title: 'リレーションシップ構築',
-    description: '多様な経験や専門性を持つプロフェッショナルとの強固なパイプラインを築き、人と人の結びつきから新たな化学反応を生み出します。',
+    title: 'DX × MARKETING',
+    description: 'DX推進とデジタルマーケティングを融合し、業務変革と顧客体験の最大化を同時に実現。デジタルの力で事業成長を加速します。',
     gradient: 'linear-gradient(135deg, #020E28 0%, #003D82 100%)',
     patternColor: 'rgba(99,102,241,0.18)',
     iconKey: 'support',
