@@ -7,7 +7,10 @@ import Link from 'next/link';
    マーケティングDX ページ
 ──────────────────────────────────────────────────────────── */
 export default function DigitalMarketingPage() {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: "'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif" }}>
 
@@ -161,31 +164,6 @@ export default function DigitalMarketingPage() {
           </div>
         </section>
 
-        {/* ── CTA ── */}
-        <div style={{ textAlign: 'center', marginTop: 32 }}>
-          <p style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
-            この仕組みを貴社でも導入してみませんか？
-          </p>
-          <Link
-            href="/#contact"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              background: '#0057B8',
-              color: '#fff',
-              fontWeight: 700,
-              padding: '12px 32px',
-              borderRadius: 40,
-              textDecoration: 'none',
-              fontSize: 14,
-              boxShadow: '0 4px 12px rgba(0,87,184,0.35)',
-            }}
-          >
-            お問い合わせはこちら
-            <ChevronRight />
-          </Link>
-        </div>
         </div>
       </div>
 

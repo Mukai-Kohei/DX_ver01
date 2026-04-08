@@ -7,7 +7,10 @@ import Link from 'next/link';
    月次決算・経理DX ページ
 ──────────────────────────────────────────────────────────── */
 export default function DxSolutionPage() {
-  useEffect(() => { window.scrollTo(0, 0); }, []);
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, []);
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: "'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif" }}>
 
@@ -28,7 +31,7 @@ export default function DxSolutionPage() {
                 SOLUTION_01 ／ DX推進ソリューション
               </span>
               <h1 style={{ fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
-                月次決算・経理DXによる自動化提案
+                月次決算・経理DXによる自動化
               </h1>
               <p style={{ fontSize: 'clamp(12px, 2vw, 14px)', color: 'rgba(255,255,255,0.72)', lineHeight: 1.6, margin: 0 }}>
                 社内業務の煩雑さを解消し、経営判断を加速するリアルタイム決算の実現
@@ -163,31 +166,6 @@ export default function DxSolutionPage() {
           </div>
         </section>
 
-        {/* ── CTA ── */}
-        <div style={{ textAlign: 'center', marginTop: 32 }}>
-          <p style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>
-            この仕組みを貴社でも導入してみませんか？
-          </p>
-          <Link
-            href="/#contact"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              background: '#0057B8',
-              color: '#fff',
-              fontWeight: 700,
-              padding: '12px 32px',
-              borderRadius: 40,
-              textDecoration: 'none',
-              fontSize: 14,
-              boxShadow: '0 4px 12px rgba(0,87,184,0.35)',
-            }}
-          >
-            お問い合わせはこちら
-            <ChevronRight />
-          </Link>
-        </div>
         </div>
       </div>
 
