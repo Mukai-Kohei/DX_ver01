@@ -22,7 +22,7 @@ export default function ContactPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const FORMSPREE_ID = 'YOUR_FORM_ID'; // ← ここにFormspreeのIDを入れる
+  const FORMSPREE_ID = 'xlgovpvb';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
