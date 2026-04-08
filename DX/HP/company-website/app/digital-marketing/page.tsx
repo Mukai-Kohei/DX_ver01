@@ -25,13 +25,13 @@ export default function DigitalMarketingPage() {
           <header style={{ background: 'rgba(255,255,255,0.09)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.18)', borderRadius: 16, overflow: 'hidden', color: '#fff' }}>
             <div style={{ padding: '28px 28px 24px' }}>
               <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', background: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.90)', padding: '3px 12px', borderRadius: 20, marginBottom: 12 }}>
-                SOLUTION_02 ／ マーケティングDX
+                SOLUTION_02 ／ デジタルマーケティング支援
               </span>
-              <h1 style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
-                マーケティングDX
+              <h1 style={{ fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
+                デジタルマーケティング支援
               </h1>
               <p style={{ fontSize: 'clamp(12px, 2vw, 14px)', color: 'rgba(255,255,255,0.72)', lineHeight: 1.6, margin: 0 }}>
-                MA（マーケティングオートメーション）× LINE活用による「集客・育成・ファン化」の自動仕組み化
+                MA×LINE活用で集客から入会まで、販促フローを自動仕組み化
               </p>
             </div>
             <div style={{ height: 3, background: 'linear-gradient(90deg,#00A0E9,#10b981)' }} />

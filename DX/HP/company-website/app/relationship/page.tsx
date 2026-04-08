@@ -28,10 +28,10 @@ export default function RelationshipPage() {
                 SOLUTION_03 ／ リレーションシップ構築
               </span>
               <h1 style={{ fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
-                事前承認デジタルウォレット：「摩擦ゼロ」経費精算インフラ
+                事前承認ウォレットによる経費精算DX
               </h1>
               <p style={{ fontSize: 'clamp(12px, 2vw, 14px)', color: 'rgba(255,255,255,0.72)', lineHeight: 1.6, margin: 0 }}>
-                LINE・AI・バーチャルカード・クラウド会計をAPIで連携し、自腹立て替えと月末精算を完全消滅させる
+                LINEで申請・AI承認・スマホ決済で、立て替えと月末精算を完全消滅させる
               </p>
             </div>
             <div style={{ height: 3, background: 'linear-gradient(90deg,#00A0E9,#7c3aed)' }} />
