@@ -10,18 +10,35 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
   if (variant === 1) {
     return (
-      <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, #1a0a3e 0%, #3730a3 50%, #0057B8 100%)' }}>
-        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.08) 1.5px, transparent 1.5px)', backgroundSize: '20px 20px' }} />
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-          <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)' }}>
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#a5b4fc" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
-            </svg>
+      <div className="w-full h-full" style={{ background: 'linear-gradient(140deg, #5b21b6 0%, #7c3aed 32%, #2563eb 68%, #0ea5e9 100%)' }}>
+        {/* top sheen */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.22) 0%, transparent 55%)' }} />
+        {/* center glow */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 48%, rgba(147,210,255,0.22) 0%, transparent 52%)' }} />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+          {/* gear + circuit icon */}
+          <svg viewBox="0 0 64 64" width="52" height="52" fill="none" style={{ filter: 'drop-shadow(0 0 8px rgba(147,210,255,0.65)) drop-shadow(0 0 3px rgba(147,210,255,0.9))' }}>
+            {/* gear body */}
+            <path d="M27 7.5l-1.2 4.8a13 13 0 0 0-3.8 2.2l-4.7-1.4-4.8 8.3 3.7 3.2a13 13 0 0 0 0 4.8l-3.7 3.2 4.8 8.3 4.7-1.4a13 13 0 0 0 3.8 2.2l1.2 4.8h10l1.2-4.8a13 13 0 0 0 3.8-2.2l4.7 1.4 4.8-8.3-3.7-3.2a13 13 0 0 0 0-4.8l3.7-3.2-4.8-8.3-4.7 1.4a13 13 0 0 0-3.8-2.2L37 7.5z" stroke="rgba(167,220,255,0.88)" strokeWidth="1.4" fill="rgba(147,210,255,0.10)" strokeLinejoin="round"/>
+            {/* inner circle / scope */}
+            <circle cx="32" cy="32" r="9.5" stroke="rgba(167,220,255,0.88)" strokeWidth="1.4" fill="rgba(147,210,255,0.08)"/>
+            {/* center dot */}
+            <circle cx="32" cy="32" r="3.2" fill="rgba(167,220,255,0.85)"/>
+            {/* circuit — upper right branch */}
+            <polyline points="39,25 45,19 52,19" stroke="rgba(167,220,255,0.75)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+            <circle cx="52" cy="19" r="2.4" fill="rgba(167,220,255,0.9)"/>
+            {/* circuit — right branch */}
+            <polyline points="41.5,32 50,32 50,26" stroke="rgba(167,220,255,0.65)" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+            <circle cx="50" cy="26" r="1.8" fill="rgba(167,220,255,0.8)"/>
+            {/* circuit — upper dot */}
+            <line x1="32" y1="22.5" x2="32" y2="16" stroke="rgba(167,220,255,0.65)" strokeWidth="1.1" strokeLinecap="round"/>
+            <circle cx="32" cy="14.5" r="1.8" fill="rgba(167,220,255,0.7)"/>
+          </svg>
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ fontSize: 15, fontWeight: 800, letterSpacing: '0.12em', color: '#e8f4ff', textShadow: '0 0 14px rgba(147,210,255,0.7)', marginBottom: 3 }}>DX SOLUTION</p>
+            <p style={{ fontSize: 9.5, letterSpacing: '0.04em', color: 'rgba(190,230,255,0.78)' }}>デジタルトランスフォーメーション</p>
           </div>
-          <span className="font-en text-xs font-bold tracking-widest text-indigo-200">DX SOLUTION</span>
         </div>
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(99,102,241,0.3) 0%, transparent 60%)' }} />
       </div>
     );
   }
@@ -129,16 +146,17 @@ export default function Business() {
             {/* Panel 1 — DX SOLUTION (clickable) */}
             <Link
               href="/dx-solution"
-              className="business-image absolute top-0 left-0 w-[45%] h-[50%] rounded-xl overflow-hidden shadow-lg block group"
-              style={{ transform: 'rotate(3deg)' }}
+              className="business-image bp1 absolute top-0 left-0 w-[45%] h-[50%] rounded-xl overflow-hidden block group"
+              style={{ transform: 'rotate(3deg)', boxShadow: '0 8px 28px rgba(99,60,220,0.45), 0 2px 8px rgba(0,0,0,0.3)' }}
               title="DX推進ソリューションの詳細を見る"
             >
               <DesignPanel variant={1} />
-              <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                style={{ background: 'linear-gradient(to top, rgba(99,102,241,0.85) 0%, transparent 55%)' }}>
-                <span className="text-white text-xs font-bold tracking-widest flex items-center gap-1">
+              {/* always-visible tap hint */}
+              <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-3 pt-6"
+                style={{ background: 'linear-gradient(to top, rgba(80,20,180,0.72) 0%, transparent 100%)' }}>
+                <span className="text-white text-xs font-bold tracking-widest flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity duration-200">
                   詳細を見る
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-0.5">
                     <polyline points="9 18 15 12 9 6"/>
                   </svg>
                 </span>
@@ -148,17 +166,16 @@ export default function Business() {
             {/* Panel 2 — DIGITAL MARKETING (clickable) */}
             <Link
               href="/digital-marketing"
-              className="business-image absolute top-[20%] right-0 w-[50%] h-[55%] rounded-xl overflow-hidden shadow-lg block group"
-              style={{ transform: 'rotate(-2deg)' }}
+              className="business-image bp2 absolute top-[20%] right-0 w-[50%] h-[55%] rounded-xl overflow-hidden block group"
+              style={{ transform: 'rotate(-2deg)', boxShadow: '0 8px 28px rgba(0,80,180,0.40), 0 2px 8px rgba(0,0,0,0.3)' }}
               title="デジタルマーケティング支援の詳細を見る"
             >
               <DesignPanel variant={2} />
-              {/* Hover overlay */}
-              <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                style={{ background: 'linear-gradient(to top, rgba(3,105,161,0.85) 0%, transparent 55%)' }}>
-                <span className="text-white text-xs font-bold tracking-widest flex items-center gap-1">
+              <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-3 pt-6"
+                style={{ background: 'linear-gradient(to top, rgba(3,60,130,0.72) 0%, transparent 100%)' }}>
+                <span className="text-white text-xs font-bold tracking-widest flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity duration-200">
                   詳細を見る
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-0.5">
                     <polyline points="9 18 15 12 9 6"/>
                   </svg>
                 </span>
@@ -168,16 +185,16 @@ export default function Business() {
             {/* Panel 3 — RELATIONSHIP (clickable) */}
             <Link
               href="/relationship"
-              className="business-image absolute bottom-0 left-[15%] w-[48%] h-[48%] rounded-xl overflow-hidden shadow-lg block group"
-              style={{ transform: 'rotate(4deg)' }}
+              className="business-image bp3 absolute bottom-0 left-[15%] w-[48%] h-[48%] rounded-xl overflow-hidden block group"
+              style={{ transform: 'rotate(4deg)', boxShadow: '0 8px 28px rgba(20,100,80,0.40), 0 2px 8px rgba(0,0,0,0.3)' }}
               title="リレーションシップ構築の詳細を見る"
             >
               <DesignPanel variant={3} />
-              <div className="absolute inset-0 flex items-end justify-center pb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                style={{ background: 'linear-gradient(to top, rgba(109,40,217,0.85) 0%, transparent 55%)' }}>
-                <span className="text-white text-xs font-bold tracking-widest flex items-center gap-1">
+              <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-3 pt-6"
+                style={{ background: 'linear-gradient(to top, rgba(4,60,40,0.72) 0%, transparent 100%)' }}>
+                <span className="text-white text-xs font-bold tracking-widest flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity duration-200">
                   詳細を見る
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-0.5">
                     <polyline points="9 18 15 12 9 6"/>
                   </svg>
                 </span>
@@ -186,6 +203,13 @@ export default function Business() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .business-image { transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease; cursor: pointer; }
+        .bp1:hover { transform: rotate(3deg) scale(1.06) !important; box-shadow: 0 18px 48px rgba(99,60,220,0.65), 0 4px 16px rgba(0,0,0,0.35) !important; }
+        .bp2:hover { transform: rotate(-2deg) scale(1.06) !important; box-shadow: 0 18px 48px rgba(0,80,180,0.60), 0 4px 16px rgba(0,0,0,0.35) !important; }
+        .bp3:hover { transform: rotate(4deg) scale(1.06) !important; box-shadow: 0 18px 48px rgba(20,100,80,0.60), 0 4px 16px rgba(0,0,0,0.35) !important; }
+      `}</style>
     </section>
   );
 }
