@@ -44,19 +44,44 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
   }
   if (variant === 2) {
     return (
-      <div className="w-full h-full" style={{ background: 'linear-gradient(135deg, #020E28 0%, #01234F 60%, #003D82 100%)' }}>
-        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(0,160,233,0.1) 1.5px, transparent 1.5px)', backgroundSize: '20px 20px' }} />
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-          <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(0,160,233,0.12)', border: '1px solid rgba(0,160,233,0.3)' }}>
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#00A0E9" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="3" width="20" height="14" rx="2"/>
-              <line x1="8" y1="21" x2="16" y2="21"/>
-              <line x1="12" y1="17" x2="12" y2="21"/>
-            </svg>
+      <div className="w-full h-full" style={{ background: 'linear-gradient(140deg, #5b21b6 0%, #7c3aed 32%, #2563eb 68%, #0ea5e9 100%)' }}>
+        {/* top sheen */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.20) 0%, transparent 55%)' }} />
+        {/* center glow */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 48%, rgba(147,210,255,0.20) 0%, transparent 52%)' }} />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+          {/* bar chart + target + circuit icon */}
+          <svg viewBox="0 0 72 60" width="58" height="48" fill="none" style={{ filter: 'drop-shadow(0 0 8px rgba(147,210,255,0.65)) drop-shadow(0 0 3px rgba(147,210,255,0.9))' }}>
+            {/* bar chart */}
+            <rect x="10" y="38" width="8" height="12" rx="1.5" stroke="rgba(167,220,255,0.85)" strokeWidth="1.4" fill="rgba(147,210,255,0.12)"/>
+            <rect x="21" y="28" width="8" height="22" rx="1.5" stroke="rgba(167,220,255,0.85)" strokeWidth="1.4" fill="rgba(147,210,255,0.12)"/>
+            <rect x="32" y="20" width="8" height="30" rx="1.5" stroke="rgba(167,220,255,0.85)" strokeWidth="1.4" fill="rgba(147,210,255,0.12)"/>
+            {/* trend arrow */}
+            <polyline points="10,42 21,30 32,22 46,12" stroke="rgba(167,220,255,0.88)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            <polyline points="42,10 46,12 44,16" stroke="rgba(167,220,255,0.88)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            {/* target bullseye */}
+            <circle cx="57" cy="20" r="10" stroke="rgba(167,220,255,0.85)" strokeWidth="1.4" fill="rgba(147,210,255,0.08)"/>
+            <circle cx="57" cy="20" r="5.5" stroke="rgba(167,220,255,0.80)" strokeWidth="1.2" fill="rgba(147,210,255,0.06)"/>
+            <circle cx="57" cy="20" r="2" fill="rgba(167,220,255,0.85)"/>
+            {/* arrow in target */}
+            <line x1="50" y1="20" x2="55.2" y2="20" stroke="rgba(167,220,255,0.9)" strokeWidth="1.4" strokeLinecap="round"/>
+            <polyline points="53.5,18 55.5,20 53.5,22" stroke="rgba(167,220,255,0.9)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+            {/* circuit nodes left */}
+            <circle cx="5" cy="28" r="2.2" fill="rgba(167,220,255,0.85)"/>
+            <polyline points="5,28 7,34 10,38" stroke="rgba(167,220,255,0.6)" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+            <circle cx="4" cy="20" r="1.6" fill="rgba(167,220,255,0.7)"/>
+            <line x1="5" y1="28" x2="4" y2="20" stroke="rgba(167,220,255,0.55)" strokeWidth="1" strokeLinecap="round"/>
+            {/* circuit nodes right */}
+            <circle cx="68" cy="30" r="2" fill="rgba(167,220,255,0.8)"/>
+            <line x1="67" y1="30" x2="64" y2="24" stroke="rgba(167,220,255,0.6)" strokeWidth="1.1" strokeLinecap="round"/>
+            <circle cx="68" cy="38" r="1.6" fill="rgba(167,220,255,0.65)"/>
+            <line x1="68" y1="30" x2="68" y2="38" stroke="rgba(167,220,255,0.5)" strokeWidth="1" strokeLinecap="round"/>
+          </svg>
+          <div style={{ textAlign: 'center' }}>
+            <p style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: '#e8f4ff', textShadow: '0 0 14px rgba(147,210,255,0.7)', marginBottom: 3 }}>DIGITAL MARKETING</p>
+            <p style={{ fontSize: 9.5, letterSpacing: '0.04em', color: 'rgba(190,230,255,0.78)' }}>デジタルマーケティング</p>
           </div>
-          <span className="font-en text-xs font-bold tracking-widest text-sky-300">DIGITAL MARKETING</span>
         </div>
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(0,160,233,0.2) 0%, transparent 60%)' }} />
       </div>
     );
   }
