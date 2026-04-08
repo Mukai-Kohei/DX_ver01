@@ -85,37 +85,37 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
     );
   }
   return (
-    <div className="w-full h-full" style={{ background: 'linear-gradient(140deg, #3b0764 0%, #7c3aed 30%, #1d4ed8 60%, #06b6d4 100%)' }}>
+    <div className="w-full h-full" style={{ background: 'linear-gradient(140deg, #4a044e 0%, #86198f 32%, #c026d3 65%, #e879f9 100%)' }}>
       {/* top sheen */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.20) 0%, transparent 55%)' }} />
       {/* center glow */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 48%, rgba(167,139,250,0.22) 0%, transparent 52%)' }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 48%, rgba(232,121,249,0.20) 0%, transparent 52%)' }} />
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
         {/* gear × chart fusion icon */}
-        <svg viewBox="0 0 72 60" width="56" height="46" fill="none" style={{ filter: 'drop-shadow(0 0 8px rgba(196,181,253,0.65)) drop-shadow(0 0 3px rgba(196,181,253,0.9))' }}>
+        <svg viewBox="0 0 72 60" width="56" height="46" fill="none" style={{ filter: 'drop-shadow(0 0 8px rgba(240,171,252,0.65)) drop-shadow(0 0 3px rgba(240,171,252,0.9))' }}>
           {/* left: gear (DX) */}
-          <path d="M17 6l-.9 3.6a10 10 0 0 0-2.9 1.7l-3.6-1.1-3.6 6.3 2.8 2.4a10 10 0 0 0 0 3.6l-2.8 2.4 3.6 6.3 3.6-1.1a10 10 0 0 0 2.9 1.7l.9 3.6h7.6l.9-3.6a10 10 0 0 0 2.9-1.7l3.6 1.1 3.6-6.3-2.8-2.4a10 10 0 0 0 0-3.6l2.8-2.4-3.6-6.3-3.6 1.1a10 10 0 0 0-2.9-1.7L24.6 6z" stroke="rgba(216,180,254,0.88)" strokeWidth="1.3" fill="rgba(167,139,250,0.10)" strokeLinejoin="round"/>
-          <circle cx="20.8" cy="18" r="6" stroke="rgba(216,180,254,0.85)" strokeWidth="1.2" fill="rgba(167,139,250,0.08)"/>
-          <circle cx="20.8" cy="18" r="2.2" fill="rgba(216,180,254,0.82)"/>
+          <path d="M17 6l-.9 3.6a10 10 0 0 0-2.9 1.7l-3.6-1.1-3.6 6.3 2.8 2.4a10 10 0 0 0 0 3.6l-2.8 2.4 3.6 6.3 3.6-1.1a10 10 0 0 0 2.9 1.7l.9 3.6h7.6l.9-3.6a10 10 0 0 0 2.9-1.7l3.6 1.1 3.6-6.3-2.8-2.4a10 10 0 0 0 0-3.6l2.8-2.4-3.6-6.3-3.6 1.1a10 10 0 0 0-2.9-1.7L24.6 6z" stroke="rgba(240,171,252,0.88)" strokeWidth="1.3" fill="rgba(232,121,249,0.10)" strokeLinejoin="round"/>
+          <circle cx="20.8" cy="18" r="6" stroke="rgba(240,171,252,0.85)" strokeWidth="1.2" fill="rgba(232,121,249,0.08)"/>
+          <circle cx="20.8" cy="18" r="2.2" fill="rgba(240,171,252,0.85)"/>
           {/* connector × */}
           <line x1="36" y1="16" x2="40" y2="20" stroke="rgba(255,255,255,0.55)" strokeWidth="1.4" strokeLinecap="round"/>
           <line x1="40" y1="16" x2="36" y2="20" stroke="rgba(255,255,255,0.55)" strokeWidth="1.4" strokeLinecap="round"/>
           {/* right: bar chart + trend (Marketing) */}
-          <rect x="43" y="34" width="6" height="10" rx="1" stroke="rgba(125,211,252,0.88)" strokeWidth="1.3" fill="rgba(56,211,241,0.12)"/>
-          <rect x="51" y="27" width="6" height="17" rx="1" stroke="rgba(125,211,252,0.88)" strokeWidth="1.3" fill="rgba(56,211,241,0.12)"/>
-          <rect x="59" y="20" width="6" height="24" rx="1" stroke="rgba(125,211,252,0.88)" strokeWidth="1.3" fill="rgba(56,211,241,0.12)"/>
-          <polyline points="43,36 51,28 59,22 66,14" stroke="rgba(125,211,252,0.88)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          <polyline points="63,13 66,14 65,17" stroke="rgba(125,211,252,0.88)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <rect x="43" y="34" width="6" height="10" rx="1" stroke="rgba(240,171,252,0.88)" strokeWidth="1.3" fill="rgba(232,121,249,0.12)"/>
+          <rect x="51" y="27" width="6" height="17" rx="1" stroke="rgba(240,171,252,0.88)" strokeWidth="1.3" fill="rgba(232,121,249,0.12)"/>
+          <rect x="59" y="20" width="6" height="24" rx="1" stroke="rgba(240,171,252,0.88)" strokeWidth="1.3" fill="rgba(232,121,249,0.12)"/>
+          <polyline points="43,36 51,28 59,22 66,14" stroke="rgba(240,171,252,0.88)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <polyline points="63,13 66,14 65,17" stroke="rgba(240,171,252,0.88)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           {/* circuit nodes */}
-          <circle cx="7" cy="30" r="1.8" fill="rgba(216,180,254,0.70)"/>
-          <line x1="7" y1="30" x2="7" y2="37" stroke="rgba(216,180,254,0.45)" strokeWidth="1" strokeLinecap="round"/>
-          <circle cx="7" cy="39" r="1.4" fill="rgba(216,180,254,0.55)"/>
-          <circle cx="35" cy="46" r="1.8" fill="rgba(196,181,253,0.70)"/>
-          <line x1="35" y1="46" x2="43" y2="44" stroke="rgba(196,181,253,0.40)" strokeWidth="1" strokeLinecap="round"/>
+          <circle cx="7" cy="30" r="1.8" fill="rgba(240,171,252,0.75)"/>
+          <line x1="7" y1="30" x2="7" y2="37" stroke="rgba(240,171,252,0.45)" strokeWidth="1" strokeLinecap="round"/>
+          <circle cx="7" cy="39" r="1.4" fill="rgba(240,171,252,0.60)"/>
+          <circle cx="35" cy="46" r="1.8" fill="rgba(240,171,252,0.70)"/>
+          <line x1="35" y1="46" x2="43" y2="44" stroke="rgba(240,171,252,0.40)" strokeWidth="1" strokeLinecap="round"/>
         </svg>
         <div style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: '#f0e6ff', textShadow: '0 0 14px rgba(167,139,250,0.75)', marginBottom: 3 }}>DX × MARKETING</p>
-          <p style={{ fontSize: 9.5, letterSpacing: '0.04em', color: 'rgba(221,214,254,0.78)' }}>デジタルと顧客体験の融合</p>
+          <p style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: '#fdf4ff', textShadow: '0 0 14px rgba(232,121,249,0.80)', marginBottom: 3 }}>DX × MARKETING</p>
+          <p style={{ fontSize: 9.5, letterSpacing: '0.04em', color: 'rgba(245,208,254,0.80)' }}>デジタルと顧客体験の融合</p>
         </div>
       </div>
     </div>
@@ -232,7 +232,7 @@ export default function Business() {
             <Link
               href="/relationship"
               className="business-image bp3 absolute bottom-0 left-[15%] w-[48%] h-[48%] rounded-xl overflow-hidden block group"
-              style={{ transform: 'rotate(4deg)', boxShadow: '0 8px 28px rgba(20,100,80,0.40), 0 2px 8px rgba(0,0,0,0.3)' }}
+              style={{ transform: 'rotate(4deg)', boxShadow: '0 8px 28px rgba(192,38,211,0.40), 0 2px 8px rgba(0,0,0,0.3)' }}
               title="DX×マーケティングの詳細を見る"
             >
               <DesignPanel variant={3} />
@@ -254,7 +254,7 @@ export default function Business() {
         .business-image { transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease; cursor: pointer; }
         .bp1:hover { transform: rotate(3deg) scale(1.06) !important; box-shadow: 0 18px 48px rgba(99,60,220,0.65), 0 4px 16px rgba(0,0,0,0.35) !important; }
         .bp2:hover { transform: rotate(-2deg) scale(1.06) !important; box-shadow: 0 18px 48px rgba(0,80,180,0.60), 0 4px 16px rgba(0,0,0,0.35) !important; }
-        .bp3:hover { transform: rotate(4deg) scale(1.06) !important; box-shadow: 0 18px 48px rgba(20,100,80,0.60), 0 4px 16px rgba(0,0,0,0.35) !important; }
+        .bp3:hover { transform: rotate(4deg) scale(1.06) !important; box-shadow: 0 18px 48px rgba(192,38,211,0.60), 0 4px 16px rgba(0,0,0,0.35) !important; }
       `}</style>
     </section>
   );
