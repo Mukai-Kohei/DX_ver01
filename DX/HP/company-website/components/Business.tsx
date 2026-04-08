@@ -122,11 +122,6 @@ export default function Business() {
               </p>
             </div>
 
-            <div className="pt-4">
-              <a href="#service" className="btn btn-primary">
-                VIEW MORE
-              </a>
-            </div>
           </div>
 
           {/* Right: Collage Panels */}

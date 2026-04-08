@@ -1,55 +1,47 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 
 /* ────────────────────────────────────────────────────────────
    月次決算・経理DX ページ
 ──────────────────────────────────────────────────────────── */
 export default function DxSolutionPage() {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: '#f3f4f6',
-        fontFamily: "'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif",
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      {/* ── 全コンテンツを一つのセンタリングコンテナで包む ── */}
-      <div style={{ width: '100%', maxWidth: 1024, padding: '24px 24px 48px', boxSizing: 'border-box' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: "'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif" }}>
 
-        {/* ── ナビバー ── */}
-        <nav style={{ marginBottom: 16 }}>
-          <Link
-            href="/"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, color: '#64748b', textDecoration: 'none' }}
-          >
-            <ChevronLeft />
-            トップページに戻る
-          </Link>
-        </nav>
+      {/* ── Blue gradient header band（TOPヒーローと同じグラデーション） ── */}
+      <div style={{ background: 'linear-gradient(135deg,#001D4A 0%,#003D82 45%,#0057B8 100%)', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none',
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px)',
+          backgroundSize: '60px 60px' }} />
+        <div style={{ position: 'relative', maxWidth: 1024, margin: '0 auto', padding: '20px 24px 36px', boxSizing: 'border-box' }}>
+          <nav style={{ marginBottom: 20 }}>
+            <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'rgba(255,255,255,0.70)', textDecoration: 'none' }}>
+              <ChevronLeft />トップページに戻る
+            </Link>
+          </nav>
+          <header style={{ background: 'rgba(255,255,255,0.09)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.18)', borderRadius: 16, overflow: 'hidden', color: '#fff' }}>
+            <div style={{ padding: '28px 28px 24px' }}>
+              <span style={{ display: 'inline-block', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', background: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.90)', padding: '3px 12px', borderRadius: 20, marginBottom: 12 }}>
+                SOLUTION_01 ／ DX推進ソリューション
+              </span>
+              <h1 style={{ fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
+                月次決算・経理DXによる自動化提案
+              </h1>
+              <p style={{ fontSize: 'clamp(12px, 2vw, 14px)', color: 'rgba(255,255,255,0.72)', lineHeight: 1.6, margin: 0 }}>
+                社内業務の煩雑さを解消し、経営判断を加速するリアルタイム決算の実現
+              </p>
+            </div>
+            <div style={{ height: 3, background: 'linear-gradient(90deg,#00A0E9,#2563eb)' }} />
+          </header>
+        </div>
+      </div>
 
-        {/* ── ページヘッダー（丸角カード） ── */}
-        <header style={{ background: '#1e293b', color: '#fff', borderRadius: 16, overflow: 'hidden', marginBottom: 28 }}>
-          <div style={{ padding: '28px 28px 24px' }}>
-            <span style={{
-              display: 'inline-block', fontSize: 11, fontWeight: 700, letterSpacing: '0.12em',
-              background: '#ecf3ff', color: '#2563eb',
-              padding: '3px 12px', borderRadius: 20, marginBottom: 12,
-            }}>
-              SOLUTION_01 ／ DX推進ソリューション
-            </span>
-            <h1 style={{ fontSize: 'clamp(18px, 4vw, 26px)', fontWeight: 700, marginBottom: 8, lineHeight: 1.3 }}>
-              月次決算・経理DXによる自動化提案
-            </h1>
-            <p style={{ fontSize: 'clamp(12px, 2vw, 14px)', color: '#94a3b8', lineHeight: 1.6, margin: 0 }}>
-              社内業務の煩雑さを解消し、経営判断を加速するリアルタイム決算の実現
-            </p>
-          </div>
-          <div style={{ height: 4, background: 'linear-gradient(90deg, #2563eb, #0ea5e9)' }} />
-        </header>
+      {/* ── Content area ── */}
+      <div style={{ background: '#f5f7fa', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ width: '100%', maxWidth: 1024, padding: '32px 24px 48px', boxSizing: 'border-box' }}>
 
         {/* ── As-Is ── */}
         <section style={{ marginBottom: 28 }}>
@@ -196,7 +188,7 @@ export default function DxSolutionPage() {
             <ChevronRight />
           </Link>
         </div>
-
+        </div>
       </div>
 
       {/* ── responsive styles ── */}

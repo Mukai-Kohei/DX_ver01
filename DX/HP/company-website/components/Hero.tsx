@@ -121,6 +121,11 @@ export default function Hero() {
     let node3Dwell = 0;
     const NODE3_DWELL = 6; // wheel events to hold on node 3 before releasing
 
+    /* Cooldown: prevent trackpad momentum from skipping node 02.
+       Each step requires the user to pause scrolling for STEP_COOLDOWN ms. */
+    let lastStepTime = 0;
+    const STEP_COOLDOWN = 900; // ms between node advances
+
     const isHeroPinned = () => {
       const rect = heroRef.current?.getBoundingClientRect();
       return rect ? rect.top > -4 && rect.top < 4 : false;
@@ -129,12 +134,18 @@ export default function Hero() {
     const handleWheel = (e: WheelEvent) => {
       if (!isHeroPinned()) return;
 
+      const now = Date.now();
+      const ready = !isAnimating && (now - lastStepTime) >= STEP_COOLDOWN;
+
       if (e.deltaY > 0) {
         /* ── Scroll DOWN ── */
         if (currentStep < 2) {
           e.preventDefault();
           e.stopPropagation();
-          if (!isAnimating) executeRotate(currentStep + 1);
+          if (ready) {
+            lastStepTime = now;
+            executeRotate(currentStep + 1);
+          }
         } else {
           /* On node 3: count dwell then release */
           node3Dwell++;
@@ -149,7 +160,8 @@ export default function Hero() {
         if (currentStep > 0) {
           e.preventDefault();
           e.stopPropagation();
-          if (!isAnimating) {
+          if (ready) {
+            lastStepTime = now;
             executeRotate(currentStep - 1);
             node3Dwell = 0;
           }

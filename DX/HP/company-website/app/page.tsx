@@ -16,6 +16,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   useEffect(() => {
+    // リロード時に必ずトップに戻る
+    if (typeof window !== 'undefined') {
+      window.history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+    }
+
     // Lenis を GSAP ticker に統合する公式パターン
     // 独自RAFループを使わず、GSAPのticker(ScrollTriggerも使用)に一本化することで
     // 二重スクロール計算の競合を防ぐ
