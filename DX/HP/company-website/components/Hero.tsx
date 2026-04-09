@@ -290,34 +290,56 @@ export default function Hero() {
 
             {/* Left: Catch Copy */}
             <div ref={catchCopyRef} className="text-center md:text-left">
-              <h1 className="font-bold text-white">
-                <div
-                  className="catch-line opacity-0"
-                  style={{
-                    fontSize: 'clamp(2rem, 4vw, 3rem)',
-                    lineHeight: 1.2,
-                    letterSpacing: '-0.01em',
-                    whiteSpace: 'nowrap',
-                    background: 'linear-gradient(90deg, #ffffff 0%, #ADE0FF 55%, #ffffff 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    marginBottom: '0.5rem',
-                  }}
-                >
-                  踏み出す、はみ出す。
-                </div>
+
+              {/* Eyebrow */}
+              <div className="catch-line opacity-0 flex items-center gap-3 justify-center md:justify-start mb-7">
+                <span style={{ flexShrink: 0, display: 'inline-block', width: 28, height: 1.5, background: 'rgba(173,224,255,0.65)' }} />
+                <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: '0.24em', color: 'rgba(173,224,255,0.80)', textTransform: 'uppercase' }}>
+                  Digital Transformation
+                </span>
+              </div>
+
+              {/* Main headline — intentional 2-line split */}
+              <h1 className="catch-line opacity-0 font-bold mb-6" style={{ lineHeight: 1.08 }}>
+                <span style={{
+                  display: 'block',
+                  fontSize: 'clamp(2.6rem, 5vw, 4.2rem)',
+                  color: 'rgba(255,255,255,0.95)',
+                  letterSpacing: '-0.025em',
+                }}>踏み出す、</span>
+                <span style={{
+                  display: 'block',
+                  fontSize: 'clamp(2.6rem, 5vw, 4.2rem)',
+                  letterSpacing: '-0.025em',
+                  background: 'linear-gradient(95deg, #ADE0FF 0%, #e8f5ff 65%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}>はみ出す。</span>
               </h1>
-              <p
-                className="catch-line opacity-0 mt-4 text-lg md:text-xl leading-relaxed mx-auto md:mx-0"
-                style={{ color: 'rgba(255,255,255,0.88)' }}
-              >
+
+              {/* Divider */}
+              <div className="catch-line opacity-0 flex justify-center md:justify-start mb-5">
+                <div style={{ width: 40, height: 2, background: 'rgba(255,255,255,0.28)', borderRadius: 1 }} />
+              </div>
+
+              {/* Subtitle */}
+              <p className="catch-line opacity-0 mb-3" style={{
+                fontSize: 'clamp(0.95rem, 1.5vw, 1.1rem)',
+                color: 'rgba(255,255,255,0.90)',
+                fontWeight: 500,
+                lineHeight: 1.75,
+              }}>
                 既存のルールから抜け出し、新しいビジネスの形へ。
               </p>
-              <p
-                className="catch-line opacity-0 mt-3 text-sm md:text-base leading-relaxed mx-auto md:mx-0"
-                style={{ color: 'rgba(255,255,255,0.65)' }}
-              >
+
+              {/* Body */}
+              <p className="catch-line opacity-0" style={{
+                fontSize: 'clamp(0.8rem, 1.1vw, 0.88rem)',
+                color: 'rgba(255,255,255,0.52)',
+                lineHeight: 1.95,
+                letterSpacing: '0.02em',
+              }}>
                 次の一歩と地方の未来を、共に創り上げるITパートナー。
               </p>
             </div>
