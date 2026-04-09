@@ -7,10 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // registerPlugin は page.tsx で一元管理
 
 const companyInfo = [
-  { label: '会社名',     value: '株式会社COMPANY' },
   { label: '代表取締役', value: '山田 太郎' },
   { label: '事業内容',   value: 'システム開発・Webサービス・コンサルティング' },
-  { label: '所在地',     value: '〒100-0001 東京都千代田区千代田1-1-1 サンプルビル10F' },
 ];
 
 export default function Company() {
