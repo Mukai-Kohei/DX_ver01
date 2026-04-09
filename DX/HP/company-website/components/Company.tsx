@@ -44,52 +44,34 @@ export default function Company() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="company" style={{
-      background: 'linear-gradient(135deg,#001D4A 0%,#003D82 45%,#0057B8 100%)',
-      position: 'relative', overflow: 'hidden',
-    }} className="section-padding">
-      {/* grid overlay */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px)',
-        backgroundSize: '60px 60px',
-      }} />
-      {/* corner glow */}
-      <div className="absolute bottom-0 left-0 w-72 h-72 pointer-events-none" style={{
-        background: 'radial-gradient(circle at 0% 100%, rgba(0,61,130,0.50) 0%, transparent 65%)',
-      }} />
-      <div className="container-custom relative">
+    <section ref={sectionRef} className="section-padding bg-bg-light" id="company">
+      <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
 
           {/* Left: Title */}
           <div ref={textRef} className="space-y-6">
             <div>
-              <p className="font-en text-sm font-semibold tracking-widest mb-2" style={{ color: 'rgba(255,255,255,0.55)' }}>
+              <p className="font-en text-sm text-primary font-semibold tracking-widest mb-2">
                 COMPANY
               </p>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold" style={{ color: '#fff' }}>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-main">
                 企業情報
               </h2>
             </div>
           </div>
 
           {/* Right: Table */}
-          <div ref={tableRef} style={{
-            background: 'rgba(255,255,255,0.09)', backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(255,255,255,0.18)', borderRadius: 16, overflow: 'hidden',
-          }}>
-            <dl>
+          <div ref={tableRef} className="bg-white rounded-2xl overflow-hidden shadow-md">
+            <dl className="divide-y divide-border">
               {companyInfo.map((info, index) => (
                 <div
                   key={index}
-                  className="flex gap-4 px-5 py-4"
-                  style={{
-                    borderBottom: index < companyInfo.length - 1 ? '1px solid rgba(255,255,255,0.10)' : 'none',
-                  }}
+                  className="flex gap-4 px-5 py-4 hover:bg-bg-light transition-colors duration-200"
                 >
-                  <dt className="w-24 shrink-0 text-sm font-bold" style={{ color: 'rgba(255,255,255,0.90)' }}>
+                  <dt className="w-24 shrink-0 text-sm font-bold text-text-main">
                     {info.label}
                   </dt>
-                  <dd className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.72)' }}>
+                  <dd className="text-sm text-text-sub leading-relaxed">
                     {info.value}
                   </dd>
                 </div>
