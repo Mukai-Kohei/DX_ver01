@@ -15,9 +15,9 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.22) 0%, transparent 55%)' }} />
         {/* center glow */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 48%, rgba(147,210,255,0.22) 0%, transparent 52%)' }} />
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
           {/* gear + circuit icon */}
-          <svg viewBox="0 0 64 64" width="52" height="52" fill="none" style={{ filter: 'drop-shadow(0 0 8px rgba(147,210,255,0.65)) drop-shadow(0 0 3px rgba(147,210,255,0.9))' }}>
+          <svg viewBox="0 0 64 64" width="70" height="70" fill="none" style={{ filter: 'drop-shadow(0 0 8px rgba(147,210,255,0.65)) drop-shadow(0 0 3px rgba(147,210,255,0.9))' }}>
             {/* gear body */}
             <path d="M27 7.5l-1.2 4.8a13 13 0 0 0-3.8 2.2l-4.7-1.4-4.8 8.3 3.7 3.2a13 13 0 0 0 0 4.8l-3.7 3.2 4.8 8.3 4.7-1.4a13 13 0 0 0 3.8 2.2l1.2 4.8h10l1.2-4.8a13 13 0 0 0 3.8-2.2l4.7 1.4 4.8-8.3-3.7-3.2a13 13 0 0 0 0-4.8l3.7-3.2-4.8-8.3-4.7 1.4a13 13 0 0 0-3.8-2.2L37 7.5z" stroke="rgba(167,220,255,0.88)" strokeWidth="1.4" fill="rgba(147,210,255,0.10)" strokeLinejoin="round"/>
             {/* inner circle / scope */}
@@ -35,8 +35,8 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
             <circle cx="32" cy="14.5" r="1.8" fill="rgba(167,220,255,0.7)"/>
           </svg>
           <div style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: 15, fontWeight: 800, letterSpacing: '0.12em', color: '#e8f4ff', textShadow: '0 0 14px rgba(147,210,255,0.7)', marginBottom: 3 }}>DX SOLUTION</p>
-            <p style={{ fontSize: 9.5, letterSpacing: '0.04em', color: 'rgba(190,230,255,0.78)' }}>デジタルトランスフォーメーション</p>
+            <p style={{ fontSize: 20, fontWeight: 800, letterSpacing: '0.12em', color: '#e8f4ff', textShadow: '0 0 14px rgba(147,210,255,0.7)', marginBottom: 5 }}>DX SOLUTION</p>
+            <p style={{ fontSize: 12, letterSpacing: '0.04em', color: 'rgba(190,230,255,0.78)' }}>デジタルトランスフォーメーション</p>
           </div>
         </div>
       </div>
@@ -49,8 +49,8 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.18) 0%, transparent 55%)' }} />
         {/* center glow */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 48%, rgba(56,211,241,0.20) 0%, transparent 52%)' }} />
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-          <svg viewBox="0 0 72 60" width="58" height="48" fill="none" style={{ filter: 'drop-shadow(0 0 8px rgba(56,211,241,0.65)) drop-shadow(0 0 3px rgba(56,211,241,0.9))' }}>
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+          <svg viewBox="0 0 72 60" width="76" height="63" fill="none" style={{ filter: 'drop-shadow(0 0 8px rgba(56,211,241,0.65)) drop-shadow(0 0 3px rgba(56,211,241,0.9))' }}>
             {/* bar chart */}
             <rect x="10" y="38" width="8" height="12" rx="1.5" stroke="rgba(100,230,255,0.88)" strokeWidth="1.4" fill="rgba(56,211,241,0.12)"/>
             <rect x="21" y="28" width="8" height="22" rx="1.5" stroke="rgba(100,230,255,0.88)" strokeWidth="1.4" fill="rgba(56,211,241,0.12)"/>
@@ -77,8 +77,8 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
             <line x1="68" y1="30" x2="68" y2="38" stroke="rgba(100,230,255,0.50)" strokeWidth="1" strokeLinecap="round"/>
           </svg>
           <div style={{ textAlign: 'center' }}>
-            <p style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: '#d0f4ff', textShadow: '0 0 14px rgba(56,211,241,0.75)', marginBottom: 3 }}>DIGITAL MARKETING</p>
-            <p style={{ fontSize: 9.5, letterSpacing: '0.04em', color: 'rgba(160,235,255,0.78)' }}>デジタルマーケティング</p>
+            <p style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.10em', color: '#d0f4ff', textShadow: '0 0 14px rgba(56,211,241,0.75)', marginBottom: 5 }}>DIGITAL MARKETING</p>
+            <p style={{ fontSize: 12, letterSpacing: '0.04em', color: 'rgba(160,235,255,0.78)' }}>デジタルマーケティング</p>
           </div>
         </div>
       </div>
@@ -90,9 +90,9 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.20) 0%, transparent 55%)' }} />
       {/* center glow */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 48%, rgba(232,121,249,0.20) 0%, transparent 52%)' }} />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
         {/* gear × chart fusion icon */}
-        <svg viewBox="0 0 72 60" width="56" height="46" fill="none" style={{ filter: 'drop-shadow(0 0 8px rgba(240,171,252,0.65)) drop-shadow(0 0 3px rgba(240,171,252,0.9))' }}>
+        <svg viewBox="0 0 72 60" width="74" height="61" fill="none" style={{ filter: 'drop-shadow(0 0 8px rgba(240,171,252,0.65)) drop-shadow(0 0 3px rgba(240,171,252,0.9))' }}>
           {/* left: gear (DX) */}
           <path d="M17 6l-.9 3.6a10 10 0 0 0-2.9 1.7l-3.6-1.1-3.6 6.3 2.8 2.4a10 10 0 0 0 0 3.6l-2.8 2.4 3.6 6.3 3.6-1.1a10 10 0 0 0 2.9 1.7l.9 3.6h7.6l.9-3.6a10 10 0 0 0 2.9-1.7l3.6 1.1 3.6-6.3-2.8-2.4a10 10 0 0 0 0-3.6l2.8-2.4-3.6-6.3-3.6 1.1a10 10 0 0 0-2.9-1.7L24.6 6z" stroke="rgba(240,171,252,0.88)" strokeWidth="1.3" fill="rgba(232,121,249,0.10)" strokeLinejoin="round"/>
           <circle cx="20.8" cy="18" r="6" stroke="rgba(240,171,252,0.85)" strokeWidth="1.2" fill="rgba(232,121,249,0.08)"/>
@@ -114,8 +114,8 @@ function DesignPanel({ variant }: { variant: 1 | 2 | 3 }) {
           <line x1="35" y1="46" x2="43" y2="44" stroke="rgba(240,171,252,0.40)" strokeWidth="1" strokeLinecap="round"/>
         </svg>
         <div style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: 13, fontWeight: 800, letterSpacing: '0.10em', color: '#fdf4ff', textShadow: '0 0 14px rgba(232,121,249,0.80)', marginBottom: 3 }}>DX × MARKETING</p>
-          <p style={{ fontSize: 9.5, letterSpacing: '0.04em', color: 'rgba(245,208,254,0.80)' }}>デジタルと顧客体験の融合</p>
+          <p style={{ fontSize: 18, fontWeight: 800, letterSpacing: '0.10em', color: '#fdf4ff', textShadow: '0 0 14px rgba(232,121,249,0.80)', marginBottom: 5 }}>DX × MARKETING</p>
+          <p style={{ fontSize: 12, letterSpacing: '0.04em', color: 'rgba(245,208,254,0.80)' }}>デジタルと顧客体験の融合</p>
         </div>
       </div>
     </div>
