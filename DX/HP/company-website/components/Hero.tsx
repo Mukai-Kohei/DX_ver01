@@ -426,7 +426,7 @@ export default function Hero() {
                       <div className="node-circle">
                         <GearIcon />
                       </div>
-                      <span className="node-label" style={{ fontSize: 11.5 }}>DX × MARKETING</span>
+                      <span className="node-label">DX×<br />マーケ</span>
                     </div>
                   </div>
 

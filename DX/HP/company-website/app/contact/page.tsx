@@ -56,7 +56,7 @@ export default function ContactPage() {
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: "'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif" }}>
 
       {/* ── Blue gradient header band ── */}
-      <div style={{ background: 'linear-gradient(135deg,#002D6E 0%,#0057B8 55%,#006FD6 100%)', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ background: 'linear-gradient(135deg,#001D4A 0%,#003D82 45%,#0057B8 100%)', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none',
           backgroundImage: 'linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px)',
           backgroundSize: '60px 60px' }} />
