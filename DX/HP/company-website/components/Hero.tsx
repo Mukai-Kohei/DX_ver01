@@ -68,6 +68,8 @@ export default function Hero() {
       }
     }
 
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+
     const ctx = gsap.context(() => {
       /* ── Intro animations ── */
       const lines = catchCopyRef.current?.querySelectorAll('.catch-line');
@@ -97,8 +99,8 @@ export default function Hero() {
         a few natural scroll gestures advance the pin and it releases cleanly.
         No snap / no onUpdate — node selection is 100% wheel-event driven.
       */
-      /* Desktop only: mobile scrolls freely (no wheel events on touch) */
-      if (window.matchMedia('(min-width: 768px)').matches) {
+      /* Desktop only: mobile scrolls freely */
+      if (isDesktop) {
         ScrollTrigger.create({
           trigger: heroRef.current,
           start:   'top top',
@@ -173,7 +175,10 @@ export default function Hero() {
       }
     };
 
-    window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+    /* Wheel interceptor: desktop only. On mobile, touch-scroll must not be blocked. */
+    if (isDesktop) {
+      window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+    }
 
     /* ── Touch swipe: cycle orbit on mobile ── */
     let touchStartY = 0;
@@ -193,7 +198,9 @@ export default function Hero() {
     }
 
     return () => {
-      window.removeEventListener('wheel', handleWheel, { capture: true });
+      if (isDesktop) {
+        window.removeEventListener('wheel', handleWheel, { capture: true });
+      }
       heroRef.current?.removeEventListener('touchstart', handleTouchStart);
       heroRef.current?.removeEventListener('touchend', handleTouchEnd);
       gsap.killTweensOf([
