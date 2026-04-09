@@ -294,9 +294,10 @@ export default function Hero() {
                 <div
                   className="catch-line opacity-0"
                   style={{
-                    fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+                    fontSize: 'clamp(2rem, 4vw, 3rem)',
                     lineHeight: 1.2,
                     letterSpacing: '-0.01em',
+                    whiteSpace: 'nowrap',
                     background: 'linear-gradient(90deg, #ffffff 0%, #ADE0FF 55%, #ffffff 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -308,18 +309,16 @@ export default function Hero() {
                 </div>
               </h1>
               <p
-                className="catch-line opacity-0 mt-4 text-base md:text-lg leading-relaxed mx-auto md:mx-0"
+                className="catch-line opacity-0 mt-4 text-lg md:text-xl leading-relaxed mx-auto md:mx-0"
                 style={{ color: 'rgba(255,255,255,0.88)' }}
               >
-                既存のルールから抜け出し、<br className="hidden md:block" />
-                新しいビジネスの形へ。
+                既存のルールから抜け出し、新しいビジネスの形へ。
               </p>
               <p
-                className="catch-line opacity-0 mt-3 text-sm md:text-base leading-relaxed mx-auto md:mx-0 max-w-sm"
+                className="catch-line opacity-0 mt-3 text-sm md:text-base leading-relaxed mx-auto md:mx-0"
                 style={{ color: 'rgba(255,255,255,0.65)' }}
               >
-                次の一歩と地方の未来を、<br className="hidden md:block" />
-                共に創り上げるITパートナー。
+                次の一歩と地方の未来を、共に創り上げるITパートナー。
               </p>
             </div>
 
