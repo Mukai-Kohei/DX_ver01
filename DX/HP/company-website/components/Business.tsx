@@ -161,7 +161,7 @@ export default function Business() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-padding bg-white" id="business">
+    <section ref={sectionRef} className="section-padding bg-bg-light" id="business">
       <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Left: Text */}
@@ -237,7 +237,7 @@ export default function Business() {
             >
               <DesignPanel variant={3} />
               <div className="absolute bottom-0 left-0 right-0 flex items-center justify-center pb-3 pt-6"
-                style={{ background: 'linear-gradient(to top, rgba(4,60,40,0.72) 0%, transparent 100%)' }}>
+                style={{ background: 'linear-gradient(to top, rgba(120,10,140,0.72) 0%, transparent 100%)' }}>
                 <span className="text-white text-xs font-bold tracking-widest flex items-center gap-1 opacity-70 group-hover:opacity-100 transition-opacity duration-200">
                   詳細を見る
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-0.5">
