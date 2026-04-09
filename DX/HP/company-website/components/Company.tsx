@@ -7,8 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // registerPlugin は page.tsx で一元管理
 
 const companyInfo = [
-  { label: '代表取締役', value: '山田 太郎' },
-  { label: '事業内容',   value: 'システム開発・Webサービス・コンサルティング' },
+  { label: '代表取締役', value: '舟木 南生' },
+  { label: '事業内容',   value: 'DX推進による業務変革、デジタルマーケティングによる顧客体験の最大化、そしてDX×マーケティングの融合が生む新たな価値創造。' },
 ];
 
 export default function Company() {
