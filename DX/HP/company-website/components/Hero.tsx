@@ -290,51 +290,37 @@ export default function Hero() {
 
             {/* Left: Catch Copy */}
             <div ref={catchCopyRef} className="text-center md:text-left">
-              <h1 className="font-en font-bold text-white">
-                <div className="catch-line opacity-0 text-2xl md:text-3xl lg:text-4xl mb-2" style={{ letterSpacing: '0.03em' }}>
-                  What the regional
-                </div>
-                <div className="catch-line opacity-0 text-2xl md:text-3xl lg:text-4xl mb-2" style={{ letterSpacing: '0.03em' }}>
-                  business needs is
-                </div>
+              <h1 className="font-bold text-white">
                 <div
-                  className="catch-line opacity-0 text-3xl md:text-4xl lg:text-5xl"
+                  className="catch-line opacity-0"
                   style={{
-                    background: 'linear-gradient(90deg, #ffffff 0%, #7EC8F0 50%, #ffffff 100%)',
+                    fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+                    lineHeight: 1.2,
+                    letterSpacing: '-0.01em',
+                    background: 'linear-gradient(90deg, #ffffff 0%, #ADE0FF 55%, #ffffff 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
-                    letterSpacing: '0.02em',
+                    marginBottom: '0.5rem',
                   }}
                 >
-                  &quot;cross-pollination.&quot;
+                  踏み出す、はみ出す。
                 </div>
               </h1>
               <p
-                className="catch-line opacity-0 mt-5 text-sm md:text-base leading-relaxed mx-auto md:mx-0 max-w-sm"
-                style={{ color: 'rgba(255,255,255,0.75)' }}
+                className="catch-line opacity-0 mt-4 text-base md:text-lg leading-relaxed mx-auto md:mx-0"
+                style={{ color: 'rgba(255,255,255,0.88)' }}
               >
-                これからのビジネスに必要なのは、<br className="hidden md:block" />
-                知と人の「交わり」です。
+                既存のルールから抜け出し、<br className="hidden md:block" />
+                新しいビジネスの形へ。
               </p>
-
-              {/* Trust badge */}
-              <div
-                className="catch-line opacity-0 mt-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full"
-                style={{
-                  background: 'rgba(255,255,255,0.10)',
-                  border: '1px solid rgba(255,255,255,0.22)',
-                  backdropFilter: 'blur(8px)',
-                }}
+              <p
+                className="catch-line opacity-0 mt-3 text-sm md:text-base leading-relaxed mx-auto md:mx-0 max-w-sm"
+                style={{ color: 'rgba(255,255,255,0.65)' }}
               >
-                <span style={{
-                  display: 'inline-block', width: 6, height: 6,
-                  borderRadius: '50%', background: '#7EC8F0', flexShrink: 0,
-                }} />
-                <span className="text-xs font-medium" style={{ color: 'rgba(255,255,255,0.85)', letterSpacing: '0.06em' }}>
-                  地域に根ざした、確かなITパートナー
-                </span>
-              </div>
+                次の一歩と地方の未来を、<br className="hidden md:block" />
+                共に創り上げるITパートナー。
+              </p>
             </div>
 
             {/* Right: Orbit Diagram */}
