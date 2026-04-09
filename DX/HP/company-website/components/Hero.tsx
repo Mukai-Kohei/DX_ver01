@@ -97,13 +97,16 @@ export default function Hero() {
         a few natural scroll gestures advance the pin and it releases cleanly.
         No snap / no onUpdate — node selection is 100% wheel-event driven.
       */
-      ScrollTrigger.create({
-        trigger: heroRef.current,
-        start:   'top top',
-        end:     '+=120vh',
-        pin:     true,
-        anticipatePin: 1,
-      });
+      /* Desktop only: mobile scrolls freely (no wheel events on touch) */
+      if (window.matchMedia('(min-width: 768px)').matches) {
+        ScrollTrigger.create({
+          trigger: heroRef.current,
+          start:   'top top',
+          end:     '+=120vh',
+          pin:     true,
+          anticipatePin: 1,
+        });
+      }
     }, heroRef);
 
     /* ── Wheel interceptor ──────────────────────────────────────────────
@@ -172,8 +175,27 @@ export default function Hero() {
 
     window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
 
+    /* ── Touch swipe: cycle orbit on mobile ── */
+    let touchStartY = 0;
+    const handleTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY; };
+    const handleTouchEnd = (e: TouchEvent) => {
+      const now = Date.now();
+      const dy = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(dy) < 50) return;
+      if (isAnimating || (now - lastStepTime) < STEP_COOLDOWN) return;
+      lastStepTime = now;
+      if (dy > 0 && currentStep < 2) executeRotate(currentStep + 1);
+      if (dy < 0 && currentStep > 0) { executeRotate(currentStep - 1); node3Dwell = 0; }
+    };
+    if (heroRef.current) {
+      heroRef.current.addEventListener('touchstart', handleTouchStart, { passive: true });
+      heroRef.current.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+
     return () => {
       window.removeEventListener('wheel', handleWheel, { capture: true });
+      heroRef.current?.removeEventListener('touchstart', handleTouchStart);
+      heroRef.current?.removeEventListener('touchend', handleTouchEnd);
       gsap.killTweensOf([
         orbitRingRef.current, inner0Ref.current, inner1Ref.current,
         inner2Ref.current, cNumRef.current, wmRef.current,
@@ -223,7 +245,7 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative w-full flex items-center"
+      className="relative w-full flex items-center overflow-hidden"
       style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%)' }}
       id="hero"
     >
@@ -347,10 +369,11 @@ export default function Hero() {
             {/* Right: Orbit Diagram */}
             <div ref={diagramRef} className="opacity-0 flex justify-center">
               {/*
-                Orbit stage: fixed 500×500 px coordinate space.
-                Scaled down on smaller screens via CSS (see <style jsx> below).
+                orbit-clip-wrapper: constrains layout footprint to the scaled visual size.
+                orbit-stage: fixed 500×500 px coordinate space, scaled via CSS transform.
                 Orbit ring r=170 → items at ±170px from center (250,250).
               */}
+              <div className="orbit-clip-wrapper">
               <div className="orbit-stage relative flex-shrink-0" style={{ width: 500, height: 500 }}>
 
                 {/* Decorative SVG rings (static, never rotated) */}
@@ -439,6 +462,7 @@ export default function Hero() {
 
                 </div>{/* /orbit-ring */}
               </div>{/* /orbit-stage */}
+              </div>{/* /orbit-clip-wrapper */}
             </div>
 
           </div>
@@ -474,10 +498,24 @@ export default function Hero() {
           100% { transform: translateY(200%); opacity: 0; }
         }
 
+        /* ── Orbit clip wrapper: layout footprint matches scaled visual size ── */
+        .orbit-clip-wrapper {
+          overflow: hidden;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 500px; height: 500px;
+        }
+        @media (max-width: 1200px) { .orbit-clip-wrapper { width: 410px; height: 410px; } }
+        @media (max-width:  900px) { .orbit-clip-wrapper { width: 310px; height: 310px; } }
+        @media (max-width:  480px) { .orbit-clip-wrapper { width: 260px; height: 260px; } }
+
         /* ── Orbit stage responsive scaling ── */
-        .orbit-stage { transform-origin: center center; }
+        .orbit-stage { transform-origin: center center; flex-shrink: 0; }
         @media (max-width: 1200px) { .orbit-stage { transform: scale(0.82); } }
-        @media (max-width:  900px) { .orbit-stage { transform: scale(0.62); transform-origin: top center; } }
+        @media (max-width:  900px) { .orbit-stage { transform: scale(0.62); } }
+        @media (max-width:  480px) { .orbit-stage { transform: scale(0.52); } }
 
         /* ── Orbit item: zero-size anchor, CSS-positioned on ring ──
            rotate(--a) places it on the circle;

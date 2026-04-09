@@ -110,7 +110,7 @@ export default function ContactPage() {
               </Link>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} style={{ background: '#fff', borderRadius: 16, padding: '36px 32px', boxShadow: '0 4px 24px rgba(0,87,184,0.08)', border: '1px solid #e2e8f0' }}>
+            <form onSubmit={handleSubmit} style={{ background: '#fff', borderRadius: 16, padding: 'clamp(20px, 5vw, 36px) clamp(16px, 4vw, 32px)', boxShadow: '0 4px 24px rgba(0,87,184,0.08)', border: '1px solid #e2e8f0' }}>
 
               <div style={{ display: 'grid', gap: 20 }}>
                 {/* 会社名 */}
