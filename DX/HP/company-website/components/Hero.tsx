@@ -68,7 +68,9 @@ export default function Hero() {
       }
     }
 
-    const isDesktop = window.matchMedia('(min-width: 768px)').matches;
+    /* タッチデバイス（スマホ・タブレット）ではピン・ホイール無効 */
+    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isDesktop = !isTouch;
 
     const ctx = gsap.context(() => {
       /* ── Intro animations ── */
@@ -180,29 +182,10 @@ export default function Hero() {
       window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
     }
 
-    /* ── Touch swipe: cycle orbit on mobile ── */
-    let touchStartY = 0;
-    const handleTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY; };
-    const handleTouchEnd = (e: TouchEvent) => {
-      const now = Date.now();
-      const dy = touchStartY - e.changedTouches[0].clientY;
-      if (Math.abs(dy) < 50) return;
-      if (isAnimating || (now - lastStepTime) < STEP_COOLDOWN) return;
-      lastStepTime = now;
-      if (dy > 0 && currentStep < 2) executeRotate(currentStep + 1);
-      if (dy < 0 && currentStep > 0) { executeRotate(currentStep - 1); node3Dwell = 0; }
-    };
-    if (heroRef.current) {
-      heroRef.current.addEventListener('touchstart', handleTouchStart, { passive: true });
-      heroRef.current.addEventListener('touchend', handleTouchEnd, { passive: true });
-    }
-
     return () => {
       if (isDesktop) {
         window.removeEventListener('wheel', handleWheel, { capture: true });
       }
-      heroRef.current?.removeEventListener('touchstart', handleTouchStart);
-      heroRef.current?.removeEventListener('touchend', handleTouchEnd);
       gsap.killTweensOf([
         orbitRingRef.current, inner0Ref.current, inner1Ref.current,
         inner2Ref.current, cNumRef.current, wmRef.current,
@@ -252,8 +235,8 @@ export default function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative w-full flex items-center overflow-hidden"
-      style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%)' }}
+      className="relative w-full flex items-center"
+      style={{ minHeight: '100vh', overflowX: 'hidden', background: 'linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%)' }}
       id="hero"
     >
       {/* ===== BACKGROUND LAYERS ===== */}
