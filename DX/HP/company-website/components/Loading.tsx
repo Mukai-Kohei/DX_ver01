@@ -14,7 +14,8 @@ export default function Loading() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onComplete: () => {
-          // cleanup returnでも戻すが、アニメーション完了時に確実に解除
+          // ローディング完了時にスクロールを即座に解除
+          if (typeof document !== 'undefined') document.body.style.overflow = '';
           setIsComplete(true);
         },
       });
@@ -30,7 +31,7 @@ export default function Loading() {
     if (typeof document !== 'undefined') document.body.style.overflow = 'hidden';
     return () => {
       ctx.revert();
-      if (typeof document !== 'undefined') document.body.style.overflow = 'auto';
+      if (typeof document !== 'undefined') document.body.style.overflow = '';
     };
   }, []);
 
