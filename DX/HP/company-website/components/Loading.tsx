@@ -11,13 +11,11 @@ export default function Loading() {
   useEffect(() => {
     if (!overlayRef.current || !logoRef.current) return;
 
+    // overlayは fixed inset-0 z-[9999] で画面全体を覆うため
+    // body.overflow 操作は不要（かつモバイルスクロールを壊す）
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        onComplete: () => {
-          // ローディング完了時にスクロールを即座に解除
-          if (typeof document !== 'undefined') document.body.style.overflow = '';
-          setIsComplete(true);
-        },
+        onComplete: () => setIsComplete(true),
       });
 
       tl.fromTo(logoRef.current,
@@ -28,11 +26,7 @@ export default function Loading() {
       .to(overlayRef.current, { y: '-100%', duration: 0.85, ease: 'power3.inOut' });
     }, overlayRef);
 
-    if (typeof document !== 'undefined') document.body.style.overflow = 'hidden';
-    return () => {
-      ctx.revert();
-      if (typeof document !== 'undefined') document.body.style.overflow = '';
-    };
+    return () => { ctx.revert(); };
   }, []);
 
   if (isComplete) return null;

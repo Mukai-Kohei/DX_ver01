@@ -23,10 +23,10 @@ export default function Home() {
     }
 
     // タッチデバイス（スマホ・タブレット）ではネイティブスクロールを使用。
-    // Lenis は touchmove に passive:false を設定し preventDefault() するため
-    // モバイルのスクロールを完全にブロックしてしまう。
-    const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-    if (isMobile) return;
+    // Lenis は html に height:100vh を付与し、touchmove を passive:false で登録するため
+    // モバイルのネイティブスクロールを完全に破壊する。
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) return;
 
     // Lenis を GSAP ticker に統合する公式パターン
     // 独自RAFループを使わず、GSAPのticker(ScrollTriggerも使用)に一本化することで
