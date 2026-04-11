@@ -188,7 +188,7 @@ export default function Business() {
           </div>
 
           {/* Right: Collage Panels */}
-          <div ref={imagesRef} className="relative h-[400px] md:h-[500px]">
+          <div ref={imagesRef} className="business-collage relative h-[400px] md:h-[500px]">
             {/* Panel 1 — DX SOLUTION (clickable) */}
             <Link
               href="/dx-solution"
@@ -255,6 +255,33 @@ export default function Business() {
         .bp1:hover { transform: rotate(3deg) scale(1.06) !important; box-shadow: 0 18px 48px rgba(99,60,220,0.65), 0 4px 16px rgba(0,0,0,0.35) !important; }
         .bp2:hover { transform: rotate(-2deg) scale(1.06) !important; box-shadow: 0 18px 48px rgba(0,80,180,0.60), 0 4px 16px rgba(0,0,0,0.35) !important; }
         .bp3:hover { transform: rotate(4deg) scale(1.06) !important; box-shadow: 0 18px 48px rgba(21,101,192,0.65), 0 4px 16px rgba(0,0,0,0.35) !important; }
+
+        /* ── Mobile: vertical stack instead of overlapping collage ── */
+        @media (max-width: 767px) {
+          .business-collage {
+            height: auto !important;
+            display: flex !important;
+            flex-direction: column;
+            gap: 14px;
+          }
+          .business-image {
+            position: relative !important;
+            top: auto !important; left: auto !important;
+            right: auto !important; bottom: auto !important;
+            width: 100% !important;
+            height: 190px !important;
+            transform: none !important;
+          }
+          .bp1:hover, .bp2:hover, .bp3:hover {
+            transform: scale(1.02) !important;
+          }
+          .business-image .absolute.bottom-0 {
+            opacity: 1 !important;
+          }
+          .business-image span {
+            opacity: 1 !important;
+          }
+        }
       `}</style>
     </section>
   );
