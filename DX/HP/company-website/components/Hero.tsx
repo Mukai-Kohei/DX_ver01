@@ -521,10 +521,10 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll Down Indicator */}
+      {/* Scroll Down Indicator — desktop only (mobile uses TAP · SWIPE hint) */}
       <div
         ref={scrollDownRef}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 opacity-0 flex flex-col items-center gap-3"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 opacity-0 hidden md:flex flex-col items-center gap-3"
       >
         <span className="font-en text-xs text-white tracking-[0.35em] opacity-50 font-light">SCROLL</span>
         <div className="relative w-px h-16 overflow-hidden">
@@ -534,6 +534,16 @@ export default function Hero() {
           />
         </div>
       </div>
+
+      {/* Bottom white fade — blends hero cyan gradient into white before the wave.
+          On tall viewports the centered content leaves 80-150px of cyan gap; this covers it. */}
+      <div
+        className="absolute bottom-0 left-0 w-full z-[9] pointer-events-none"
+        style={{
+          height: '320px',
+          background: 'linear-gradient(to bottom, transparent 0%, white 100%)',
+        }}
+      />
 
       {/* Bottom wave */}
       <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none">
