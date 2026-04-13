@@ -101,8 +101,8 @@ export default function Hero() {
         a few natural scroll gestures advance the pin and it releases cleanly.
         No snap / no onUpdate — node selection is 100% wheel-event driven.
       */
-      /* Desktop only (>= 1024px): mobile scrolls freely */
-      if (isDesktop && window.innerWidth >= 1024) {
+      /* Desktop only: mobile scrolls freely */
+      if (isDesktop) {
         ScrollTrigger.create({
           trigger: heroRef.current,
           start:   'top top',
@@ -182,12 +182,6 @@ export default function Hero() {
       window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
     }
 
-    /* ── Auto-cycle + tap-to-cycle (モバイル専用) ──
-       3秒ごとにオービットを自動で進める。タップ・スワイプ後はタイマーリセット。 */
-    let autoCycleTimer: ReturnType<typeof setInterval> | null = null;
-    let handleOrbitClick: ((e: MouseEvent) => void) | null = null;
-    let startAutoCycle: (() => void) | null = null;
-
     /* ── 横スワイプでノード切り替え（モバイル専用）──
        縦スワイプ = ページスクロール（そのまま）
        横スワイプ = オービット切り替え（|dx| > |dy| のとき）        */
@@ -200,41 +194,20 @@ export default function Hero() {
     const handleTouchEnd = (e: TouchEvent) => {
       const dx = touchStartX - e.changedTouches[0].clientX;
       const dy = touchStartY - e.changedTouches[0].clientY;
-      // 縦スワイプ優勢 or 移動量が小さいときは無視（閾値 20px に引き下げ）
-      if (Math.abs(dx) < 20 || Math.abs(dx) < Math.abs(dy)) return;
+      // 縦スワイプ優勢 or 移動量が小さいときは無視
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
       const now = Date.now();
       if (isAnimating || (now - lastStepTime) < STEP_COOLDOWN) return;
       lastStepTime = now;
-      if (dx > 0 && currentStep < 2) { executeRotate(currentStep + 1); startAutoCycle?.(); } // 左スワイプ → 次へ
-      if (dx < 0 && currentStep > 0) { executeRotate(currentStep - 1); node3Dwell = 0; startAutoCycle?.(); } // 右スワイプ → 前へ
+      if (dx > 0 && currentStep < 2) executeRotate(currentStep + 1); // 左スワイプ → 次へ
+      if (dx < 0 && currentStep > 0) { executeRotate(currentStep - 1); node3Dwell = 0; } // 右スワイプ → 前へ
     };
     if (heroRef.current) {
       heroRef.current.addEventListener('touchstart', handleTouchStart, { passive: true });
       heroRef.current.addEventListener('touchend',   handleTouchEnd,   { passive: true });
     }
 
-    if (!isDesktop) {
-      startAutoCycle = () => {
-        if (autoCycleTimer) clearInterval(autoCycleTimer);
-        autoCycleTimer = setInterval(() => {
-          if (!isAnimating) executeRotate(currentStep < 2 ? currentStep + 1 : 0);
-        }, 3000);
-      };
-      startAutoCycle();
-
-      handleOrbitClick = () => {
-        const now = Date.now();
-        if (isAnimating || (now - lastStepTime) < STEP_COOLDOWN) return;
-        lastStepTime = now;
-        executeRotate(currentStep < 2 ? currentStep + 1 : 0);
-        startAutoCycle?.();
-      };
-      diagramRef.current?.addEventListener('click', handleOrbitClick);
-    }
-
     return () => {
-      if (autoCycleTimer) clearInterval(autoCycleTimer);
-      if (handleOrbitClick) diagramRef.current?.removeEventListener('click', handleOrbitClick);
       if (isDesktop) {
         window.removeEventListener('wheel', handleWheel, { capture: true });
       }
@@ -411,7 +384,7 @@ export default function Hero() {
             </div>
 
             {/* Right: Orbit Diagram */}
-            <div ref={diagramRef} className="opacity-0 flex flex-col items-center">
+            <div ref={diagramRef} className="opacity-0 flex justify-center">
               {/*
                 orbit-clip-wrapper: constrains layout footprint to the scaled visual size.
                 orbit-stage: fixed 500×500 px coordinate space, scaled via CSS transform.
@@ -507,14 +480,6 @@ export default function Hero() {
                 </div>{/* /orbit-ring */}
               </div>{/* /orbit-stage */}
               </div>{/* /orbit-clip-wrapper */}
-
-              {/* Mobile tap/swipe hint */}
-              <p
-                className="md:hidden mt-2 text-center select-none pointer-events-none"
-                style={{ fontSize: 10, letterSpacing: '0.18em', color: 'rgba(255,255,255,0.40)' }}
-              >
-                TAP · SWIPE
-              </p>
             </div>
 
           </div>
@@ -537,7 +502,7 @@ export default function Hero() {
 
       {/* Bottom wave */}
       <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none">
-        <svg viewBox="0 0 1440 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block" style={{ height: 72, display: 'block' }}>
+        <svg viewBox="0 0 1440 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className="w-full block">
           <path d="M0,72 L0,36 Q360,-4 720,36 Q1080,76 1440,36 L1440,72 Z" fill="white"/>
         </svg>
       </div>
