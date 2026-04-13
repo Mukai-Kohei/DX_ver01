@@ -182,10 +182,37 @@ export default function Hero() {
       window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
     }
 
+    /* ── 横スワイプでノード切り替え（モバイル専用）──
+       縦スワイプ = ページスクロール（そのまま）
+       横スワイプ = オービット切り替え（|dx| > |dy| のとき）        */
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    };
+    const handleTouchEnd = (e: TouchEvent) => {
+      const dx = touchStartX - e.changedTouches[0].clientX;
+      const dy = touchStartY - e.changedTouches[0].clientY;
+      // 縦スワイプ優勢 or 移動量が小さいときは無視
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+      const now = Date.now();
+      if (isAnimating || (now - lastStepTime) < STEP_COOLDOWN) return;
+      lastStepTime = now;
+      if (dx > 0 && currentStep < 2) executeRotate(currentStep + 1); // 左スワイプ → 次へ
+      if (dx < 0 && currentStep > 0) { executeRotate(currentStep - 1); node3Dwell = 0; } // 右スワイプ → 前へ
+    };
+    if (heroRef.current) {
+      heroRef.current.addEventListener('touchstart', handleTouchStart, { passive: true });
+      heroRef.current.addEventListener('touchend',   handleTouchEnd,   { passive: true });
+    }
+
     return () => {
       if (isDesktop) {
         window.removeEventListener('wheel', handleWheel, { capture: true });
       }
+      heroRef.current?.removeEventListener('touchstart', handleTouchStart);
+      heroRef.current?.removeEventListener('touchend',   handleTouchEnd);
       gsap.killTweensOf([
         orbitRingRef.current, inner0Ref.current, inner1Ref.current,
         inner2Ref.current, cNumRef.current, wmRef.current,
