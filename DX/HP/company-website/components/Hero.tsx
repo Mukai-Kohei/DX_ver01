@@ -68,9 +68,10 @@ export default function Hero() {
       }
     }
 
-    /* タッチデバイス（スマホ・タブレット）ではピン・ホイール無効 */
+    /* デスクトップ判定：タッチ非対応 かつ 画面幅 ≥ 1024px の両方を満たす場合のみ
+       どちらか一方の判定だけでは不確実なため、2条件のANDで確実に切り分ける */
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const isDesktop = !isTouch;
+    const isDesktop = !isTouch && window.innerWidth >= 1024;
 
     const ctx = gsap.context(() => {
       /* ── Intro animations ── */
@@ -101,8 +102,8 @@ export default function Hero() {
         a few natural scroll gestures advance the pin and it releases cleanly.
         No snap / no onUpdate — node selection is 100% wheel-event driven.
       */
-      /* Desktop only (>= 1024px): mobile scrolls freely */
-      if (isDesktop && window.innerWidth >= 1024) {
+      /* Desktop only: mobile scrolls freely */
+      if (isDesktop) {
         ScrollTrigger.create({
           trigger: heroRef.current,
           start:   'top top',
@@ -535,13 +536,14 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom white fade — blends hero cyan gradient into white before the wave.
-          On tall viewports the centered content leaves 80-150px of cyan gap; this covers it. */}
+      {/* Bottom white fade — blends hero gradient to white so no cyan band shows on tall viewports.
+          Uses rgba(255,255,255,0) not 'transparent' to avoid the grey midpoint in CSS gradient. */}
       <div
-        className="absolute bottom-0 left-0 w-full z-[9] pointer-events-none"
+        className="absolute bottom-0 left-0 w-full pointer-events-none"
         style={{
-          height: '320px',
-          background: 'linear-gradient(to bottom, transparent 0%, white 100%)',
+          height: '360px',
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)',
+          zIndex: 9,
         }}
       />
 
