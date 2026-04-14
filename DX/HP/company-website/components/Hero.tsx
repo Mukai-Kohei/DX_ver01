@@ -291,7 +291,7 @@ export default function Hero() {
     <section
       ref={heroRef}
       className="relative w-full flex items-center"
-      style={{ minHeight: '100vh', overflowX: 'hidden', background: 'linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%)' }}
+      style={{ minHeight: '100vh', overflow: 'clip', background: 'linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%)' }}
       id="hero"
     >
       {/* ===== BACKGROUND LAYERS ===== */}
@@ -328,7 +328,7 @@ export default function Hero() {
         borderRadius: '50%', filter: 'blur(50px)',
       }} />
       <div className="absolute z-0 pointer-events-none" style={{
-        bottom: '-10%', left: '-5%', width: '500px', height: '500px',
+        bottom: '0', left: '-5%', width: '500px', height: '500px',
         background: 'radial-gradient(circle, rgba(0,55,130,0.22) 0%, transparent 65%)',
         borderRadius: '50%', filter: 'blur(70px)',
       }} />
@@ -535,17 +535,6 @@ export default function Hero() {
           />
         </div>
       </div>
-
-      {/* Bottom white fade — blends hero gradient to white so no cyan band shows on tall viewports.
-          Uses rgba(255,255,255,0) not 'transparent' to avoid the grey midpoint in CSS gradient. */}
-      <div
-        className="absolute bottom-0 left-0 w-full pointer-events-none"
-        style={{
-          height: '360px',
-          background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)',
-          zIndex: 9,
-        }}
-      />
 
       {/* Bottom wave */}
       <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none">
