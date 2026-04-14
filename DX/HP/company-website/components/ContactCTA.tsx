@@ -6,7 +6,7 @@ export default function ContactCTA() {
       className="relative py-28 md:py-40 overflow-hidden"
       id="contact"
       style={{
-        background: 'linear-gradient(135deg, #002D6E 0%, #0057B8 55%, #006FD6 100%)',
+        background: 'linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 20%), linear-gradient(135deg, #002D6E 0%, #0057B8 55%, #006FD6 100%)',
       }}
     >
       {/* Subtle grid */}

@@ -296,7 +296,7 @@ export default function Hero() {
     >
       {/* ===== BACKGROUND LAYERS ===== */}
       <div className="absolute inset-0 z-0" style={{
-        background: 'linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%)',
+        background: 'linear-gradient(to bottom, rgba(255,255,255,0) 65%, rgba(255,255,255,1) 100%), linear-gradient(135deg, #1A60C8 0%, #2196F3 45%, #42B4F8 72%, #72CBFF 100%)',
       }} />
       <div className="absolute inset-0 z-0" style={{
         backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',

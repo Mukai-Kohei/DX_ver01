@@ -137,7 +137,7 @@ export default function Business() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-padding bg-bg-light" id="business" style={{ backgroundColor: '#F5F7FA', position: 'relative', zIndex: 1 }}>
+    <section ref={sectionRef} className="section-padding bg-bg-light" id="business" style={{ backgroundColor: '#ffffff', position: 'relative', zIndex: 1 }}>
       <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Left: Text */}
