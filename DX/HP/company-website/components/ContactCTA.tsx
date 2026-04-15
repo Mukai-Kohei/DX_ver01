@@ -3,19 +3,21 @@
 export default function ContactCTA() {
   return (
     <section
-      className="relative pt-52 pb-24 md:pt-60 md:pb-36 overflow-hidden"
+      className="relative pt-40 pb-28 md:pt-52 md:pb-36 overflow-hidden"
       id="contact"
       style={{
-        background: 'linear-gradient(to bottom, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.45) 8%, rgba(255,255,255,0.08) 18%, rgba(255,255,255,0) 26%), linear-gradient(135deg, #002D6E 0%, #0057B8 55%, #006FD6 100%)',
+        background: 'linear-gradient(to bottom, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.72) 8%, rgba(255,255,255,0.52) 17%, rgba(255,255,255,0.30) 28%, rgba(255,255,255,0.12) 38%, rgba(255,255,255,0.03) 46%, rgba(255,255,255,0) 52%), linear-gradient(135deg, #002D6E 0%, #0057B8 55%, #006FD6 100%)',
       }}
     >
-      {/* Subtle grid */}
+      {/* Subtle grid — masked so it only appears below the white fade zone */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
             'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
           backgroundSize: '60px 60px',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 48%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 48%)',
         }}
       />
 
