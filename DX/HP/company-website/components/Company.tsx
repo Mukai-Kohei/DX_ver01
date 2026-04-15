@@ -44,29 +44,29 @@ export default function Company() {
   return (
     <section ref={sectionRef} className="section-padding bg-bg-light" id="company" style={{ backgroundColor: '#ffffff', position: 'relative', zIndex: 1 }}>
       <div className="container-custom">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+        <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
 
           {/* Left: Title */}
           <div ref={textRef} className="space-y-6">
             <div>
-              <p className="font-en text-sm text-primary font-semibold tracking-widest mb-2">
+              <p className="font-en text-sm text-primary font-semibold tracking-widest mb-3">
                 COMPANY
               </p>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-main">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-main">
                 企業情報
               </h2>
             </div>
           </div>
 
           {/* Right: Table */}
-          <div ref={tableRef} className="bg-white rounded-2xl overflow-hidden shadow-md">
+          <div ref={tableRef} className="bg-white rounded-3xl overflow-hidden shadow-lg">
             <dl className="divide-y divide-border">
               {companyInfo.map((info, index) => (
                 <div
                   key={index}
-                  className="flex gap-4 px-5 py-4 hover:bg-bg-light transition-colors duration-200"
+                  className="flex gap-6 px-8 py-6 hover:bg-bg-light transition-colors duration-200"
                 >
-                  <dt className="w-24 shrink-0 text-sm font-bold text-text-main">
+                  <dt className="w-28 shrink-0 text-sm font-bold text-text-main">
                     {info.label}
                   </dt>
                   <dd className="text-sm text-text-sub leading-relaxed">

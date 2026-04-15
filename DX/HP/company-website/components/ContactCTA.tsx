@@ -38,12 +38,12 @@ export default function ContactCTA() {
       <div className="container-custom relative z-10">
 
         {/* ── Section header ── */}
-        <div className="text-center mb-12">
-          <span className="inline-block font-en text-xs font-bold tracking-[0.32em] uppercase mb-4"
+        <div className="text-center mb-16">
+          <span className="inline-block font-en text-xs font-bold tracking-[0.32em] uppercase mb-5"
             style={{ color: 'rgba(255,255,255,0.55)' }}>
             CONTACT US
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
             お問い合わせ
           </h2>
           <p className="text-base md:text-lg leading-relaxed" style={{ color: 'rgba(255,255,255,0.78)' }}>
@@ -53,7 +53,7 @@ export default function ContactCTA() {
           </p>
         </div>
 
-        {/* ── CTA Cards ── */}
+        {/* ── CTA Card ── */}
         <style>{`
           .cta-card {
             background: rgba(255,255,255,0.10);
@@ -70,23 +70,23 @@ export default function ContactCTA() {
           {/* — Form — */}
           <a
             href="/contact"
-            className="cta-card group flex flex-col items-center gap-5 p-8 rounded-2xl text-center cursor-pointer w-full max-w-sm"
+            className="cta-card group flex flex-col items-center gap-8 px-12 py-12 md:px-16 md:py-14 rounded-3xl text-center cursor-pointer w-full max-w-md"
           >
             {/* Icon */}
             <div
-              className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
+              className="w-20 h-20 rounded-2xl flex items-center justify-center flex-shrink-0"
               style={{ background: 'rgba(255,255,255,0.14)' }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                 <polyline points="22,6 12,13 2,6"/>
               </svg>
             </div>
 
             {/* Text */}
-            <div className="space-y-1">
-              <p className="text-white font-bold text-lg">お問い合わせフォーム</p>
+            <div className="space-y-2">
+              <p className="text-white font-bold text-xl">お問い合わせフォーム</p>
               <p className="text-sm" style={{ color: 'rgba(255,255,255,0.60)' }}>
                 24時間受け付けています
               </p>
