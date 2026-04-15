@@ -3,10 +3,10 @@
 export default function ContactCTA() {
   return (
     <section
-      className="relative pt-40 pb-28 md:pt-52 md:pb-36 overflow-hidden"
+      className="relative pt-60 pb-28 md:pt-72 md:pb-36 overflow-hidden"
       id="contact"
       style={{
-        background: 'linear-gradient(to bottom, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.72) 8%, rgba(255,255,255,0.52) 17%, rgba(255,255,255,0.30) 28%, rgba(255,255,255,0.12) 38%, rgba(255,255,255,0.03) 46%, rgba(255,255,255,0) 52%), linear-gradient(135deg, #002D6E 0%, #0057B8 55%, #006FD6 100%)',
+        background: 'linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.80) 8%, rgba(255,255,255,0.55) 17%, rgba(255,255,255,0.30) 26%, rgba(255,255,255,0.12) 33%, rgba(255,255,255,0.02) 39%, rgba(255,255,255,0) 44%), linear-gradient(135deg, #002D6E 0%, #0057B8 55%, #006FD6 100%)',
       }}
     >
       {/* Subtle grid — masked so it only appears below the white fade zone */}
