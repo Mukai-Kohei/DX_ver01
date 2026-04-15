@@ -41,10 +41,6 @@ export default function ContactCTA() {
 
         {/* ── Section header ── */}
         <div className="text-center mb-16">
-          <span className="inline-block font-en text-xs font-bold tracking-[0.32em] uppercase mb-5"
-            style={{ color: 'rgba(255,255,255,0.55)' }}>
-            CONTACT US
-          </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
             お問い合わせ
           </h2>
