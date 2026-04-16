@@ -59,7 +59,7 @@ export default function Company() {
           </div>
 
           {/* Right: Table */}
-          <div ref={tableRef} className="bg-white rounded-3xl overflow-hidden shadow-lg">
+          <div ref={tableRef} className="bg-white rounded-2xl overflow-hidden shadow-lg">
             <dl className="divide-y divide-border">
               {companyInfo.map((info, index) => (
                 <div
