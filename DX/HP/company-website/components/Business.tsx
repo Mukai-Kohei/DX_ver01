@@ -182,7 +182,7 @@ export default function Business() {
             <p style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', letterSpacing: '0.16em', color: 'var(--ink-mute)', textTransform: 'uppercase', marginBottom: '10px' }}>
               — Business
             </p>
-            <h2 style={{ fontFamily: 'var(--f-jp)', fontWeight: 700, fontSize: '22px', color: 'var(--ink)', lineHeight: 1.4, letterSpacing: '-0.01em' }}>
+            <h2 style={{ fontFamily: 'var(--f-jp)', fontWeight: 700, fontSize: 'clamp(32px, 4vw, 52px)', color: 'var(--ink)', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
               事業内容
             </h2>
           </div>

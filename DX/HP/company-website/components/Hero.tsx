@@ -140,7 +140,7 @@ export default function Hero() {
             }}
           >
             <span style={{ width: '24px', height: '1px', background: 'var(--ink-mute)' }} />
-            SINCE 2024 / DX PARTNER
+            SINCE 2026 / DX PARTNER
           </p>
           <h2
             style={{

@@ -1,6 +1,6 @@
 'use client';
 
-const tokens = ['DX SOLUTION', 'Digital Marketing', 'DX × MARKETING', 'Partnership', 'Since 2024'];
+const tokens = ['DX SOLUTION', 'Digital Marketing', 'DX × MARKETING', 'Partnership', 'Since 2026'];
 
 export default function Marquee() {
   const sequence = Array.from({ length: 4 }).flatMap(() => tokens);
