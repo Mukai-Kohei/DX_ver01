@@ -35,8 +35,6 @@ export default function Footer() {
                 marginBottom: '4px',
               }}
             >
-              <span style={{ color: 'var(--accent)', fontSize: '8px' }}>●</span>
-              DX_ver01
             </div>
             <p
               style={{
@@ -87,7 +85,7 @@ export default function Footer() {
             gap: '8px',
           }}
         >
-          <p>© {currentYear} DX_ver01. All Rights Reserved.</p>
+          <p>© {currentYear} All Rights Reserved.</p>
           <p>BASED IN JAPAN · SERVING NATIONWIDE</p>
         </div>
       </div>

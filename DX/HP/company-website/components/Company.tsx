@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 const companyInfo = [
   { label: '代表取締役', value: '舟木 南生' },
   { label: '事業内容', value: 'DX推進支援・デジタルマーケティング支援・DX×マーケティング融合サービス' },
-  { label: '設立', value: '2024年' },
+  { label: '設立', value: '2026年' },
   { label: '所在地', value: '日本国内（全国対応）' },
 ];
 

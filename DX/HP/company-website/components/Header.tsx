@@ -50,8 +50,6 @@ export default function Header() {
                 gap: '7px',
               }}
             >
-              <span style={{ color: 'var(--accent)', fontSize: '8px' }}>●</span>
-              DX_ver01
             </span>
             <span
               style={{

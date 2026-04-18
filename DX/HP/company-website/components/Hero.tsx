@@ -72,10 +72,6 @@ export default function Hero() {
           flexWrap: 'wrap',
         }}
       >
-        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ color: 'var(--accent)', fontSize: '8px' }}>●</span>
-          [ DX_VER01 / 2026 RELEASE ]
-        </span>
         <span>BASED IN JAPAN · SERVING NATIONWIDE</span>
       </div>
 
@@ -191,7 +187,7 @@ export default function Hero() {
       >
         {[
           { label: 'Business Areas', value: '03', unit: '領域' },
-          { label: 'Founded', value: '2024', unit: '' },
+          { label: 'Founded', value: '2026', unit: '' },
           { label: 'Approach', value: 'Partnership', unit: '' },
           { label: 'Status', value: 'Now Open', unit: '' },
         ].map((item, i) => (
