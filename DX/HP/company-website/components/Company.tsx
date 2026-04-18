@@ -4,131 +4,81 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+// registerPlugin は page.tsx で一元管理
+
 const companyInfo = [
   { label: '代表取締役', value: '舟木 南生' },
-  { label: '事業内容', value: 'DX推進支援・デジタルマーケティング支援・DX×マーケティング融合サービス' },
-  { label: '設立', value: '2024年' },
-  { label: '所在地', value: '日本国内（全国対応）' },
+  { label: '事業内容',   value: 'DX推進支援・デジタルマーケティング支援・DX×マーケティング融合サービス' },
 ];
 
 export default function Company() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const tableRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!sectionRef.current) return;
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        sectionRef.current!.querySelectorAll('.company-row'),
-        { opacity: 0, y: 16 },
+        textRef.current,
+        { opacity: 0, y: 30 },
         {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: 'power2.out',
+          opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
+        }
+      );
+      gsap.fromTo(
+        tableRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, duration: 0.8, delay: 0.15, ease: 'power2.out',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
         }
       );
     }, sectionRef);
+
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="company"
-      style={{
-        background: 'var(--bg-alt)',
-        padding: 'clamp(80px, 10vw, 140px) 0',
-      }}
-    >
+    <section ref={sectionRef} className="section-padding bg-bg-light" id="company" style={{ backgroundColor: '#ffffff', position: 'relative', zIndex: 1 }}>
       <div className="container-custom">
-        <div className="company-layout" style={{ display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '60px', alignItems: 'flex-start' }}>
-          {/* Left */}
-          <div>
-            <p
-              style={{
-                fontFamily: 'var(--f-mono)',
-                fontSize: '10px',
-                letterSpacing: '0.16em',
-                color: 'var(--ink-mute)',
-                textTransform: 'uppercase',
-                marginBottom: '14px',
-              }}
-            >
-              — Company
-            </p>
-            <h2
-              style={{
-                fontFamily: 'var(--f-jp)',
-                fontWeight: 900,
-                fontSize: 'clamp(32px, 4vw, 56px)',
-                color: 'var(--ink)',
-                lineHeight: 1.2,
-                letterSpacing: '-0.03em',
-                marginBottom: '24px',
-              }}
-            >
-              企業情報
-            </h2>
-            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '14px', color: 'var(--ink-mute)', lineHeight: 1.9, maxWidth: '360px' }}>
-              地方企業の「次の一歩」と共に未来を創り上げる、伴走型のITパートナーとして事業を展開しています。
-            </p>
+        <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+
+          {/* Left: Title */}
+          <div ref={textRef} className="space-y-6">
+            <div>
+              <p className="font-en text-sm text-primary font-semibold tracking-widest mb-3">
+                COMPANY
+              </p>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-text-main">
+                企業情報
+              </h2>
+            </div>
           </div>
 
           {/* Right: Table */}
-          <dl style={{ borderTop: '1px solid var(--hair)' }}>
-            {companyInfo.map((info, index) => (
-              <div
-                key={index}
-                className="company-row"
-                style={{
-                  display: 'flex',
-                  gap: '32px',
-                  padding: '22px 4px',
-                  borderBottom: '1px solid var(--hair)',
-                  alignItems: 'flex-start',
-                }}
-              >
-                <dt
-                  style={{
-                    width: '140px',
-                    flexShrink: 0,
-                    fontFamily: 'var(--f-mono)',
-                    fontSize: '11px',
-                    letterSpacing: '0.08em',
-                    color: 'var(--ink-mute)',
-                    textTransform: 'uppercase',
-                    paddingTop: '4px',
-                  }}
+          <div ref={tableRef} className="bg-white rounded-2xl overflow-hidden shadow-lg">
+            <dl className="divide-y divide-border">
+              {companyInfo.map((info, index) => (
+                <div
+                  key={index}
+                  className="flex gap-6 px-8 py-6 hover:bg-bg-light transition-colors duration-200"
                 >
-                  {info.label}
-                </dt>
-                <dd
-                  style={{
-                    fontFamily: 'var(--f-jp)',
-                    fontSize: '14px',
-                    color: 'var(--ink)',
-                    lineHeight: 1.8,
-                    fontWeight: 500,
-                  }}
-                >
-                  {info.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
+                  <dt className="w-28 shrink-0 text-sm font-bold text-text-main">
+                    {info.label}
+                  </dt>
+                  <dd className="text-sm text-text-sub leading-relaxed">
+                    {info.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 900px) {
-          .company-layout {
-            grid-template-columns: 1fr !important;
-            gap: 32px !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

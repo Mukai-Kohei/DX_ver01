@@ -4,15 +4,12 @@ import { useEffect } from 'react';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Loading from '@/components/Loading';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import Marquee from '@/components/Marquee';
 import Business from '@/components/Business';
-import Approach from '@/components/Approach';
-import Metrics from '@/components/Metrics';
-import Manifesto from '@/components/Manifesto';
 import Company from '@/components/Company';
-import FinalCTA from '@/components/FinalCTA';
+import ContactCTA from '@/components/ContactCTA';
 import Footer from '@/components/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -46,16 +43,13 @@ export default function Home() {
 
   return (
     <>
+      <Loading />
       <Header />
       <main>
         <Hero />
-        <Marquee />
         <Business />
-        <Approach />
-        <Metrics />
-        <Manifesto />
         <Company />
-        <FinalCTA />
+        <ContactCTA />
       </main>
       <Footer />
     </>

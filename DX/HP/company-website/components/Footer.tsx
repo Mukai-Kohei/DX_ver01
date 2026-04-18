@@ -53,7 +53,6 @@ export default function Footer() {
           <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
             {[
               { href: '#business', label: 'Business' },
-              { href: '#approach', label: 'Approach' },
               { href: '#company', label: 'Company' },
               { href: '#contact', label: 'Contact' },
             ].map((l) => (
