@@ -1,11 +1,26 @@
 /* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 
 @import "tailwindcss";
 
 /* CSS Variables */
 :root {
-  /* Colors */
+  /* Mono palette (new design system) */
+  --bg:        #FFFFFF;
+  --bg-alt:    #F2F2F2;
+  --ink:       #000000;
+  --ink-sub:   #222222;
+  --ink-mute:  #777777;
+  --hair:      rgba(0,0,0,0.12);
+  --accent:    #2E6EFF;
+
+  /* Fonts */
+  --f-display: 'Instrument Serif', serif;
+  --f-sans:    'Space Grotesk', sans-serif;
+  --f-jp:      'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+  --f-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  /* Legacy colors (kept for backward compat) */
   --color-primary: #0057B8;
   --color-primary-dark: #003D82;
   --color-secondary: #00A0E9;
@@ -42,12 +57,13 @@ html {
 }
 
 body {
-  font-family: 'Noto Sans JP', sans-serif;
-  color: var(--color-text-main);
+  font-family: var(--f-jp);
+  color: var(--ink);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  background: var(--bg);
 }
 
 /* Typography */
