@@ -36,22 +36,8 @@ export default function Header() {
       <div className="container-custom">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
           {/* Brand */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: '2px', lineHeight: 1.2 }}>
-            <span
-              style={{
-                fontFamily: 'var(--f-mono)',
-                fontSize: '15px',
-                fontWeight: 500,
-                color: 'var(--ink)',
-                letterSpacing: '0.04em',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '7px',
-              }}
-            >
-              <span style={{ color: 'var(--accent)', fontSize: '8px' }}>●</span>
-              DX_ver01
-            </span>
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ color: 'var(--accent)', fontSize: '8px' }}>●</span>
             <span
               style={{
                 fontFamily: 'var(--f-mono)',
@@ -59,7 +45,6 @@ export default function Header() {
                 color: 'var(--ink-mute)',
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
-                display: 'block',
               }}
               className="hidden sm:block"
             >

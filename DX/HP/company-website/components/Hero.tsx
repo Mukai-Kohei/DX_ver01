@@ -273,10 +273,6 @@ export default function Hero() {
           flexWrap: 'wrap',
         }}
       >
-        <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ color: 'var(--accent)', fontSize: '8px' }}>●</span>
-          [ DX_VER01 / 2026 RELEASE ]
-        </span>
         <span>BASED IN JAPAN · SERVING NATIONWIDE</span>
       </div>
 
