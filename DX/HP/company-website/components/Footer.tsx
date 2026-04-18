@@ -22,8 +22,22 @@ export default function Footer() {
             marginBottom: '40px',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span style={{ color: 'var(--accent)', fontSize: '8px' }}>●</span>
+          <div>
+            <div
+              style={{
+                fontFamily: 'var(--f-mono)',
+                fontSize: '15px',
+                color: '#fff',
+                letterSpacing: '0.04em',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '7px',
+                marginBottom: '4px',
+              }}
+            >
+              <span style={{ color: 'var(--accent)', fontSize: '8px' }}>●</span>
+              DX_ver01
+            </div>
             <p
               style={{
                 fontFamily: 'var(--f-mono)',
@@ -31,7 +45,6 @@ export default function Footer() {
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
                 color: 'rgba(255,255,255,0.40)',
-                margin: 0,
               }}
             >
               DIGITAL TRANSFORMATION STUDIO
@@ -40,6 +53,7 @@ export default function Footer() {
           <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
             {[
               { href: '#business', label: 'Business' },
+              { href: '#approach', label: 'Approach' },
               { href: '#company', label: 'Company' },
               { href: '#contact', label: 'Contact' },
             ].map((l) => (
