@@ -196,30 +196,30 @@ export default function Hero() {
             key={i}
             className="hero-stat-item"
             style={{
-              padding: '24px clamp(16px, 2.5vw, 32px)',
+              padding: '14px clamp(16px, 2.5vw, 32px)',
               borderRight: i < 3 ? '1px solid var(--hair)' : 'none',
               display: 'flex',
               flexDirection: 'column',
-              gap: '10px',
+              gap: '6px',
             }}
           >
             <p
               style={{
                 fontFamily: 'var(--f-mono)',
-                fontSize: '10px',
+                fontSize: '9px',
                 letterSpacing: '0.14em',
-                color: 'var(--ink-mute)',
+                color: 'rgba(0,0,0,0.3)',
                 textTransform: 'uppercase',
               }}
             >
               {item.label}:
             </p>
-            <p style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+            <p style={{ display: 'flex', alignItems: 'baseline', gap: '5px' }}>
               <span
                 style={{
                   fontFamily: item.value.match(/^\d/) ? 'var(--f-display)' : 'var(--f-jp)',
-                  fontSize: 'clamp(22px, 2.4vw, 36px)',
-                  color: 'var(--ink)',
+                  fontSize: 'clamp(14px, 1.4vw, 20px)',
+                  color: 'rgba(0,0,0,0.45)',
                   fontStyle: item.value.match(/^\d/) ? 'italic' : 'normal',
                   lineHeight: 1,
                 }}
@@ -227,7 +227,7 @@ export default function Hero() {
                 {item.value}
               </span>
               {item.unit && (
-                <span style={{ fontFamily: 'var(--f-jp)', fontSize: '12px', color: 'var(--ink-mute)' }}>
+                <span style={{ fontFamily: 'var(--f-jp)', fontSize: '10px', color: 'rgba(0,0,0,0.3)' }}>
                   {item.unit}
                 </span>
               )}
