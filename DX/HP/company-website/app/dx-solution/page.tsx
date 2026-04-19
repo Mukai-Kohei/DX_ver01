@@ -12,7 +12,7 @@ export default function DxSolutionPage() {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, []);
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: "'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif" }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: "var(--f-jp)" }}>
 
       {/* ── Blue gradient header band（TOPヒーローと同じグラデーション） ── */}
       <div style={{ background: 'linear-gradient(135deg,#001D4A 0%,#003D82 45%,#0057B8 100%)', position: 'relative', overflow: 'hidden' }}>

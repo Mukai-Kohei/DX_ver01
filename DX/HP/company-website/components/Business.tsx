@@ -279,7 +279,12 @@ export default function Business() {
                           >
                             <Icon c={isActive ? s.accent : '#555'} />
                           </button>
-                          <span className="node-label" style={{ color: isActive ? 'var(--ink)' : 'var(--ink-mute)', fontWeight: isActive ? 700 : 500 }}>
+                          <span className="node-label" style={{
+                            color: isActive ? s.accent : 'var(--ink-mute)',
+                            fontWeight: isActive ? 800 : 400,
+                            fontSize: isActive ? '14px' : '10.5px',
+                            letterSpacing: isActive ? '0.01em' : '0em',
+                          }}>
                             {s.ja.replace('支援', '').replace('融合サービス', '')}
                           </span>
                         </div>
@@ -377,9 +382,9 @@ export default function Business() {
 
         .node-label {
           font-family: var(--f-jp);
-          font-size: 12.5px; line-height: 1.45;
+          line-height: 1.4;
           text-align: center; white-space: nowrap;
-          transition: color .35s, font-weight .35s;
+          transition: color .35s, font-weight .35s, font-size .35s, letter-spacing .35s;
         }
       `}</style>
     </section>
