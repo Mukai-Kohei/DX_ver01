@@ -38,7 +38,7 @@ export default function Approach() {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        sectionRef.current!.querySelectorAll('.approach-item, .approach-flow-bar'),
+        sectionRef.current!.querySelectorAll('.approach-item'),
         { opacity: 0, y: 24 },
         {
           opacity: 1,
@@ -74,53 +74,6 @@ export default function Approach() {
               一方的な提案ではなく、対話を重ねながら価値を形にしていく4つのステップ。短期的な成果と長期的な成長を両立させる伴走型のプロセスです。
             </p>
           </div>
-        </div>
-
-        {/* Consulting flow bar */}
-        <div
-          className="approach-flow-bar"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            background: '#fff',
-            border: '1px solid rgba(46,110,255,0.18)',
-            borderRadius: '12px',
-            padding: '20px 32px',
-            marginBottom: '24px',
-            opacity: 0,
-            gap: '0',
-          }}
-        >
-          {steps.map((step, index) => (
-            <div key={step.no} style={{ display: 'flex', alignItems: 'center', flex: index < steps.length - 1 ? 1 : 'none' }}>
-              {/* Step node */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
-                <span
-                  style={{
-                    fontFamily: 'var(--f-mono)',
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    letterSpacing: '0.08em',
-                    color: '#fff',
-                    background: 'var(--accent)',
-                    borderRadius: '6px',
-                    padding: '4px 10px',
-                    flexShrink: 0,
-                  }}
-                >
-                  {step.no}
-                </span>
-                <span style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', fontWeight: 700, color: 'var(--ink)', whiteSpace: 'nowrap' }}>
-                  {step.ja}
-                </span>
-              </div>
-
-              {/* Connector line */}
-              {index < steps.length - 1 && (
-                <div style={{ flex: 1, height: '1px', background: 'rgba(46,110,255,0.20)', margin: '0 20px' }} />
-              )}
-            </div>
-          ))}
         </div>
 
         {/* Cards */}

@@ -79,36 +79,21 @@ export default function Manifesto() {
           <div
             ref={bodyRef}
             className="manifesto-body"
-            style={{ opacity: 0, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', marginTop: '56px' }}
+            style={{ opacity: 0, marginTop: '56px', maxWidth: '680px' }}
           >
-            <div>
-              <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', lineHeight: 1.95, color: 'var(--ink-sub)' }}>
-                大都市に集中するDX推進の波は、地方企業の多くにまだ届いていません。
-                しかし、地方にこそ独自の強みがあり、デジタル技術によって
-                新たな価値を生み出せる可能性が眠っています。
-              </p>
-            </div>
-            <div>
-              <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', lineHeight: 1.95, color: 'var(--ink-sub)' }}>
-                私たちは、地域に根ざした企業と共に、その可能性を形にしていきます。
-                テクノロジーは手段であり、目的は人と地域の豊かさです。
-              </p>
-              <p style={{ marginTop: '28px', fontFamily: 'var(--f-mono)', fontSize: '12px', color: 'var(--ink-mute)', letterSpacing: '0.06em' }}>
-                — 代表取締役 舟木 南生
-              </p>
-            </div>
+            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', lineHeight: 2.0, color: 'var(--ink-sub)' }}>
+              大都市に集中するDX推進の波は、地方企業の多くにまだ届いていません。
+              しかし、地方にこそ独自の強みがあり、デジタル技術によって新たな価値を生み出せる可能性が眠っています。
+              私たちは、地域に根ざした企業と共に、その可能性を形にしていきます。
+              テクノロジーは手段であり、目的は人と地域の豊かさです。
+            </p>
+            <p style={{ marginTop: '32px', fontFamily: 'var(--f-mono)', fontSize: '12px', color: 'var(--ink-mute)', letterSpacing: '0.06em' }}>
+              — 代表取締役 舟木 南生
+            </p>
           </div>
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 760px) {
-          .manifesto-body {
-            grid-template-columns: 1fr !important;
-            gap: 28px !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }
