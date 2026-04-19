@@ -14,8 +14,8 @@ const services = [
     tags: ['業務改善', 'システム導入', '組織変革'],
     href: '/dx-solution',
     accent: '#6d28d9',
-    accentSoft: 'rgba(109,40,217,0.14)',
-    accentRing: 'rgba(167,139,250,0.55)',
+    accentSoft: 'rgba(109,40,217,0.22)',
+    accentRing: 'rgba(167,139,250,0.60)',
   },
   {
     no: '02',
@@ -25,8 +25,8 @@ const services = [
     tags: ['SNS運用', 'Web広告', 'SEO'],
     href: '/digital-marketing',
     accent: '#1d4ed8',
-    accentSoft: 'rgba(29,78,216,0.14)',
-    accentRing: 'rgba(96,165,250,0.55)',
+    accentSoft: 'rgba(29,78,216,0.22)',
+    accentRing: 'rgba(96,165,250,0.60)',
   },
   {
     no: '03',
@@ -35,9 +35,9 @@ const services = [
     desc: 'テクノロジーと顧客体験を融合させた独自アプローチで、地方企業に新たな成長モデルを提供。',
     tags: ['CX設計', 'データ活用', '成長戦略'],
     href: '/relationship',
-    accent: '#0369a1',
-    accentSoft: 'rgba(3,105,161,0.14)',
-    accentRing: 'rgba(103,232,249,0.55)',
+    accent: '#0f766e',
+    accentSoft: 'rgba(15,118,110,0.22)',
+    accentRing: 'rgba(20,184,166,0.55)',
   },
 ];
 
