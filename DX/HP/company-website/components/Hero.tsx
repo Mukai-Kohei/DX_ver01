@@ -95,7 +95,7 @@ export default function Hero() {
             ref={titleRef}
             style={{
               opacity: 0,
-              fontFamily: 'var(--f-jp)',
+              fontFamily: "'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif",
               fontWeight: 900,
               fontSize: 'clamp(56px, 9.5vw, 150px)',
               letterSpacing: '-0.04em',

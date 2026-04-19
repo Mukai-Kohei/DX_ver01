@@ -115,15 +115,9 @@ export default function Approach() {
                 </span>
               </div>
 
-              {/* Arrow connector */}
+              {/* Connector line */}
               {index < steps.length - 1 && (
-                <div style={{ flex: 1, display: 'flex', alignItems: 'center', margin: '0 16px', gap: '4px', minWidth: '40px' }}>
-                  <div style={{ flex: 1, height: '1px', background: 'rgba(46,110,255,0.25)' }} />
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <circle cx="9" cy="9" r="8.5" stroke="var(--accent)" strokeOpacity="0.3"/>
-                    <path d="M5.5 9h7M10 6l3 3-3 3" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
+                <div style={{ flex: 1, height: '1px', background: 'rgba(46,110,255,0.20)', margin: '0 20px' }} />
               )}
             </div>
           ))}
