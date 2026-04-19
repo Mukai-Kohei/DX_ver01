@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="white" rx="80"/>
+
+  <!-- Bold "D" letter -->
+  <text
+    x="148"
+    y="348"
+    font-family="Arial Black, 'Helvetica Neue', sans-serif"
+    font-weight="900"
+    font-size="300"
+    fill="#0a0a0a"
+  >D</text>
+
+  <!-- Blue dotted arc (clockwise from upper-left to lower-right) -->
+  <!-- Center ~(248,248), radius 200 -->
+  <!-- Start: ~10 o'clock = (248+200*cos(210°), 248+200*sin(210°)) = (75, 148) -->
+  <!-- End:   ~4 o'clock  = (248+200*cos(50°),  248+200*sin(50°))  = (377, 401) -->
+  <path
+    d="M 75 148 A 200 200 0 1 1 377 401"
+    fill="none"
+    stroke="#3B82F6"
+    stroke-width="26"
+    stroke-dasharray="14 20"
+    stroke-linecap="round"
+  />
+
+  <!-- Arrow head at end (~4 o'clock, pointing down-right) -->
+  <polygon
+    points="377,401 340,370 408,362"
+    fill="#3B82F6"
+  />
+</svg>
