@@ -38,13 +38,13 @@ export default function Approach() {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        sectionRef.current!.querySelectorAll('.approach-item'),
+        sectionRef.current!.querySelectorAll('.approach-item, .approach-flow-bar'),
         { opacity: 0, y: 24 },
         {
           opacity: 1,
           y: 0,
           duration: 0.75,
-          stagger: 0.1,
+          stagger: 0.08,
           ease: 'power2.out',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', once: true },
         }
@@ -57,117 +57,107 @@ export default function Approach() {
     <section
       ref={sectionRef}
       id="approach"
-      style={{
-        background: '#EEF3FF',
-        padding: 'clamp(80px, 10vw, 140px) 0',
-      }}
+      style={{ background: '#EEF3FF', padding: 'clamp(80px, 10vw, 140px) 0' }}
     >
       <div className="container-custom">
-        <div style={{ marginBottom: '64px', display: 'flex', gap: '40px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-          <div style={{ maxWidth: '420px' }}>
-            <p
-              style={{
-                fontFamily: 'var(--f-mono)',
-                fontSize: '10px',
-                letterSpacing: '0.16em',
-                color: 'var(--accent)',
-                textTransform: 'uppercase',
-                marginBottom: '14px',
-              }}
-            >
-              — Approach
-            </p>
-            <h2
-              style={{
-                fontFamily: 'var(--f-jp)',
-                fontWeight: 900,
-                fontSize: 'clamp(32px, 4vw, 56px)',
-                color: 'var(--ink)',
-                lineHeight: 1.2,
-                letterSpacing: '-0.03em',
-              }}
-            >
-              私たちの
-              <br />
-              進め方
-            </h2>
-          </div>
-          <p
-            style={{
-              fontFamily: 'var(--f-jp)',
-              fontSize: '14px',
-              color: 'var(--ink-mute)',
-              lineHeight: 1.9,
-              maxWidth: '460px',
-              paddingBottom: '8px',
-            }}
-          >
-            一方的な提案ではなく、対話を重ねながら価値を形にしていく4つのステップ。
-            短期的な成果と長期的な成長を両立させる伴走型のプロセスです。
+
+        {/* Header */}
+        <div style={{ marginBottom: '52px' }}>
+          <p style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', letterSpacing: '0.16em', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '14px' }}>
+            — Approach
           </p>
+          <div style={{ display: 'flex', gap: '48px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+            <h2 style={{ fontFamily: 'var(--f-jp)', fontWeight: 900, fontSize: 'clamp(32px, 4vw, 56px)', color: 'var(--ink)', lineHeight: 1.2, letterSpacing: '-0.03em', flexShrink: 0 }}>
+              私たちの<br />進め方
+            </h2>
+            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', color: 'var(--ink-mute)', lineHeight: 2.0, flex: 1, minWidth: '260px', paddingBottom: '6px' }}>
+              一方的な提案ではなく、対話を重ねながら価値を形にしていく4つのステップ。短期的な成果と長期的な成長を両立させる伴走型のプロセスです。
+            </p>
+          </div>
         </div>
 
+        {/* Consulting flow bar */}
+        <div
+          className="approach-flow-bar"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            background: '#fff',
+            border: '1px solid rgba(46,110,255,0.18)',
+            borderRadius: '12px',
+            padding: '20px 32px',
+            marginBottom: '24px',
+            opacity: 0,
+            gap: '0',
+          }}
+        >
+          {steps.map((step, index) => (
+            <div key={step.no} style={{ display: 'flex', alignItems: 'center', flex: index < steps.length - 1 ? 1 : 'none' }}>
+              {/* Step node */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--f-mono)',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    letterSpacing: '0.08em',
+                    color: '#fff',
+                    background: 'var(--accent)',
+                    borderRadius: '6px',
+                    padding: '4px 10px',
+                    flexShrink: 0,
+                  }}
+                >
+                  {step.no}
+                </span>
+                <span style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', fontWeight: 700, color: 'var(--ink)', whiteSpace: 'nowrap' }}>
+                  {step.ja}
+                </span>
+              </div>
+
+              {/* Arrow connector */}
+              {index < steps.length - 1 && (
+                <div style={{ flex: 1, display: 'flex', alignItems: 'center', margin: '0 16px', gap: '4px', minWidth: '40px' }}>
+                  <div style={{ flex: 1, height: '1px', background: 'rgba(46,110,255,0.25)' }} />
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <circle cx="9" cy="9" r="8.5" stroke="var(--accent)" strokeOpacity="0.3"/>
+                    <path d="M5.5 9h7M10 6l3 3-3 3" stroke="var(--accent)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Cards */}
         <div
           className="approach-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
             gap: '1px',
-            background: 'var(--hair)',
-            border: '1px solid var(--hair)',
+            background: 'rgba(46,110,255,0.1)',
+            border: '1px solid rgba(46,110,255,0.1)',
+            borderRadius: '12px',
+            overflow: 'hidden',
           }}
         >
           {steps.map((step) => (
             <div
               key={step.no}
               className="approach-item"
-              style={{ background: '#EEF3FF', padding: '48px 32px', opacity: 0 }}
+              style={{ background: '#EEF3FF', padding: '40px 28px', opacity: 0 }}
             >
-              <p
-                style={{
-                  fontFamily: 'var(--f-mono)',
-                  fontSize: '11px',
-                  color: 'var(--accent)',
-                  letterSpacing: '0.1em',
-                  marginBottom: '24px',
-                }}
-              >
+              <p style={{ fontFamily: 'var(--f-mono)', fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '20px' }}>
                 {step.no}
               </p>
-              <h3
-                style={{
-                  fontFamily: 'var(--f-jp)',
-                  fontSize: 'clamp(28px, 3vw, 44px)',
-                  fontWeight: 900,
-                  color: 'var(--ink)',
-                  lineHeight: 1.1,
-                  marginBottom: '8px',
-                  letterSpacing: '-0.02em',
-                }}
-              >
+              <h3 style={{ fontFamily: 'var(--f-jp)', fontSize: 'clamp(24px, 2.6vw, 38px)', fontWeight: 900, color: 'var(--ink)', lineHeight: 1.15, marginBottom: '8px', letterSpacing: '-0.02em' }}>
                 {step.ja}
               </h3>
-              <p
-                style={{
-                  fontFamily: 'var(--f-display)',
-                  fontSize: '16px',
-                  fontStyle: 'italic',
-                  color: 'var(--ink-mute)',
-                  marginBottom: '22px',
-                  fontWeight: 400,
-                  letterSpacing: '0.01em',
-                }}
-              >
+              <p style={{ fontFamily: 'var(--f-display)', fontSize: '15px', fontStyle: 'italic', color: 'var(--ink-mute)', marginBottom: '20px', fontWeight: 400 }}>
                 {step.en}
               </p>
-              <p
-                style={{
-                  fontFamily: 'var(--f-jp)',
-                  fontSize: '13px',
-                  color: 'var(--ink-mute)',
-                  lineHeight: 1.85,
-                }}
-              >
+              <p style={{ fontFamily: 'var(--f-jp)', fontSize: '13.5px', color: 'var(--ink-mute)', lineHeight: 1.9 }}>
                 {step.desc}
               </p>
             </div>
@@ -177,14 +167,11 @@ export default function Approach() {
 
       <style>{`
         @media (max-width: 900px) {
-          .approach-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
+          .approach-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .approach-flow-bar { flex-wrap: wrap; gap: 12px !important; }
         }
         @media (max-width: 520px) {
-          .approach-grid {
-            grid-template-columns: 1fr !important;
-          }
+          .approach-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>
