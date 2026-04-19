@@ -136,28 +136,29 @@ export default function Approach() {
               </p>
               <h3
                 style={{
-                  fontFamily: 'var(--f-display)',
-                  fontSize: 'clamp(32px, 3.4vw, 56px)',
-                  fontStyle: 'italic',
-                  color: 'var(--ink)',
-                  lineHeight: 1.0,
-                  marginBottom: '10px',
-                  fontWeight: 400,
-                }}
-              >
-                {step.en}
-              </h3>
-              <p
-                style={{
                   fontFamily: 'var(--f-jp)',
-                  fontSize: '13px',
+                  fontSize: 'clamp(28px, 3vw, 44px)',
+                  fontWeight: 900,
                   color: 'var(--ink)',
-                  marginBottom: '22px',
-                  fontWeight: 700,
-                  letterSpacing: '0.02em',
+                  lineHeight: 1.1,
+                  marginBottom: '8px',
+                  letterSpacing: '-0.02em',
                 }}
               >
                 {step.ja}
+              </h3>
+              <p
+                style={{
+                  fontFamily: 'var(--f-display)',
+                  fontSize: '16px',
+                  fontStyle: 'italic',
+                  color: 'var(--ink-mute)',
+                  marginBottom: '22px',
+                  fontWeight: 400,
+                  letterSpacing: '0.01em',
+                }}
+              >
+                {step.en}
               </p>
               <p
                 style={{

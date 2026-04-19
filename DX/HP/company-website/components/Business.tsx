@@ -290,9 +290,6 @@ export default function Business() {
               </div>
             </div>
 
-            <p style={{ fontFamily: 'var(--f-mono)', fontSize: 10, letterSpacing: '0.18em', color: 'var(--ink-mute)' }}>
-              TAP · SWIPE · AUTO
-            </p>
           </div>
 
           {/* Service list */}
