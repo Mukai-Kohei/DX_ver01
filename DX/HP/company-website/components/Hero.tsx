@@ -206,9 +206,9 @@ export default function Hero() {
             <p
               style={{
                 fontFamily: 'var(--f-mono)',
-                fontSize: '9px',
+                fontSize: '10px',
                 letterSpacing: '0.14em',
-                color: 'rgba(0,0,0,0.3)',
+                color: 'var(--ink-mute)',
                 textTransform: 'uppercase',
               }}
             >
@@ -218,8 +218,8 @@ export default function Hero() {
               <span
                 style={{
                   fontFamily: item.value.match(/^\d/) ? 'var(--f-display)' : 'var(--f-jp)',
-                  fontSize: 'clamp(14px, 1.4vw, 20px)',
-                  color: 'rgba(0,0,0,0.45)',
+                  fontSize: 'clamp(16px, 1.6vw, 24px)',
+                  color: 'var(--ink-sub)',
                   fontStyle: item.value.match(/^\d/) ? 'italic' : 'normal',
                   lineHeight: 1,
                 }}
@@ -227,7 +227,7 @@ export default function Hero() {
                 {item.value}
               </span>
               {item.unit && (
-                <span style={{ fontFamily: 'var(--f-jp)', fontSize: '10px', color: 'rgba(0,0,0,0.3)' }}>
+                <span style={{ fontFamily: 'var(--f-jp)', fontSize: '11px', color: 'var(--ink-mute)' }}>
                   {item.unit}
                 </span>
               )}
