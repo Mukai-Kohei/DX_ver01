@@ -50,29 +50,24 @@ export default function Business() {
   const cNumRef = useRef<HTMLSpanElement>(null);
   const [activeStep, setActiveStep] = useState(0);
   const activeRef = useRef(0);
-  const isAnimatingRef = useRef(false);
+  const isHoveringRef = useRef(false);
 
   const rotateTo = (newStep: number) => {
-    if (isAnimatingRef.current || newStep === activeRef.current) return;
-    isAnimatingRef.current = true;
+    if (newStep === activeRef.current) return;
     activeRef.current = newStep;
     setActiveStep(newStep);
 
-    gsap.to(orbitRingRef.current, {
-      rotation: newStep * -120,
-      duration: 0.7, ease: 'power2.inOut', overwrite: 'auto',
-      onComplete() { isAnimatingRef.current = false; },
-    });
-    gsap.to(inner0Ref.current, { rotation: newStep * 120,       duration: 0.7, ease: 'power2.inOut', overwrite: 'auto' });
-    gsap.to(inner1Ref.current, { rotation: newStep * 120 - 120, duration: 0.7, ease: 'power2.inOut', overwrite: 'auto' });
-    gsap.to(inner2Ref.current, { rotation: newStep * 120 - 240, duration: 0.7, ease: 'power2.inOut', overwrite: 'auto' });
+    gsap.to(orbitRingRef.current, { rotation: newStep * -120, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(inner0Ref.current, { rotation: newStep * 120,       duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(inner1Ref.current, { rotation: newStep * 120 - 120, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(inner2Ref.current, { rotation: newStep * 120 - 240, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
 
     if (cNumRef.current) {
       gsap.to(cNumRef.current, {
-        opacity: 0, y: 4, duration: 0.18, ease: 'power1.in', overwrite: 'auto',
+        opacity: 0, y: 4, duration: 0.15, ease: 'power1.in', overwrite: 'auto',
         onComplete() {
           if (cNumRef.current) cNumRef.current.textContent = `[ 0${newStep + 1} ]`;
-          gsap.to(cNumRef.current, { opacity: 1, y: 0, duration: 0.22, ease: 'power1.out', overwrite: 'auto' });
+          gsap.to(cNumRef.current, { opacity: 1, y: 0, duration: 0.20, ease: 'power1.out', overwrite: 'auto' });
         },
       });
     }
@@ -96,7 +91,7 @@ export default function Business() {
     }, sectionRef);
 
     const auto = setInterval(() => {
-      if (!isAnimatingRef.current) {
+      if (!isHoveringRef.current) {
         const next = (activeRef.current + 1) % services.length;
         rotateTo(next);
       }
@@ -197,6 +192,8 @@ export default function Business() {
         {/* Orbit + Services */}
         <div
           className="business-grid"
+          onMouseEnter={() => { isHoveringRef.current = true; }}
+          onMouseLeave={() => { isHoveringRef.current = false; }}
           style={{
             display: 'grid',
             gridTemplateColumns: 'minmax(360px, 1fr) 1.2fr',
@@ -265,6 +262,7 @@ export default function Business() {
                           <button
                             type="button"
                             onClick={() => rotateTo(i)}
+                            onMouseEnter={() => rotateTo(i)}
                             className="node-circle"
                             style={{
                               background: '#fff',
@@ -413,13 +411,14 @@ function ServiceRow({
       style={{
         display: 'flex',
         gap: '32px',
-        padding: '28px 0 28px 20px',
+        padding: active ? '28px 0 28px 32px' : '28px 0 28px 20px',
         borderBottom: last ? 'none' : '1px solid var(--hair)',
         borderLeft: `2px solid ${active ? service.accent : 'transparent'}`,
         textDecoration: 'none',
-        transition: 'border-color 0.45s ease, padding-left 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.35s',
+        transition: 'border-color 0.35s ease, padding-left 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.35s',
         alignItems: 'flex-start',
         background: active ? service.accentSoft : 'transparent',
+        cursor: 'pointer',
       }}
     >
       <div className="service-no-col" style={{ width: '56px', flexShrink: 0, paddingTop: '6px' }}>
