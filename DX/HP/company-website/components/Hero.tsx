@@ -27,7 +27,7 @@ export default function Hero() {
       ref={heroRef}
       id="hero"
       style={{
-        background: 'var(--bg)',
+        background: 'linear-gradient(160deg, #FAFCFF 0%, #EDF2FF 60%, #F5F0FF 100%)',
         minHeight: 'calc(100vh - 62px)',
         position: 'relative',
         overflow: 'hidden',

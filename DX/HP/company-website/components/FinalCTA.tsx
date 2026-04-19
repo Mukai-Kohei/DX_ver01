@@ -44,9 +44,9 @@ export default function FinalCTA() {
       ref={sectionRef}
       id="contact"
       style={{
-        background: 'var(--bg)',
+        background: 'linear-gradient(160deg, #0A1628 0%, #0F2347 60%, #0A1A3E 100%)',
         padding: 'clamp(120px, 14vw, 200px) 0',
-        borderTop: '1px solid var(--hair)',
+        borderTop: 'none',
         textAlign: 'center',
       }}
     >
@@ -56,7 +56,7 @@ export default function FinalCTA() {
             fontFamily: 'var(--f-mono)',
             fontSize: '10px',
             letterSpacing: '0.16em',
-            color: 'var(--ink-mute)',
+            color: 'rgba(255,255,255,0.45)',
             textTransform: 'uppercase',
             marginBottom: '40px',
           }}
@@ -70,7 +70,7 @@ export default function FinalCTA() {
             fontFamily: 'var(--f-display)',
             fontSize: 'clamp(56px, 10vw, 160px)',
             lineHeight: 1.0,
-            color: 'var(--ink)',
+            color: '#ffffff',
             marginBottom: '56px',
             fontWeight: 400,
             letterSpacing: '-0.03em',
@@ -90,7 +90,7 @@ export default function FinalCTA() {
             fontFamily: 'var(--f-mono)',
             fontSize: '13px',
             letterSpacing: '0.08em',
-            background: 'var(--ink)',
+            background: 'var(--accent)',
             color: '#fff',
             padding: '18px 40px',
             borderRadius: '9999px',
@@ -104,7 +104,7 @@ export default function FinalCTA() {
       </div>
       <style>{`
         .final-cta-btn:hover {
-          background: #222 !important;
+          background: #1a55e0 !important;
           transform: translateY(-2px);
         }
       `}</style>

@@ -42,7 +42,7 @@ export default function Manifesto() {
   return (
     <section
       ref={sectionRef}
-      style={{ background: 'var(--bg)', padding: 'clamp(100px, 11vw, 160px) 0', borderTop: '1px solid var(--hair)' }}
+      style={{ background: '#FAFAF6', padding: 'clamp(100px, 11vw, 160px) 0', borderTop: '1px solid var(--hair)' }}
     >
       <div className="container-custom">
         <div style={{ maxWidth: '960px' }}>
@@ -51,7 +51,7 @@ export default function Manifesto() {
               fontFamily: 'var(--f-mono)',
               fontSize: '10px',
               letterSpacing: '0.16em',
-              color: 'var(--ink-mute)',
+              color: 'var(--accent)',
               textTransform: 'uppercase',
               marginBottom: '40px',
             }}

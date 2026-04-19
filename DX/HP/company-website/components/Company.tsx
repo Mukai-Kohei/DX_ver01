@@ -38,7 +38,7 @@ export default function Company() {
       ref={sectionRef}
       id="company"
       style={{
-        background: 'var(--bg-alt)',
+        background: '#F5F7FA',
         padding: 'clamp(80px, 10vw, 140px) 0',
       }}
     >
@@ -51,7 +51,7 @@ export default function Company() {
                 fontFamily: 'var(--f-mono)',
                 fontSize: '10px',
                 letterSpacing: '0.16em',
-                color: 'var(--ink-mute)',
+                color: 'var(--accent)',
                 textTransform: 'uppercase',
                 marginBottom: '14px',
               }}

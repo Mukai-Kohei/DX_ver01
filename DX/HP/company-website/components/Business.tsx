@@ -179,7 +179,7 @@ export default function Business() {
         {/* Header row */}
         <div className="business-header" style={{ display: 'flex', gap: '40px', marginBottom: '72px', alignItems: 'flex-start' }}>
           <div style={{ width: '180px', flexShrink: 0 }}>
-            <p style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', letterSpacing: '0.16em', color: 'var(--ink-mute)', textTransform: 'uppercase', marginBottom: '10px' }}>
+            <p style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', letterSpacing: '0.16em', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '10px' }}>
               — Business
             </p>
             <h2 style={{ fontFamily: 'var(--f-jp)', fontWeight: 700, fontSize: 'clamp(32px, 4vw, 52px)', color: 'var(--ink)', lineHeight: 1.2, letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>

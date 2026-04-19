@@ -58,7 +58,7 @@ export default function Approach() {
       ref={sectionRef}
       id="approach"
       style={{
-        background: 'var(--bg-alt)',
+        background: '#EEF3FF',
         padding: 'clamp(80px, 10vw, 140px) 0',
       }}
     >
@@ -70,7 +70,7 @@ export default function Approach() {
                 fontFamily: 'var(--f-mono)',
                 fontSize: '10px',
                 letterSpacing: '0.16em',
-                color: 'var(--ink-mute)',
+                color: 'var(--accent)',
                 textTransform: 'uppercase',
                 marginBottom: '14px',
               }}
@@ -121,13 +121,13 @@ export default function Approach() {
             <div
               key={step.no}
               className="approach-item"
-              style={{ background: 'var(--bg-alt)', padding: '48px 32px', opacity: 0 }}
+              style={{ background: '#EEF3FF', padding: '48px 32px', opacity: 0 }}
             >
               <p
                 style={{
                   fontFamily: 'var(--f-mono)',
                   fontSize: '11px',
-                  color: 'var(--ink-mute)',
+                  color: 'var(--accent)',
                   letterSpacing: '0.1em',
                   marginBottom: '24px',
                 }}
