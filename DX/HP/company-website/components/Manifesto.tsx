@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -8,6 +9,7 @@ export default function Manifesto() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLQuoteElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -35,6 +37,18 @@ export default function Manifesto() {
           scrollTrigger: { trigger: sectionRef.current, start: 'top 70%', once: true },
         }
       );
+      gsap.fromTo(
+        imgRef.current,
+        { opacity: 0, x: 30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1.0,
+          ease: 'power2.out',
+          delay: 0.1,
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 70%', once: true },
+        }
+      );
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -45,55 +59,91 @@ export default function Manifesto() {
       style={{ background: '#FAFAF6', padding: 'clamp(100px, 11vw, 160px) 0', borderTop: '1px solid var(--hair)' }}
     >
       <div className="container-custom">
-        <div style={{ maxWidth: '960px' }}>
-          <p
-            style={{
-              fontFamily: 'var(--f-mono)',
-              fontSize: '10px',
-              letterSpacing: '0.16em',
-              color: 'var(--accent)',
-              textTransform: 'uppercase',
-              marginBottom: '40px',
-            }}
-          >
-            — Manifesto
-          </p>
-          <blockquote
-            ref={quoteRef}
+        <div className="manifesto-layout" style={{ display: 'grid', gridTemplateColumns: '1fr minmax(0, 420px)', gap: 'clamp(48px, 6vw, 100px)', alignItems: 'center' }}>
+
+          {/* Left: text */}
+          <div>
+            <p
+              style={{
+                fontFamily: 'var(--f-mono)',
+                fontSize: '10px',
+                letterSpacing: '0.16em',
+                color: 'var(--accent)',
+                textTransform: 'uppercase',
+                marginBottom: '40px',
+              }}
+            >
+              — Manifesto
+            </p>
+            <blockquote
+              ref={quoteRef}
+              style={{
+                opacity: 0,
+                fontFamily: 'var(--f-jp)',
+                fontWeight: 900,
+                fontSize: 'clamp(28px, 4vw, 60px)',
+                lineHeight: 1.5,
+                color: 'var(--ink)',
+                letterSpacing: '-0.03em',
+                margin: 0,
+              }}
+            >
+              地方には、まだ語られて
+              <br />
+              いない事業がある。
+            </blockquote>
+            <div
+              ref={bodyRef}
+              className="manifesto-body"
+              style={{ opacity: 0, marginTop: '48px', maxWidth: '560px' }}
+            >
+              <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', lineHeight: 2.0, color: 'var(--ink-sub)' }}>
+                大都市に集中するDX推進の波は、地方企業の多くにまだ届いていません。
+                しかし、地方にこそ独自の強みがあり、デジタル技術によって新たな価値を生み出せる可能性が眠っています。
+                私たちは、地域に根ざした企業と共に、その可能性を形にしていきます。
+                テクノロジーは手段であり、目的は人と地域の豊かさです。
+              </p>
+              <p style={{ marginTop: '32px', fontFamily: 'var(--f-mono)', fontSize: '12px', color: 'var(--ink-mute)', letterSpacing: '0.06em' }}>
+                — 代表取締役 舟木 南生
+              </p>
+            </div>
+          </div>
+
+          {/* Right: image */}
+          <div
+            ref={imgRef}
+            className="manifesto-img-wrap"
             style={{
               opacity: 0,
-              fontFamily: 'var(--f-jp)',
-              fontWeight: 900,
-              fontSize: 'clamp(28px, 4vw, 60px)',
-              lineHeight: 1.5,
-              color: 'var(--ink)',
-              marginBottom: '56px',
-              letterSpacing: '-0.03em',
-              margin: 0,
+              position: 'relative',
+              height: 'clamp(360px, 44vw, 580px)',
+              borderRadius: '4px',
+              overflow: 'hidden',
             }}
           >
-            地方には、まだ語られて
-            <br />
-            いない事業がある。
-          </blockquote>
-          <div
-            ref={bodyRef}
-            className="manifesto-body"
-            style={{ opacity: 0, marginTop: '56px', maxWidth: '680px' }}
-          >
-            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', lineHeight: 2.0, color: 'var(--ink-sub)' }}>
-              大都市に集中するDX推進の波は、地方企業の多くにまだ届いていません。
-              しかし、地方にこそ独自の強みがあり、デジタル技術によって新たな価値を生み出せる可能性が眠っています。
-              私たちは、地域に根ざした企業と共に、その可能性を形にしていきます。
-              テクノロジーは手段であり、目的は人と地域の豊かさです。
-            </p>
-            <p style={{ marginTop: '32px', fontFamily: 'var(--f-mono)', fontSize: '12px', color: 'var(--ink-mute)', letterSpacing: '0.06em' }}>
-              — 代表取締役 舟木 南生
-            </p>
+            <Image
+              src="/images/manifesto.jpg"
+              alt="日本の地方の風景"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              sizes="(max-width: 900px) 100vw, 420px"
+            />
           </div>
+
         </div>
       </div>
 
+      <style>{`
+        @media (max-width: 900px) {
+          .manifesto-layout {
+            grid-template-columns: 1fr !important;
+          }
+          .manifesto-img-wrap {
+            height: clamp(240px, 60vw, 400px) !important;
+            order: -1;
+          }
+        }
+      `}</style>
     </section>
   );
 }
