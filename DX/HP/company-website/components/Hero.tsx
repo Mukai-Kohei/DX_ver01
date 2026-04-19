@@ -28,7 +28,7 @@ export default function Hero() {
       id="hero"
       style={{
         background: 'var(--bg)',
-        minHeight: '100vh',
+        minHeight: 'calc(100vh - 62px)',
         position: 'relative',
         overflow: 'hidden',
         display: 'flex',

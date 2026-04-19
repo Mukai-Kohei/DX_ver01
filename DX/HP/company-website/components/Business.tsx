@@ -182,7 +182,7 @@ export default function Business() {
             <p style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', letterSpacing: '0.16em', color: 'var(--ink-mute)', textTransform: 'uppercase', marginBottom: '10px' }}>
               — Business
             </p>
-            <h2 style={{ fontFamily: 'var(--f-jp)', fontWeight: 700, fontSize: 'clamp(32px, 4vw, 52px)', color: 'var(--ink)', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
+            <h2 style={{ fontFamily: 'var(--f-jp)', fontWeight: 700, fontSize: 'clamp(32px, 4vw, 52px)', color: 'var(--ink)', lineHeight: 1.2, letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>
               事業内容
             </h2>
           </div>
@@ -440,7 +440,7 @@ function ServiceRow({
           }}
           dangerouslySetInnerHTML={{ __html: service.titleHtml }}
         />
-        <p style={{ fontFamily: 'var(--f-jp)', fontSize: '12.5px', color: active ? service.accent : 'var(--ink)', marginBottom: '10px', transition: 'color 0.35s', fontWeight: 700, letterSpacing: '0.02em' }}>
+        <p style={{ fontFamily: 'var(--f-jp)', fontSize: '16px', color: active ? service.accent : 'var(--ink-sub)', marginBottom: '10px', transition: 'color 0.35s', fontWeight: 700, letterSpacing: '0.01em' }}>
           {service.ja}
         </p>
         <p style={{ fontFamily: 'var(--f-jp)', fontSize: '13px', color: 'var(--ink-mute)', lineHeight: 1.85, marginBottom: '12px', maxWidth: '520px' }}>
