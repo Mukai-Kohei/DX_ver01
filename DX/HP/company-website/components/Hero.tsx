@@ -109,6 +109,7 @@ export default function Hero() {
                 display: 'block',
                 paddingLeft: 'clamp(32px, 7vw, 120px)',
                 color: 'var(--accent)',
+                whiteSpace: 'nowrap',
               }}
             >
               はみ出す。
@@ -188,8 +189,8 @@ export default function Hero() {
         {[
           { label: 'Business Areas', value: '03', unit: '領域' },
           { label: 'Founded', value: '2026', unit: '' },
-          { label: 'Approach', value: 'Partnership', unit: '' },
-          { label: 'Status', value: 'Now Open', unit: '' },
+          { label: 'Approach', value: '伴走型支援', unit: '' },
+          { label: 'Status', value: '受付中', unit: '' },
         ].map((item, i) => (
           <div
             key={i}
@@ -216,10 +217,10 @@ export default function Hero() {
             <p style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
               <span
                 style={{
-                  fontFamily: 'var(--f-display)',
+                  fontFamily: item.value.match(/^\d/) ? 'var(--f-display)' : 'var(--f-jp)',
                   fontSize: 'clamp(22px, 2.4vw, 36px)',
                   color: 'var(--ink)',
-                  fontStyle: item.value.match(/^\d/) || item.value === 'Now Open' ? 'italic' : 'normal',
+                  fontStyle: item.value.match(/^\d/) ? 'italic' : 'normal',
                   lineHeight: 1,
                 }}
               >
