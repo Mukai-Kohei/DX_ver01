@@ -122,12 +122,11 @@ export default function Business() {
     };
   }, []);
 
-  const WebIcon = ({ c }: { c: string }) => (
+  const VennIcon = ({ c }: { c: string }) => (
     <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
-         stroke={c} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="3" width="20" height="14" rx="2"/>
-      <line x1="12" y1="17" x2="12" y2="21"/>
-      <line x1="8" y1="21" x2="16" y2="21"/>
+         stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="9" cy="12" r="5.5"/>
+      <circle cx="15" cy="12" r="5.5"/>
     </svg>
   );
   const ServerIcon = ({ c }: { c: string }) => (
@@ -147,7 +146,7 @@ export default function Business() {
     </svg>
   );
 
-  const icons = [WebIcon, ServerIcon, GearIcon];
+  const icons = [VennIcon, ServerIcon, GearIcon];
   const current = services[activeStep];
 
   return (
