@@ -122,21 +122,21 @@ export default function Business() {
     };
   }, []);
 
-  const VennIcon = ({ c }: { c: string }) => {
-    const gid = `vg-${c.replace(/[#(),.%]/g, '')}`;
-    return (
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-        <defs>
-          <linearGradient id={gid} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={c} stopOpacity="0.25" />
-            <stop offset="100%" stopColor={c} stopOpacity="0.80" />
-          </linearGradient>
-        </defs>
-        <circle cx="9"  cy="12" r="5.5" fill={`url(#${gid})`} stroke={c} strokeWidth="1.5"/>
-        <circle cx="15" cy="12" r="5.5" fill={`url(#${gid})`} stroke={c} strokeWidth="1.5"/>
-      </svg>
-    );
-  };
+  const NetworkIcon = ({ c }: { c: string }) => (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+         stroke={c} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      {/* Center node */}
+      <circle cx="12" cy="12" r="2.2" fill={c} stroke="none"/>
+      {/* Outer nodes */}
+      <circle cx="5"  cy="7"  r="1.8" fill="none" stroke={c}/>
+      <circle cx="19" cy="11" r="1.8" fill="none" stroke={c}/>
+      <circle cx="7"  cy="19" r="1.8" fill="none" stroke={c}/>
+      {/* Connecting lines */}
+      <line x1="10.0" y1="10.6" x2="6.6"  y2="8.4"/>
+      <line x1="13.9" y1="11.7" x2="17.2" y2="11.2"/>
+      <line x1="10.4" y1="13.5" x2="8.4"  y2="17.4"/>
+    </svg>
+  );
   const ChartIcon = ({ c }: { c: string }) => (
     <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
          stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -158,7 +158,7 @@ export default function Business() {
     </svg>
   );
 
-  const icons = [VennIcon, ChartIcon, GearIcon];
+  const icons = [NetworkIcon, ChartIcon, GearIcon];
   const current = services[activeStep];
 
   return (
