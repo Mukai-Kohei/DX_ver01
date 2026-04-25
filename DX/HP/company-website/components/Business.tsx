@@ -273,17 +273,19 @@ export default function Business() {
                             onMouseEnter={() => rotateTo(i)}
                             className="node-circle"
                             style={{
-                              background: '#fff',
+                              background: isActive
+                                ? `linear-gradient(145deg, ${s.accentSoft.replace('0.22', '0.4')} 0%, ${s.accent} 100%)`
+                                : '#fff',
                               borderColor: isActive ? s.accentRing : 'var(--hair)',
                               boxShadow: isActive
-                                ? `0 0 0 4px ${s.accentSoft}, 0 10px 28px rgba(0,0,0,0.10)`
+                                ? `0 0 0 4px ${s.accentSoft}, 0 10px 28px rgba(0,0,0,0.12)`
                                 : 'none',
                               transform: isActive ? 'scale(1.14)' : 'scale(1)',
                               cursor: 'pointer',
                             }}
                             aria-label={s.ja}
                           >
-                            <Icon c={isActive ? s.accent : '#555'} />
+                            <Icon c={isActive ? '#fff' : '#999'} />
                           </button>
                           <span className="node-label" style={{
                             color: isActive ? s.accent : 'var(--ink-mute)',
