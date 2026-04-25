@@ -151,23 +151,7 @@ export default function Business() {
   const current = services[activeStep];
 
   return (
-    <section ref={sectionRef} id="business" style={{ background: 'transparent', padding: 'clamp(80px, 10vw, 140px) 0 clamp(60px, 8vw, 100px)', position: 'relative', overflow: 'hidden', isolation: 'isolate' }}>
-
-      {/* ── Background layer: Mesh Gradient (static, CSS only) ── */}
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
-          background: [
-            'radial-gradient(35% 45% at 12% 18%, rgba(122,166,255,0.50), transparent 70%)',
-            'radial-gradient(40% 55% at 88% 28%, rgba(31,86,230,0.38), transparent 70%)',
-            'radial-gradient(50% 60% at 60% 92%, rgba(10,42,140,0.38), transparent 70%)',
-            'linear-gradient(180deg, #ffffff 0%, #eef3ff 100%)',
-          ].join(','),
-        }}
-      />
-      {/* Grain overlay */}
-      <div aria-hidden className="biz-grain" style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }} />
+    <section ref={sectionRef} id="business" style={{ background: 'var(--bg)', padding: 'clamp(80px, 10vw, 140px) 0 clamp(60px, 8vw, 100px)', position: 'relative', overflow: 'hidden' }}>
 
       {/* Soft accent glow that shifts by active service */}
       <div
@@ -328,11 +312,6 @@ export default function Business() {
       </div>
 
       <style>{`
-        .biz-grain {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-          opacity: 0.15;
-          mix-blend-mode: multiply;
-        }
         @media (max-width: 980px) {
           .business-grid {
             grid-template-columns: 1fr !important;
