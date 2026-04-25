@@ -51,16 +51,25 @@ export default function Business() {
   const [activeStep, setActiveStep] = useState(0);
   const activeRef = useRef(0);
   const isHoveringRef = useRef(false);
+  const rotationRef = useRef(0); // cumulative ring rotation for shortest-path calc
 
   const rotateTo = (newStep: number) => {
     if (newStep === activeRef.current) return;
+    const oldStep = activeRef.current;
     activeRef.current = newStep;
     setActiveStep(newStep);
 
-    gsap.to(orbitRingRef.current, { rotation: newStep * -120, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
-    gsap.to(inner0Ref.current, { rotation: newStep * 120,       duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
-    gsap.to(inner1Ref.current, { rotation: newStep * 120 - 120, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
-    gsap.to(inner2Ref.current, { rotation: newStep * 120 - 240, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+    // Always rotate the shortest way (max ±120° for 3 nodes)
+    let delta = (newStep - oldStep) * -120;
+    if (delta > 180) delta -= 360;
+    if (delta < -180) delta += 360;
+    rotationRef.current += delta;
+    const R = rotationRef.current;
+
+    gsap.to(orbitRingRef.current, { rotation: R,        duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(inner0Ref.current,    { rotation: -R,       duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(inner1Ref.current,    { rotation: -R - 120, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(inner2Ref.current,    { rotation: -R - 240, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
 
     if (cNumRef.current) {
       gsap.to(cNumRef.current, {
