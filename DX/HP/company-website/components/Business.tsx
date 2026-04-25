@@ -430,21 +430,19 @@ function ServiceRow({
 
       <div style={{ flex: 1 }}>
         <h3
-          className="service-title"
           style={{
-            fontFamily: 'var(--f-display)',
+            fontFamily: 'var(--f-jp)',
             fontSize: 'clamp(22px, 2.4vw, 34px)',
-            color: 'var(--ink)',
-            lineHeight: 1.15,
-            marginBottom: '6px',
-            fontWeight: 400,
+            color: active ? service.accent : 'var(--ink)',
+            lineHeight: 1.2,
+            marginBottom: '10px',
+            fontWeight: 700,
             letterSpacing: '-0.01em',
+            transition: 'color 0.35s',
           }}
-          dangerouslySetInnerHTML={{ __html: service.titleHtml }}
-        />
-        <p style={{ fontFamily: 'var(--f-jp)', fontSize: '16px', color: active ? service.accent : 'var(--ink-sub)', marginBottom: '10px', transition: 'color 0.35s', fontWeight: 700, letterSpacing: '0.01em' }}>
+        >
           {service.ja}
-        </p>
+        </h3>
         <p style={{ fontFamily: 'var(--f-jp)', fontSize: '13px', color: 'var(--ink-mute)', lineHeight: 1.85, marginBottom: '12px', maxWidth: '520px' }}>
           {service.desc}
         </p>
@@ -488,9 +486,6 @@ function ServiceRow({
         </div>
       </div>
 
-      <style>{`
-        .service-title em { font-style: italic; color: var(--accent); }
-      `}</style>
     </Link>
   );
 }
