@@ -444,7 +444,7 @@ function ServiceRow({
         <h3
           style={{
             fontFamily: 'var(--f-jp)',
-            fontSize: 'clamp(22px, 2.4vw, 34px)',
+            fontSize: 'clamp(18px, 1.9vw, 28px)',
             color: active ? service.accent : 'var(--ink)',
             lineHeight: 1.2,
             marginBottom: '10px',

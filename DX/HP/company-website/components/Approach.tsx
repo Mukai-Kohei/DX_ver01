@@ -57,7 +57,7 @@ export default function Approach() {
     <section
       ref={sectionRef}
       id="approach"
-      style={{ background: '#EEF3FF', padding: 'clamp(80px, 10vw, 140px) 0' }}
+      style={{ background: 'linear-gradient(160deg, #EEF3FF 0%, #DDE6FF 55%, #EBE6FF 100%)', padding: 'clamp(80px, 10vw, 140px) 0' }}
     >
       <div className="container-custom">
 
