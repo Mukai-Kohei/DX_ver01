@@ -270,7 +270,6 @@ export default function Business() {
                           <button
                             type="button"
                             onClick={() => rotateTo(i)}
-                            onMouseEnter={() => rotateTo(i)}
                             className="node-circle"
                             style={{
                               background: isActive
