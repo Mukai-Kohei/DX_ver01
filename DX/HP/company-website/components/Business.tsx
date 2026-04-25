@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { GlobeBackground } from './ui/GlobeBackground';
 
 const services = [
   {
@@ -190,6 +191,21 @@ export default function Business() {
           transition: 'background 0.8s ease',
         }}
       />
+
+      {/* Decorative globe background */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          right: '-180px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      >
+        <GlobeBackground size={680} opacity={0.13} speed={0.003} />
+      </div>
 
       <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
         {/* Header row */}
