@@ -122,13 +122,21 @@ export default function Business() {
     };
   }, []);
 
-  const VennIcon = ({ c }: { c: string }) => (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
-         stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="9" cy="12" r="5.5"/>
-      <circle cx="15" cy="12" r="5.5"/>
-    </svg>
-  );
+  const VennIcon = ({ c }: { c: string }) => {
+    const gid = `vg-${c.replace(/[#(),.%]/g, '')}`;
+    return (
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+        <defs>
+          <linearGradient id={gid} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor={c} stopOpacity="0.25" />
+            <stop offset="100%" stopColor={c} stopOpacity="0.80" />
+          </linearGradient>
+        </defs>
+        <circle cx="9"  cy="12" r="5.5" fill={`url(#${gid})`} stroke={c} strokeWidth="1.5"/>
+        <circle cx="15" cy="12" r="5.5" fill={`url(#${gid})`} stroke={c} strokeWidth="1.5"/>
+      </svg>
+    );
+  };
   const ServerIcon = ({ c }: { c: string }) => (
     <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
          stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
