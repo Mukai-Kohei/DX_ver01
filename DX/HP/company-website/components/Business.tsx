@@ -219,11 +219,11 @@ export default function Business() {
             display: 'grid',
             gridTemplateColumns: 'minmax(360px, 1fr) 1.2fr',
             gap: 'clamp(32px, 5vw, 80px)',
-            alignItems: 'center',
+            alignItems: 'start',
           }}
         >
           {/* Orbit column */}
-          <div className="orbit-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px' }}>
+          <div className="orbit-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '14px', alignSelf: 'start' }}>
             <div className="orbit-clip-wrapper">
               <div className="orbit-stage relative" style={{ width: 440, height: 440 }}>
                 <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 440 440" fill="none">
