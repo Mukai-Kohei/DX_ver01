@@ -137,13 +137,17 @@ export default function Business() {
       </svg>
     );
   };
-  const ServerIcon = ({ c }: { c: string }) => (
+  const ChartIcon = ({ c }: { c: string }) => (
     <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
          stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="3" width="20" height="7" rx="1.5"/>
-      <rect x="2" y="12" width="20" height="7" rx="1.5"/>
-      <circle cx="18" cy="6.5" r="1.8" fill={c} stroke="none"/>
-      <circle cx="18" cy="15.5" r="1.8" fill={c} stroke="none"/>
+      {/* Bars */}
+      <rect x="2"  y="14" width="3.5" height="7" rx="0.8" fill={c} stroke="none" opacity="0.55"/>
+      <rect x="7"  y="11" width="3.5" height="10" rx="0.8" fill={c} stroke="none" opacity="0.70"/>
+      <rect x="12" y="7"  width="3.5" height="14" rx="0.8" fill={c} stroke="none" opacity="0.85"/>
+      <rect x="17" y="3"  width="3.5" height="18" rx="0.8" fill={c} stroke="none"/>
+      {/* Trend line */}
+      <polyline points="3.75,13 8.75,9.5 13.75,6 18.75,2.5"
+        fill="none" stroke={c} strokeWidth="1.6" strokeDasharray="2 2" strokeLinecap="round"/>
     </svg>
   );
   const GearIcon = ({ c }: { c: string }) => (
@@ -154,7 +158,7 @@ export default function Business() {
     </svg>
   );
 
-  const icons = [VennIcon, ServerIcon, GearIcon];
+  const icons = [VennIcon, ChartIcon, GearIcon];
   const current = services[activeStep];
 
   return (
