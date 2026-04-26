@@ -32,7 +32,7 @@ const services = [
   {
     no: '03',
     titleHtml: 'DX × <em>Marketing</em>',
-    ja: 'DX×マーケティング融合サービス',
+    ja: 'DX×マーケティング融合',
     desc: 'テクノロジーと顧客体験を融合させた独自アプローチで、地方企業に新たな成長モデルを提供。',
     tags: ['CX設計', 'データ活用', '成長戦略'],
     href: '/relationship',
@@ -219,7 +219,7 @@ export default function Business() {
             </h2>
           </div>
           <div style={{ flex: 1, paddingTop: '4px', maxWidth: '640px' }}>
-            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '14px', color: 'var(--ink-mute)', lineHeight: 1.9 }}>
+            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', color: 'var(--ink-sub)', lineHeight: 1.95, fontWeight: 400 }}>
               私たちが挑み続けるフィールド——DX推進による業務変革、デジタルマーケティングによる顧客体験の最大化、
               そしてDX×マーケティングの融合が生む新たな価値創造。この3つの領域で、地域企業の未来を共に創ります。
             </p>
@@ -321,7 +321,7 @@ export default function Business() {
                             fontSize: isActive ? '14px' : '10.5px',
                             letterSpacing: isActive ? '0.01em' : '0em',
                           }}>
-                            {s.ja.replace('支援', '').replace('融合サービス', '')}
+                            {s.ja.replace('支援', '').replace('融合', '')}
                           </span>
                         </div>
                       </div>
@@ -480,7 +480,7 @@ function ServiceRow({
         >
           {service.ja}
         </h3>
-        <p style={{ fontFamily: 'var(--f-jp)', fontSize: '13px', color: 'var(--ink-mute)', lineHeight: 1.85, marginBottom: '12px', maxWidth: '520px' }}>
+        <p style={{ fontFamily: 'var(--f-jp)', fontSize: '14.5px', color: 'var(--ink-sub)', lineHeight: 1.95, marginBottom: '14px', maxWidth: '540px', fontWeight: 400 }}>
           {service.desc}
         </p>
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
