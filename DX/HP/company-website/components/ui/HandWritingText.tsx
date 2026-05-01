@@ -12,6 +12,8 @@ interface HandWrittenBrandProps {
   style?: React.CSSProperties;
   /** Use whileInView (true) or animate-on-mount (false) */
   inView?: boolean;
+  /** Custom inset (px) for the absolute-positioned SVG oval */
+  ovalInset?: { top: number; bottom: number; left: number; right: number };
 }
 
 const pathVariants = {
@@ -40,27 +42,22 @@ export function HandWrittenBrand({
   strokeWidth = 3.5,
   style,
   inView = false,
+  ovalInset = { top: -10, bottom: -10, left: -16, right: -16 },
 }: HandWrittenBrandProps) {
   const animProps = inView
     ? { whileInView: 'visible' as const, viewport: { once: true } }
     : { animate: 'visible' as const };
 
   return (
-    <span style={{ position: 'relative', display: 'inline-block', ...style }}>
-      {/*
-       * The SVG is absolutely positioned and slightly larger than the text.
-       * It uses a fixed viewBox matching the expected rendered size of
-       * "KARAKURI" in var(--f-mono) at the given font size, so the oval
-       * sits snugly around the text without distortion.
-       */}
+    <span style={{ position: 'relative', display: 'inline-block', overflow: 'visible', ...style }}>
       <span
         aria-hidden
         style={{
           position: 'absolute',
-          top: '-10px',
-          bottom: '-10px',
-          left: '-16px',
-          right: '-16px',
+          top: `${ovalInset.top}px`,
+          bottom: `${ovalInset.bottom}px`,
+          left: `${ovalInset.left}px`,
+          right: `${ovalInset.right}px`,
           pointerEvents: 'none',
           zIndex: 0,
         }}
