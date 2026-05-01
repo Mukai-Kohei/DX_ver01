@@ -1,3 +1,7 @@
+'use client';
+
+import { HandWrittenBrand } from './ui/HandWritingText';
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -23,21 +27,20 @@ export default function Footer() {
           }}
         >
           <div>
-            <div
-              style={{
+            <HandWrittenBrand
+              text="KARAKURI"
+              strokeColor="rgba(255,255,255,0.55)"
+              strokeWidth={3}
+              inView={true}
+              style={{ marginBottom: '6px' }}
+              textStyle={{
                 fontFamily: 'var(--f-mono)',
                 fontSize: '16px',
                 fontWeight: 700,
                 color: '#fff',
                 letterSpacing: '0.10em',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '7px',
-                marginBottom: '4px',
               }}
-            >
-              KARAKURI
-            </div>
+            />
             <p
               style={{
                 fontFamily: 'var(--f-mono)',
