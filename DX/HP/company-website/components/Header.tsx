@@ -42,14 +42,15 @@ export default function Header() {
               style={{
                 fontFamily: 'var(--f-mono)',
                 fontSize: '15px',
-                fontWeight: 500,
+                fontWeight: 700,
                 color: 'var(--ink)',
-                letterSpacing: '0.04em',
+                letterSpacing: '0.10em',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '7px',
               }}
             >
+              KARAKURI
             </span>
             <span
               style={{
@@ -62,7 +63,7 @@ export default function Header() {
               }}
               className="hidden sm:block"
             >
-              DIGITAL TRANSFORMATION STUDIO
+              株式会社KARAKURI
             </span>
           </Link>
 

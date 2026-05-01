@@ -7,12 +7,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "DIGITAL TRANSFORMATION STUDIO | DX推進・デジタルマーケティング支援",
-    template: "%s | DIGITAL TRANSFORMATION STUDIO",
+    default: "株式会社KARAKURI | DX推進・デジタルマーケティング支援",
+    template: "%s | 株式会社KARAKURI",
   },
   description:
-    "地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善・システム導入からSNS運用・MA・SEOまで、貴社固有の戦略を共に設計・実装します。",
+    "株式会社KARAKURIは地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善・システム導入からSNS運用・MA・SEOまで、貴社固有の戦略を共に設計・実装します。",
   keywords: [
+    "株式会社KARAKURI",
+    "KARAKURI",
     "DX推進",
     "デジタルマーケティング",
     "地方企業",
@@ -27,7 +29,8 @@ export const metadata: Metadata = {
     "ITパートナー",
   ],
   authors: [{ name: "舟木 南生" }],
-  creator: "DIGITAL TRANSFORMATION STUDIO",
+  creator: "株式会社KARAKURI",
+  publisher: "株式会社KARAKURI",
   robots: {
     index: true,
     follow: true,
@@ -38,25 +41,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ja_JP",
     url: siteUrl,
-    siteName: "DIGITAL TRANSFORMATION STUDIO",
-    title: "DIGITAL TRANSFORMATION STUDIO | DX推進・デジタルマーケティング支援",
+    siteName: "株式会社KARAKURI",
+    title: "株式会社KARAKURI | DX推進・デジタルマーケティング支援",
     description:
-      "地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善からSNS・MA・SEOまで一気通貫でサポートします。",
+      "株式会社KARAKURIは地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善からSNS・MA・SEOまで一気通貫でサポートします。",
     images: [
       {
         url: "/images/manifesto.jpg",
         width: 1200,
         height: 630,
-        alt: "DIGITAL TRANSFORMATION STUDIO",
+        alt: "株式会社KARAKURI",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "DIGITAL TRANSFORMATION STUDIO | DX推進・デジタルマーケティング支援",
+    title: "株式会社KARAKURI | DX推進・デジタルマーケティング支援",
     description:
-      "地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。",
+      "株式会社KARAKURIは地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。",
     images: ["/images/manifesto.jpg"],
   },
 
@@ -67,6 +70,26 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "株式会社KARAKURI",
+  alternateName: "KARAKURI",
+  url: siteUrl,
+  logo: `${siteUrl}/icon.svg`,
+  description:
+    "地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善・システム導入からSNS運用・MA・SEOまで貴社固有の戦略を共に設計・実装します。",
+  foundingDate: "2026",
+  areaServed: "JP",
+  serviceType: ["DX推進支援", "デジタルマーケティング支援", "DX×マーケティング融合"],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer service",
+    areaServed: "JP",
+    availableLanguage: "Japanese",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -74,7 +97,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

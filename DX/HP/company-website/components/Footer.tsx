@@ -26,15 +26,17 @@ export default function Footer() {
             <div
               style={{
                 fontFamily: 'var(--f-mono)',
-                fontSize: '15px',
+                fontSize: '16px',
+                fontWeight: 700,
                 color: '#fff',
-                letterSpacing: '0.04em',
+                letterSpacing: '0.10em',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '7px',
                 marginBottom: '4px',
               }}
             >
+              KARAKURI
             </div>
             <p
               style={{
@@ -45,7 +47,7 @@ export default function Footer() {
                 color: 'rgba(255,255,255,0.40)',
               }}
             >
-              DIGITAL TRANSFORMATION STUDIO
+              株式会社KARAKURI
             </p>
           </div>
           <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
