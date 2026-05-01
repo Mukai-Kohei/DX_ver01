@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { HandWrittenBrand } from './ui/HandWritingText';
 
 const navLinks = [
   { href: '#business', label: 'Business' },
@@ -36,23 +35,20 @@ export default function Header() {
       }}
     >
       <div className="container-custom">
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px', overflow: 'visible' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
           {/* Brand */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: '4px', lineHeight: 1.2, overflow: 'visible' }}>
-            <HandWrittenBrand
-              text="KARAKURI"
-              strokeColor="var(--accent)"
-              strokeWidth={3}
-              inView={false}
-              ovalInset={{ top: -7, bottom: -7, left: -12, right: -12 }}
-              textStyle={{
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: '2px', lineHeight: 1.2 }}>
+            <span
+              style={{
                 fontFamily: 'var(--f-mono)',
                 fontSize: '15px',
                 fontWeight: 700,
                 color: 'var(--ink)',
                 letterSpacing: '0.10em',
               }}
-            />
+            >
+              KARAKURI
+            </span>
             <span
               style={{
                 fontFamily: 'var(--f-mono)',
