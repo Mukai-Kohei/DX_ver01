@@ -37,30 +37,17 @@ export default function Header() {
       <div className="container-custom">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
           {/* Brand */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: '2px', lineHeight: 1.2 }}>
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
             <span
               style={{
-                fontFamily: 'var(--f-mono)',
-                fontSize: '15px',
+                fontFamily: 'var(--f-jp)',
+                fontSize: '20px',
                 fontWeight: 700,
                 color: 'var(--ink)',
-                letterSpacing: '0.10em',
+                letterSpacing: '0.08em',
               }}
             >
-              KARAKURI
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--f-mono)',
-                fontSize: '9px',
-                color: 'var(--ink-mute)',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                display: 'block',
-              }}
-              className="hidden sm:block"
-            >
-              株式会社KARAKURI
+              からくり
             </span>
           </Link>
 

@@ -28,30 +28,20 @@ export default function Footer() {
         >
           <div>
             <HandWrittenBrand
-              text="KARAKURI"
+              text="からくり"
               strokeColor="rgba(255,255,255,0.55)"
               strokeWidth={3}
               inView={true}
-              style={{ marginBottom: '6px' }}
+              ovalInset={{ top: -8, bottom: -8, left: -14, right: -14 }}
+              style={{ marginBottom: '10px' }}
               textStyle={{
-                fontFamily: 'var(--f-mono)',
-                fontSize: '16px',
+                fontFamily: 'var(--f-jp)',
+                fontSize: '20px',
                 fontWeight: 700,
                 color: '#fff',
-                letterSpacing: '0.10em',
+                letterSpacing: '0.08em',
               }}
             />
-            <p
-              style={{
-                fontFamily: 'var(--f-mono)',
-                fontSize: '9px',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: 'rgba(255,255,255,0.40)',
-              }}
-            >
-              株式会社KARAKURI
-            </p>
           </div>
           <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
             {[

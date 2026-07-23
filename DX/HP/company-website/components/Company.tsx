@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const companyInfo = [
-  { label: '会社名', value: '株式会社KARAKURI' },
+  { label: '会社名', value: 'からくり' },
   { label: '代表取締役', value: '舟木 南生' },
   { label: '事業内容', value: 'DX推進支援・デジタルマーケティング支援・DX×マーケティング融合' },
   { label: '設立', value: '2026年' },
