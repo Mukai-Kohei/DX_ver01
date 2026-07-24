@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { HandWrittenBrand } from './ui/HandWritingText';
 
 const navLinks = [
   { href: '#business', label: 'Business' },
@@ -35,20 +36,23 @@ export default function Header() {
       }}
     >
       <div className="container-custom">
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px', overflow: 'visible' }}>
           {/* Brand */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-            <span
-              style={{
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', overflow: 'visible' }}>
+            <HandWrittenBrand
+              text="からくり"
+              strokeColor="rgba(0,0,0,0.55)"
+              strokeWidth={3}
+              inView={false}
+              ovalInset={{ top: -6, bottom: -6, left: -12, right: -12 }}
+              textStyle={{
                 fontFamily: 'var(--f-jp)',
                 fontSize: '20px',
                 fontWeight: 700,
                 color: 'var(--ink)',
                 letterSpacing: '0.08em',
               }}
-            >
-              からくり
-            </span>
+            />
           </Link>
 
           {/* Desktop nav */}
