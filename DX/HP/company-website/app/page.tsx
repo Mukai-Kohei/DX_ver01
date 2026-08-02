@@ -10,7 +10,6 @@ import Marquee from '@/components/Marquee';
 import Business from '@/components/Business';
 import Works from '@/components/Works';
 import Approach from '@/components/Approach';
-import Manifesto from '@/components/Manifesto';
 import Company from '@/components/Company';
 import FinalCTA from '@/components/FinalCTA';
 import Footer from '@/components/Footer';
@@ -38,7 +37,15 @@ export default function Home() {
     gsap.ticker.add(tickerFn);
     gsap.ticker.lagSmoothing(0);
 
+    // Dialogs (e.g. the Business service modal) ask us to freeze the page.
+    const stop = () => lenis.stop();
+    const start = () => lenis.start();
+    window.addEventListener('lenis:stop', stop);
+    window.addEventListener('lenis:start', start);
+
     return () => {
+      window.removeEventListener('lenis:stop', stop);
+      window.removeEventListener('lenis:start', start);
       gsap.ticker.remove(tickerFn);
       lenis.destroy();
     };
@@ -53,7 +60,6 @@ export default function Home() {
         <Business />
         <Works />
         <Approach />
-        <Manifesto />
         <Company />
         <FinalCTA />
       </main>

@@ -131,19 +131,6 @@ export default function Approach() {
           pointerEvents: 'none',
         }}
       />
-      {/* Fine grid texture */}
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: 0,
-          pointerEvents: 'none',
-          backgroundImage:
-            'linear-gradient(rgba(46,110,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(46,110,255,0.035) 1px, transparent 1px)',
-          backgroundSize: '56px 56px',
-        }}
-      />
-
       <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
 
         {/* Header */}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -14,6 +15,16 @@ const services = [
     short: 'DX推進',
     desc: '業務フローのデジタル化から組織変革まで、貴社の課題に合わせたDX戦略を設計・実装します。',
     tags: ['業務改善', 'システム導入', '組織変革'],
+    issues: [
+      '紙とExcelでの手作業が多く、月次の締めが遅い',
+      '担当者ごとにやり方が違い、業務が属人化している',
+      '何から手をつければいいか分からない',
+    ],
+    provides: [
+      '業務フローの可視化と、着手する順番の設計',
+      'クラウド・API連携による自動化の実装',
+      '現場に定着するまでの運用サポート',
+    ],
     href: '/dx-solution',
     accent: '#6d28d9',
     accentSoft: 'rgba(109,40,217,0.22)',
@@ -26,6 +37,16 @@ const services = [
     short: 'デジタルマーケティング',
     desc: 'SNS・MA・SEOを一体化したデータドリブンなマーケティング施策で、顧客獲得を最大化。',
     tags: ['SNS運用', 'MA', 'SEO'],
+    issues: [
+      '施策は打っているが、成果が数字で見えない',
+      'SNSの更新が続かず、集客につながらない',
+      '問い合わせは来るが、商談まで進まない',
+    ],
+    provides: [
+      'SNS・MA・SEOを一体で設計した集客導線',
+      '成果を数値で追える計測基盤の構築',
+      'コンテンツ運用と改善サイクルの内製化支援',
+    ],
     href: '/digital-marketing',
     accent: '#1d4ed8',
     accentSoft: 'rgba(29,78,216,0.22)',
@@ -38,6 +59,16 @@ const services = [
     short: 'AX推進',
     desc: '生成AIを業務に組み込み、属人化したノウハウを組織の資産へ。AI活用が前提のプロセスを設計します。',
     tags: ['生成AI活用', '社内ナレッジ基盤', '業務自動化'],
+    issues: [
+      'AIツールは導入したが、誰も使っていない',
+      'ベテランのノウハウが引き継げていない',
+      '議事録や提案書の作成に時間がかかりすぎる',
+    ],
+    provides: [
+      '社内データを活用したAIアシスタントの構築',
+      '生成AIを前提とした業務プロセスの再設計',
+      '利用状況の可視化と、全社へ広げる仕組みづくり',
+    ],
     href: '/ax-solution',
     accent: '#b45309',
     accentSoft: 'rgba(180,83,9,0.22)',
@@ -57,6 +88,36 @@ export default function Business() {
   const activeRef = useRef(0);
   const isHoveringRef = useRef(false);
   const rotationRef = useRef(0); // cumulative ring rotation for shortest-path calc
+
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const isOpenRef = useRef(false);
+  // Element that opened the dialog, so focus can be handed back on close.
+  const triggerRef = useRef<HTMLElement | null>(null);
+
+  const openModal = (i: number, trigger: HTMLElement | null) => {
+    triggerRef.current = trigger;
+    isOpenRef.current = true;
+    setOpenIdx(i);
+  };
+  const closeModal = () => {
+    isOpenRef.current = false;
+    setOpenIdx(null);
+    triggerRef.current?.focus();
+  };
+
+  /* Lock page scrolling while the dialog is open. Lenis drives the scroll on
+     pointer devices, so it needs stopping too — page.tsx owns the instance and
+     listens for these events. */
+  useEffect(() => {
+    if (openIdx === null) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.dispatchEvent(new Event('lenis:stop'));
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.dispatchEvent(new Event('lenis:start'));
+    };
+  }, [openIdx]);
 
   const rotateTo = (newStep: number) => {
     if (newStep === activeRef.current) return;
@@ -106,7 +167,7 @@ export default function Business() {
     }, sectionRef);
 
     const auto = setInterval(() => {
-      if (!isHoveringRef.current) {
+      if (!isHoveringRef.current && !isOpenRef.current) {
         const next = (activeRef.current + 1) % services.length;
         rotateTo(next);
       }
@@ -360,6 +421,7 @@ export default function Business() {
                 last={i === services.length - 1}
                 active={i === activeStep}
                 onHover={() => rotateTo(i)}
+                onOpen={(trigger) => openModal(i, trigger)}
               />
             ))}
           </div>
@@ -441,6 +503,10 @@ export default function Business() {
           transition: color .35s, font-weight .35s, font-size .35s, letter-spacing .35s;
         }
       `}</style>
+
+      {openIdx !== null && (
+        <ServiceModal service={services[openIdx]} onClose={closeModal} />
+      )}
     </section>
   );
 }
@@ -450,27 +516,36 @@ function ServiceRow({
   last,
   active,
   onHover,
+  onOpen,
 }: {
   service: (typeof services)[0];
   last: boolean;
   active: boolean;
   onHover: () => void;
+  onOpen: (trigger: HTMLElement | null) => void;
 }) {
-  const rowRef = useRef<HTMLAnchorElement>(null);
+  const rowRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <Link
-      href={service.href}
+    <button
+      type="button"
       ref={rowRef}
       className="service-row"
       onMouseEnter={onHover}
+      onClick={() => onOpen(rowRef.current)}
+      aria-haspopup="dialog"
+      aria-label={`${service.ja} の詳細を開く`}
       style={{
         display: 'flex',
         gap: '32px',
+        width: '100%',
+        textAlign: 'left',
+        font: 'inherit',
+        borderTop: 'none',
+        borderRight: 'none',
         padding: active ? '28px 0 28px 32px' : '28px 0 28px 20px',
         borderBottom: last ? 'none' : '1px solid var(--hair)',
         borderLeft: `2px solid ${active ? service.accent : 'transparent'}`,
-        textDecoration: 'none',
         transition: 'border-color 0.35s ease, padding-left 0.35s cubic-bezier(0.34,1.56,0.64,1), background 0.35s',
         alignItems: 'flex-start',
         background: active ? service.accentSoft : 'transparent',
@@ -541,6 +616,254 @@ function ServiceRow({
         </div>
       </div>
 
-    </Link>
+    </button>
+  );
+}
+
+/* ────────────── Service detail dialog ────────────── */
+
+function ServiceModal({
+  service,
+  onClose,
+}: {
+  service: (typeof services)[0];
+  onClose: () => void;
+}) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const titleId = 'service-modal-title';
+
+  useEffect(() => {
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
+  if (typeof document === 'undefined') return null;
+
+  // Rendered into <body> so no ancestor's overflow or stacking context applies.
+  return createPortal(
+    <div className="svc-backdrop" onClick={onClose}>
+      <div
+        className="svc-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        onClick={(e) => e.stopPropagation()}
+        style={{ borderTop: `3px solid ${service.accent}` }}
+      >
+        {/* Close */}
+        <button
+          type="button"
+          ref={closeRef}
+          onClick={onClose}
+          className="svc-close"
+          aria-label="閉じる"
+        >
+          ×
+        </button>
+
+        <div className="svc-body">
+          <p
+            style={{
+              fontFamily: 'var(--f-mono)',
+              fontSize: '11px',
+              letterSpacing: '0.14em',
+              color: service.accent,
+              marginBottom: '12px',
+            }}
+          >
+            SERVICE {service.no}
+          </p>
+
+          <h3
+            id={titleId}
+            style={{
+              fontFamily: 'var(--f-jp)',
+              fontSize: 'clamp(24px, 3vw, 36px)',
+              fontWeight: 700,
+              color: 'var(--ink)',
+              lineHeight: 1.3,
+              letterSpacing: '-0.02em',
+              marginBottom: '14px',
+            }}
+          >
+            {service.ja}
+          </h3>
+
+          <p
+            style={{
+              fontFamily: 'var(--f-jp)',
+              fontSize: '14.5px',
+              color: 'var(--ink-sub)',
+              lineHeight: 1.9,
+              marginBottom: '18px',
+            }}
+          >
+            {service.desc}
+          </p>
+
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '32px' }}>
+            {service.tags.map((tag) => (
+              <span
+                key={tag}
+                style={{
+                  fontFamily: 'var(--f-mono)',
+                  fontSize: '10px',
+                  letterSpacing: '0.06em',
+                  border: '1px solid var(--hair)',
+                  borderRadius: '4px',
+                  padding: '3px 9px',
+                  color: 'var(--ink-mute)',
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="svc-cols">
+            <div>
+              <p className="svc-label" style={{ color: 'var(--ink-mute)' }}>
+                こんな課題に
+              </p>
+              <ul className="svc-list">
+                {service.issues.map((t) => (
+                  <li key={t}>
+                    <span className="svc-dot" style={{ background: 'var(--ink-mute)' }} />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="svc-label" style={{ color: service.accent }}>
+                提供すること
+              </p>
+              <ul className="svc-list">
+                {service.provides.map((t) => (
+                  <li key={t}>
+                    <span className="svc-dot" style={{ background: service.accent }} />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <Link
+            href={service.href}
+            className="svc-link"
+            style={{ color: service.accent, borderColor: service.accent }}
+          >
+            事例を詳しく見る
+            <span aria-hidden>→</span>
+          </Link>
+        </div>
+      </div>
+
+      <style>{`
+        .svc-backdrop {
+          position: fixed;
+          inset: 0;
+          z-index: 1000;
+          background: rgba(10, 16, 30, 0.55);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          animation: svcFade 0.22s ease-out;
+        }
+        .svc-modal {
+          position: relative;
+          width: 100%;
+          max-width: 720px;
+          max-height: calc(100dvh - 48px);
+          overflow-y: auto;
+          background: #fff;
+          border-radius: 16px;
+          box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.35);
+          animation: svcPop 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .svc-body { padding: clamp(28px, 4vw, 44px); }
+        .svc-close {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: 1px solid var(--hair);
+          background: #fff;
+          color: var(--ink-sub);
+          font-size: 20px;
+          line-height: 1;
+          cursor: pointer;
+          transition: background 0.2s, color 0.2s;
+        }
+        .svc-close:hover { background: var(--ink); color: #fff; }
+        .svc-cols {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: clamp(20px, 3vw, 40px);
+          margin-bottom: 32px;
+        }
+        .svc-label {
+          font-family: var(--f-mono);
+          font-size: 10px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        }
+        .svc-list { list-style: none; margin: 0; padding: 0; }
+        .svc-list li {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          font-family: var(--f-jp);
+          font-size: 13.5px;
+          line-height: 1.85;
+          color: var(--ink-sub);
+          padding: 9px 0;
+          border-bottom: 1px solid var(--hair);
+        }
+        .svc-dot {
+          width: 5px; height: 5px;
+          border-radius: 50%;
+          flex-shrink: 0;
+          margin-top: 10px;
+        }
+        .svc-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          font-family: var(--f-mono);
+          font-size: 12px;
+          letter-spacing: 0.06em;
+          text-decoration: none;
+          border: 1px solid;
+          border-radius: 9999px;
+          padding: 12px 26px;
+          transition: opacity 0.2s;
+        }
+        .svc-link:hover { opacity: 0.7; }
+        @keyframes svcFade { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes svcPop {
+          from { opacity: 0; transform: translateY(16px) scale(0.98); }
+          to   { opacity: 1; transform: none; }
+        }
+        @media (max-width: 640px) {
+          .svc-cols { grid-template-columns: 1fr !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .svc-backdrop, .svc-modal { animation: none; }
+        }
+      `}</style>
+    </div>,
+    document.body
   );
 }
