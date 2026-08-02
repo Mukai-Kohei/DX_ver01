@@ -67,10 +67,9 @@ export default function Company() {
       id="company"
       style={{
         background: '#F5F7FA',
-        padding: 'clamp(72px, 8vw, 110px) 0',
+        padding: 'clamp(56px, 5.5vw, 88px) 0',
         position: 'relative',
         overflow: 'hidden',
-        borderTop: '1px solid var(--hair)',
       }}
     >
       {/* Slow drifting waves */}
@@ -182,9 +181,7 @@ export default function Company() {
             gridTemplateColumns: '1fr 1.4fr',
             gap: 'clamp(28px, 4vw, 60px)',
             alignItems: 'flex-start',
-            marginTop: 'clamp(56px, 6vw, 88px)',
-            paddingTop: 'clamp(40px, 4vw, 60px)',
-            borderTop: '1px solid var(--hair)',
+            marginTop: 'clamp(44px, 4.5vw, 68px)',
           }}
         >
           {/* Left */}

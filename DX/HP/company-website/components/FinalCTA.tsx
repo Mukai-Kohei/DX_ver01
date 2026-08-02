@@ -54,7 +54,7 @@ export default function FinalCTA() {
       <LampContainer
         accent="#3B82F6"
         bg="#020617"
-        style={{ minHeight: '720px', padding: 'clamp(120px, 14vw, 200px) 0 clamp(80px, 10vw, 140px)' }}
+        style={{ minHeight: '620px', padding: 'clamp(88px, 10vw, 148px) 0 clamp(56px, 7vw, 96px)' }}
       >
         <div className="container-custom" style={{ textAlign: 'center', transform: 'translateY(-3rem)' }}>
           <p

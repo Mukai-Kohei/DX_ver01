@@ -92,7 +92,7 @@ export default function Approach() {
       id="approach"
       style={{
         background: 'linear-gradient(160deg, #EEF3FF 0%, #DDE6FF 55%, #EBE6FF 100%)',
-        padding: 'clamp(80px, 10vw, 140px) 0',
+        padding: 'clamp(64px, 6.5vw, 104px) 0',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -134,7 +134,7 @@ export default function Approach() {
       <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
 
         {/* Header */}
-        <div style={{ marginBottom: '52px' }}>
+        <div style={{ marginBottom: '42px' }}>
           <p style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', letterSpacing: '0.16em', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '14px' }}>
             — Approach
           </p>

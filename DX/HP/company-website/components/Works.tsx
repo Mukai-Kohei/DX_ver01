@@ -97,7 +97,7 @@ export default function Works() {
       id="works"
       style={{
         background: 'linear-gradient(180deg, #FFFFFF 0%, #FAFCFF 50%, #EEF3FF 100%)',
-        padding: 'clamp(80px, 10vw, 140px) 0 clamp(60px, 8vw, 100px)',
+        padding: 'clamp(64px, 6.5vw, 104px) 0 clamp(48px, 5vw, 76px)',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -126,7 +126,7 @@ export default function Works() {
         {/* Header row — same structure as the Business section */}
         <div
           className="works-header"
-          style={{ display: 'flex', gap: '40px', marginBottom: '72px', alignItems: 'flex-start' }}
+          style={{ display: 'flex', gap: '40px', marginBottom: '52px', alignItems: 'flex-start' }}
         >
           <div style={{ width: '180px', flexShrink: 0 }}>
             <p

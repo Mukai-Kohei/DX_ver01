@@ -249,7 +249,7 @@ export default function Business() {
   const current = services[activeStep];
 
   return (
-    <section ref={sectionRef} id="business" style={{ background: 'var(--bg)', padding: 'clamp(80px, 10vw, 140px) 0 clamp(60px, 8vw, 100px)', position: 'relative', overflow: 'hidden' }}>
+    <section ref={sectionRef} id="business" style={{ background: 'var(--bg)', padding: 'clamp(64px, 6.5vw, 104px) 0 clamp(48px, 5vw, 76px)', position: 'relative', overflow: 'hidden' }}>
 
       {/* Soft accent glow that shifts by active service */}
       <div
@@ -286,7 +286,7 @@ export default function Business() {
 
       <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
         {/* Header row */}
-        <div className="business-header" style={{ display: 'flex', gap: '40px', marginBottom: '72px', alignItems: 'flex-start' }}>
+        <div className="business-header" style={{ display: 'flex', gap: '40px', marginBottom: '52px', alignItems: 'flex-start' }}>
           <div style={{ width: '180px', flexShrink: 0 }}>
             <p style={{ fontFamily: 'var(--f-mono)', fontSize: '10px', letterSpacing: '0.16em', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '10px' }}>
               — Business
