@@ -86,7 +86,6 @@ const jsonLd = {
   serviceType: [
     "DX推進支援",
     "デジタルマーケティング支援",
-    "DX×マーケティング融合",
     "AX（AI Transformation）推進支援",
   ],
   contactPoint: {

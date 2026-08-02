@@ -4,7 +4,6 @@ const tokens = [
   'DX SOLUTION',
   'AX / AI TRANSFORMATION',
   'Digital Marketing',
-  'DX × MARKETING',
   'Partnership',
   'Since 2026',
 ];

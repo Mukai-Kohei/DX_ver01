@@ -215,7 +215,7 @@ export default function Works() {
 
         {/* Layer 3 — title block */}
         <div data-parallax-layer="3" className="works-layer">
-          <div className="container-custom" style={{ width: '100%', textAlign: 'center' }}>
+          <div className="container-custom" style={{ width: '100%' }}>
             <p
               style={{
                 fontFamily: 'var(--f-mono)',
@@ -248,7 +248,6 @@ export default function Works() {
                 color: 'var(--ink-sub)',
                 lineHeight: 1.9,
                 maxWidth: '540px',
-                margin: '0 auto',
               }}
             >
               地方の現場で、実際に動いているものを。
@@ -265,21 +264,22 @@ export default function Works() {
           className="works-layer"
           style={{ alignItems: 'flex-end', paddingBottom: '26px' }}
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '14px',
-              fontFamily: 'var(--f-mono)',
-              fontSize: '10px',
-              letterSpacing: '0.18em',
-              color: 'var(--ink-mute)',
-              textTransform: 'uppercase',
-            }}
-          >
-            <span style={{ width: '32px', height: '1px', background: 'var(--hair)' }} />
-            Selected Projects
-            <span style={{ width: '32px', height: '1px', background: 'var(--hair)' }} />
+          <div className="container-custom" style={{ width: '100%' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px',
+                fontFamily: 'var(--f-mono)',
+                fontSize: '10px',
+                letterSpacing: '0.18em',
+                color: 'var(--ink-mute)',
+                textTransform: 'uppercase',
+              }}
+            >
+              Selected Projects
+              <span style={{ flex: 1, maxWidth: '160px', height: '1px', background: 'var(--hair)' }} />
+            </div>
           </div>
         </div>
       </div>

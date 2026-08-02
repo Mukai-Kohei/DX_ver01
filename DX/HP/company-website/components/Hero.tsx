@@ -187,7 +187,7 @@ export default function Hero() {
         }}
       >
         {[
-          { label: 'Business Areas', value: '04', unit: '領域' },
+          { label: 'Business Areas', value: '03', unit: '領域' },
           { label: 'Founded', value: '2026', unit: '' },
           { label: 'Approach', value: '伴走型支援', unit: '' },
           { label: 'Status', value: '受付中', unit: '' },

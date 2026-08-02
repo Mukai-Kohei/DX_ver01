@@ -33,18 +33,6 @@ const services = [
   },
   {
     no: '03',
-    titleHtml: 'DX × <em>Marketing</em>',
-    ja: 'DX×マーケティング融合',
-    short: 'DX×マーケ融合',
-    desc: 'テクノロジーと顧客体験を融合させた独自アプローチで、地方企業に新たな成長モデルを提供。',
-    tags: ['CX設計', 'データ活用', '成長戦略'],
-    href: '/relationship',
-    accent: '#0f766e',
-    accentSoft: 'rgba(15,118,110,0.22)',
-    accentRing: 'rgba(20,184,166,0.55)',
-  },
-  {
-    no: '04',
     titleHtml: 'AX <em>Solution</em>',
     ja: 'AX推進支援',
     short: 'AX推進',
@@ -177,14 +165,6 @@ export default function Business() {
         fill="none" stroke={c} strokeWidth="1.6" strokeDasharray="2 2" strokeLinecap="round"/>
     </svg>
   );
-  const GearIcon = ({ c }: { c: string }) => (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
-         stroke={c} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="3"/>
-      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-    </svg>
-  );
-
   const AiIcon = ({ c }: { c: string }) => (
     <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
          stroke={c} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
@@ -204,7 +184,7 @@ export default function Business() {
     </svg>
   );
 
-  const icons = [NetworkIcon, ChartIcon, GearIcon, AiIcon];
+  const icons = [NetworkIcon, ChartIcon, AiIcon];
   const current = services[activeStep];
 
   return (
@@ -257,7 +237,7 @@ export default function Business() {
           <div style={{ flex: 1, paddingTop: '4px', maxWidth: '640px' }}>
             <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', color: 'var(--ink-sub)', lineHeight: 1.9, fontWeight: 400 }}>
               私たちが挑み続けるフィールド——DX推進による業務変革、デジタルマーケティングによる顧客体験の最大化、
-              その融合が生む新たな価値創造、そして生成AIを組み込むAX推進。この4つの領域で、地域企業の未来を共に創ります。
+              そして生成AIを組み込むAX推進。この3つの領域で、地域企業の未来を共に創ります。
             </p>
           </div>
         </div>
