@@ -14,6 +14,9 @@ interface WaveBackgroundProps {
  * Each path spans two full periods across a 2880-wide viewBox, so shifting a
  * layer by exactly -50% lands on an identical crest and the loop is seamless.
  * One period = 1440 units, built from two mirrored cubics (up-hump, down-hump).
+ *
+ * The drift keyframes and .wave-layer rules live in app/globals.css so they are
+ * emitted once no matter how many sections render this component.
  */
 const WAVE_BACK =
   'M0,120 C180,30 540,30 720,120 C900,210 1260,210 1440,120 ' +
@@ -71,29 +74,6 @@ export function WaveBackground({
           <path d={l.d} fill={color} />
         </svg>
       ))}
-
-      <style>{`
-        .wave-bg .wave-layer {
-          will-change: transform;
-          animation-name: waveDrift;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-        }
-        .wave-bg .wave-layer.is-rev {
-          animation-name: waveDriftRev;
-        }
-        @keyframes waveDrift {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-        @keyframes waveDriftRev {
-          from { transform: translateX(-50%); }
-          to   { transform: translateX(0); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .wave-bg .wave-layer { animation: none; }
-        }
-      `}</style>
     </div>
   );
 }

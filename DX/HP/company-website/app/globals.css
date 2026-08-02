@@ -232,6 +232,33 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
+/* Drifting wave background (components/ui/WaveBackground.tsx)
+   Defined globally so the rules are emitted once, not per instance. */
+.wave-bg .wave-layer {
+  will-change: transform;
+  animation-name: waveDrift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.wave-bg .wave-layer.is-rev {
+  animation-name: waveDriftRev;
+}
+
+@keyframes waveDrift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes waveDriftRev {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-bg .wave-layer { animation: none; }
+}
+
 /* Pattern Utilities */
 .bg-pattern-dots {
   background-color: #F5F7FA;

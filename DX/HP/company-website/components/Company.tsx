@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { WaveBackground } from './ui/WaveBackground';
 
 const companyInfo = [
   { label: '会社名', value: 'からくり' },
@@ -45,6 +46,9 @@ export default function Company() {
         overflow: 'hidden',
       }}
     >
+      {/* Slow drifting waves */}
+      <WaveBackground color="#FFFFFF" intensity={0.85} speed={1.2} style={{ zIndex: 0 }} />
+
       {/* Watermark */}
       <span
         aria-hidden

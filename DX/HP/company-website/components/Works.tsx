@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { WaveBackground } from './ui/WaveBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -101,6 +102,9 @@ export default function Works() {
         overflow: 'hidden',
       }}
     >
+      {/* Slow drifting waves */}
+      <WaveBackground color="#DCE7FF" intensity={0.55} speed={1.15} style={{ zIndex: 0 }} />
+
       {/* Soft accent glow that shifts with the highlighted card */}
       <div
         aria-hidden

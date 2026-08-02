@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { WaveBackground } from './ui/WaveBackground';
 
 export default function Manifesto() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -56,9 +57,18 @@ export default function Manifesto() {
   return (
     <section
       ref={sectionRef}
-      style={{ background: '#FAFAF6', padding: 'clamp(100px, 11vw, 160px) 0', borderTop: '1px solid var(--hair)' }}
+      style={{
+        background: '#FAFAF6',
+        padding: 'clamp(100px, 11vw, 160px) 0',
+        borderTop: '1px solid var(--hair)',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
     >
-      <div className="container-custom">
+      {/* Slow drifting waves — warm tone to sit on the off-white background */}
+      <WaveBackground color="#F0EEE2" intensity={0.9} speed={1.35} style={{ zIndex: 0 }} />
+
+      <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
         <div className="manifesto-layout" style={{ display: 'grid', gridTemplateColumns: '1fr minmax(0, 420px)', gap: 'clamp(48px, 6vw, 100px)', alignItems: 'center' }}>
 
           {/* Left: text */}
