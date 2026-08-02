@@ -6,6 +6,7 @@ import { HandWrittenBrand } from './ui/HandWritingText';
 
 const navLinks = [
   { href: '#business', label: 'Business' },
+  { href: '#works', label: 'Works' },
   { href: '#approach', label: 'Approach' },
   { href: '#company', label: 'Company' },
 ];

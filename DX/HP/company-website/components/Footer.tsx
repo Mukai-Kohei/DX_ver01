@@ -46,6 +46,7 @@ export default function Footer() {
           <div style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
             {[
               { href: '#business', label: 'Business' },
+              { href: '#works', label: 'Works' },
               { href: '#approach', label: 'Approach' },
               { href: '#company', label: 'Company' },
               { href: '#contact', label: 'Contact' },

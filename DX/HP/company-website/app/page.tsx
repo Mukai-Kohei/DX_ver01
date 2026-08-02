@@ -8,6 +8,7 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Marquee from '@/components/Marquee';
 import Business from '@/components/Business';
+import Works from '@/components/Works';
 import Approach from '@/components/Approach';
 import Manifesto from '@/components/Manifesto';
 import Company from '@/components/Company';
@@ -50,6 +51,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <Business />
+        <Works />
         <Approach />
         <Manifesto />
         <Company />
