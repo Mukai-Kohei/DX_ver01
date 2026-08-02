@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { WaveBackground } from './ui/WaveBackground';
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -35,6 +36,9 @@ export default function Hero() {
         flexDirection: 'column',
       }}
     >
+      {/* Slow drifting waves */}
+      <WaveBackground color="#FFFFFF" intensity={1} style={{ zIndex: 0 }} />
+
       {/* Spatial Orb */}
       <div
         aria-hidden
