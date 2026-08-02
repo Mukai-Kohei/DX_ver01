@@ -62,7 +62,7 @@ export default function Company() {
             <h2
               style={{
                 fontFamily: 'var(--f-jp)',
-                fontWeight: 900,
+                fontWeight: 700,
                 fontSize: 'clamp(32px, 4vw, 56px)',
                 color: 'var(--ink)',
                 lineHeight: 1.2,
@@ -72,7 +72,7 @@ export default function Company() {
             >
               企業情報
             </h2>
-            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '14px', color: 'var(--ink-mute)', lineHeight: 1.9, maxWidth: '360px' }}>
+            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', color: 'var(--ink-sub)', lineHeight: 1.9, maxWidth: '360px' }}>
               地方企業の「次の一歩」と共に未来を創り上げる、伴走型のITパートナーとして事業を展開しています。
             </p>
           </div>

@@ -80,7 +80,7 @@ export default function Manifesto() {
               style={{
                 opacity: 0,
                 fontFamily: 'var(--f-jp)',
-                fontWeight: 900,
+                fontWeight: 700,
                 fontSize: 'clamp(28px, 4vw, 60px)',
                 lineHeight: 1.5,
                 color: 'var(--ink)',

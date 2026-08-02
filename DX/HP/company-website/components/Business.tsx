@@ -255,7 +255,7 @@ export default function Business() {
             </h2>
           </div>
           <div style={{ flex: 1, paddingTop: '4px', maxWidth: '640px' }}>
-            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', color: 'var(--ink-sub)', lineHeight: 1.95, fontWeight: 400 }}>
+            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', color: 'var(--ink-sub)', lineHeight: 1.9, fontWeight: 400 }}>
               私たちが挑み続けるフィールド——DX推進による業務変革、デジタルマーケティングによる顧客体験の最大化、
               その融合が生む新たな価値創造、そして生成AIを組み込むAX推進。この4つの領域で、地域企業の未来を共に創ります。
             </p>
@@ -518,7 +518,7 @@ function ServiceRow({
         >
           {service.ja}
         </h3>
-        <p style={{ fontFamily: 'var(--f-jp)', fontSize: '14.5px', color: 'var(--ink-sub)', lineHeight: 1.95, marginBottom: '14px', maxWidth: '540px', fontWeight: 400 }}>
+        <p style={{ fontFamily: 'var(--f-jp)', fontSize: '14.5px', color: 'var(--ink-sub)', lineHeight: 1.9, marginBottom: '14px', maxWidth: '540px', fontWeight: 400 }}>
           {service.desc}
         </p>
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>

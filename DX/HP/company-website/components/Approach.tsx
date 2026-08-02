@@ -67,10 +67,10 @@ export default function Approach() {
             — Approach
           </p>
           <div style={{ display: 'flex', gap: '48px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-            <h2 style={{ fontFamily: 'var(--f-jp)', fontWeight: 900, fontSize: 'clamp(32px, 4vw, 56px)', color: 'var(--ink)', lineHeight: 1.2, letterSpacing: '-0.03em', flexShrink: 0 }}>
+            <h2 style={{ fontFamily: 'var(--f-jp)', fontWeight: 700, fontSize: 'clamp(32px, 4vw, 56px)', color: 'var(--ink)', lineHeight: 1.2, letterSpacing: '-0.03em', flexShrink: 0 }}>
               私たちの<br />進め方
             </h2>
-            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', color: 'var(--ink-mute)', lineHeight: 2.0, flex: 1, minWidth: '260px', paddingBottom: '6px' }}>
+            <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', color: 'var(--ink-sub)', lineHeight: 1.9, flex: 1, minWidth: '260px', paddingBottom: '6px' }}>
               一方的な提案ではなく、対話を重ねながら価値を形にしていく4つのステップ。短期的な成果と長期的な成長を両立させる伴走型のプロセスです。
             </p>
           </div>
@@ -98,13 +98,13 @@ export default function Approach() {
               <p style={{ fontFamily: 'var(--f-mono)', fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '20px' }}>
                 {step.no}
               </p>
-              <h3 style={{ fontFamily: 'var(--f-jp)', fontSize: 'clamp(24px, 2.6vw, 38px)', fontWeight: 900, color: 'var(--ink)', lineHeight: 1.15, marginBottom: '8px', letterSpacing: '-0.02em' }}>
+              <h3 style={{ fontFamily: 'var(--f-jp)', fontSize: 'clamp(24px, 2.6vw, 38px)', fontWeight: 700, color: 'var(--ink)', lineHeight: 1.15, marginBottom: '8px', letterSpacing: '-0.02em' }}>
                 {step.ja}
               </h3>
               <p style={{ fontFamily: 'var(--f-display)', fontSize: '15px', fontStyle: 'italic', color: 'var(--ink-mute)', marginBottom: '20px', fontWeight: 400 }}>
                 {step.en}
               </p>
-              <p style={{ fontFamily: 'var(--f-jp)', fontSize: '13.5px', color: 'var(--ink-mute)', lineHeight: 1.9 }}>
+              <p style={{ fontFamily: 'var(--f-jp)', fontSize: '13.5px', color: 'var(--ink-sub)', lineHeight: 1.9 }}>
                 {step.desc}
               </p>
             </div>
