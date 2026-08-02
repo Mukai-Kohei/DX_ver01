@@ -20,7 +20,7 @@ const works = [
     results: ['作成時間を短縮', '属人化を解消', '現在も自社で運用中'],
     accent: '#6d28d9',
     accentSoft: 'rgba(109,40,217,0.08)',
-    glow: 'rgba(109,40,217,0.28)',
+    glow: 'rgba(109,40,217,0.20)',
     ring: 'rgba(167,139,250,0.65)',
   },
   {
@@ -33,7 +33,7 @@ const works = [
     results: ['電話対応が不要に', '手配を当日中に確定', '書類の発行も自動化'],
     accent: '#1d4ed8',
     accentSoft: 'rgba(29,78,216,0.08)',
-    glow: 'rgba(29,78,216,0.28)',
+    glow: 'rgba(29,78,216,0.20)',
     ring: 'rgba(96,165,250,0.65)',
   },
   {
@@ -46,7 +46,7 @@ const works = [
     results: ['BtoC・BtoBを問わず対応', '業種ごとに構成を設計', '自社サイトも自社で運用'],
     accent: '#0f766e',
     accentSoft: 'rgba(15,118,110,0.08)',
-    glow: 'rgba(15,118,110,0.28)',
+    glow: 'rgba(15,118,110,0.20)',
     ring: 'rgba(20,184,166,0.60)',
   },
 ];
@@ -61,38 +61,6 @@ export default function Works() {
     const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const ctx = gsap.context(() => {
-      /* ── Parallax band: back layers lag furthest behind the scroll ── */
-      const stage = sectionRef.current!.querySelector('[data-parallax-layers]');
-      if (stage && !prefersReduce) {
-        const tl = gsap.timeline({
-          scrollTrigger: { trigger: stage, start: '0% 0%', end: '100% 0%', scrub: 0 },
-        });
-        const layers = [
-          { layer: '1', yPercent: 38 },
-          { layer: '2', yPercent: 26 },
-          { layer: '3', yPercent: 14 },
-          { layer: '4', yPercent: 4 },
-        ];
-        layers.forEach((l, i) => {
-          tl.to(
-            stage.querySelectorAll(`[data-parallax-layer="${l.layer}"]`),
-            { yPercent: l.yPercent, ease: 'none' },
-            i === 0 ? undefined : '<'
-          );
-        });
-      }
-
-      /* ── Floating background blobs — slow drifting motion ── */
-      if (!prefersReduce) {
-        gsap.to('.works-blob-1', {
-          y: 46, x: 28, duration: 11, yoyo: true, repeat: -1, ease: 'sine.inOut',
-        });
-        gsap.to('.works-blob-2', {
-          y: -38, x: -22, duration: 9, yoyo: true, repeat: -1, ease: 'sine.inOut',
-        });
-      }
-
-      /* ── Cards fade up on entry ── */
       gsap.fromTo(
         sectionRef.current!.querySelectorAll('.work-card'),
         { opacity: 0, y: 26 },
@@ -120,102 +88,43 @@ export default function Works() {
     };
   }, []);
 
+  const current = works[liveIdx];
+
   return (
     <section
       ref={sectionRef}
       id="works"
       style={{
-        background: 'linear-gradient(180deg, #FFFFFF 0%, #F5F8FF 40%, #EAF0FF 100%)',
+        background: 'linear-gradient(180deg, #FFFFFF 0%, #FAFCFF 50%, #EEF3FF 100%)',
+        padding: 'clamp(80px, 10vw, 140px) 0 clamp(60px, 8vw, 100px)',
         position: 'relative',
         overflow: 'hidden',
-        paddingBottom: 'clamp(80px, 10vw, 140px)',
       }}
     >
-      {/* ── Drifting background blobs ── */}
+      {/* Soft accent glow that shifts with the highlighted card */}
       <div
         aria-hidden
-        className="works-blob-1"
         style={{
           position: 'absolute',
-          top: '30%',
-          left: '-140px',
-          width: '460px',
-          height: '460px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle at 50% 50%, rgba(109,40,217,0.13) 0%, transparent 65%)',
-          filter: 'blur(52px)',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
-      />
-      <div
-        aria-hidden
-        className="works-blob-2"
-        style={{
-          position: 'absolute',
-          bottom: '-100px',
-          right: '-120px',
+          top: '20%',
+          left: '10%',
           width: '520px',
           height: '520px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle at 50% 50%, rgba(46,110,255,0.16) 0%, transparent 65%)',
-          filter: 'blur(56px)',
+          background: `radial-gradient(circle at 50% 50%, ${current.glow} 0%, transparent 68%)`,
+          filter: 'blur(60px)',
           pointerEvents: 'none',
           zIndex: 0,
+          transition: 'background 0.8s ease',
         }}
       />
 
-      {/* ────────── Parallax header band ────────── */}
-      <div
-        data-parallax-layers
-        className="works-parallax"
-        style={{
-          position: 'relative',
-          height: 'clamp(260px, 32vh, 360px)',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1,
-        }}
-      >
-        {/* Layer 1 — furthest back: soft accent glow */}
-        <div data-parallax-layer="1" aria-hidden className="works-layer">
-          <div
-            style={{
-              width: 'clamp(340px, 46vw, 600px)',
-              height: 'clamp(340px, 46vw, 600px)',
-              borderRadius: '50%',
-              background:
-                'radial-gradient(circle at 50% 50%, rgba(46,110,255,0.24) 0%, rgba(46,110,255,0.07) 45%, transparent 70%)',
-              filter: 'blur(46px)',
-            }}
-          />
-        </div>
-
-        {/* Layer 2 — dashed orbit rings */}
-        <div data-parallax-layer="2" aria-hidden className="works-layer">
-          <svg
-            viewBox="0 0 560 560"
-            fill="none"
-            style={{ width: 'clamp(280px, 38vw, 460px)', height: 'auto', opacity: 0.45 }}
-          >
-            <circle cx="280" cy="280" r="272" stroke="rgba(46,110,255,0.20)" strokeWidth="1" />
-            <circle
-              cx="280"
-              cy="280"
-              r="196"
-              stroke="rgba(46,110,255,0.28)"
-              strokeWidth="1"
-              strokeDasharray="4 12"
-            />
-            <circle cx="280" cy="280" r="120" stroke="rgba(46,110,255,0.14)" strokeWidth="1" />
-          </svg>
-        </div>
-
-        {/* Layer 3 — title block */}
-        <div data-parallax-layer="3" className="works-layer">
-          <div className="container-custom" style={{ width: '100%' }}>
+      <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
+        {/* Header row — same structure as the Business section */}
+        <div
+          className="works-header"
+          style={{ display: 'flex', gap: '40px', marginBottom: '72px', alignItems: 'flex-start' }}
+        >
+          <div style={{ width: '180px', flexShrink: 0 }}>
             <p
               style={{
                 fontFamily: 'var(--f-mono)',
@@ -223,7 +132,7 @@ export default function Works() {
                 letterSpacing: '0.16em',
                 color: 'var(--accent)',
                 textTransform: 'uppercase',
-                marginBottom: '14px',
+                marginBottom: '10px',
               }}
             >
               — Works
@@ -232,60 +141,32 @@ export default function Works() {
               style={{
                 fontFamily: 'var(--f-jp)',
                 fontWeight: 700,
-                fontSize: 'clamp(32px, 4.6vw, 60px)',
+                fontSize: 'clamp(32px, 4vw, 52px)',
                 color: 'var(--ink)',
-                lineHeight: 1.15,
-                letterSpacing: '-0.03em',
-                marginBottom: '16px',
+                lineHeight: 1.2,
+                letterSpacing: '-0.02em',
+                whiteSpace: 'nowrap',
               }}
             >
               実績
             </h2>
+          </div>
+          <div style={{ flex: 1, paddingTop: '4px', maxWidth: '640px' }}>
             <p
               style={{
                 fontFamily: 'var(--f-jp)',
                 fontSize: '15px',
                 color: 'var(--ink-sub)',
                 lineHeight: 1.9,
-                maxWidth: '540px',
               }}
             >
-              地方の現場で、実際に動いているものを。
-              <br className="works-br" />
-              業種も規模も異なる課題に、一つずつ向き合ってきました。
+              地方の現場で、実際に動いているものを。業種も規模も異なる課題に、一つずつ向き合ってきました。
+              ここでは、実際に稼働している取り組みを3つご紹介します。
             </p>
           </div>
         </div>
 
-        {/* Layer 4 — foreground marker, tracks the scroll most closely */}
-        <div
-          data-parallax-layer="4"
-          aria-hidden
-          className="works-layer"
-          style={{ alignItems: 'flex-end', paddingBottom: '26px' }}
-        >
-          <div className="container-custom" style={{ width: '100%' }}>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '14px',
-                fontFamily: 'var(--f-mono)',
-                fontSize: '10px',
-                letterSpacing: '0.18em',
-                color: 'var(--ink-mute)',
-                textTransform: 'uppercase',
-              }}
-            >
-              Selected Projects
-              <span style={{ flex: 1, maxWidth: '160px', height: '1px', background: 'var(--hair)' }} />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* ────────── Work cards ────────── */}
-      <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
+        {/* ────────── Work cards ────────── */}
         <div
           className="works-grid"
           onMouseEnter={() => { hoverRef.current = true; }}
@@ -489,15 +370,6 @@ export default function Works() {
       </div>
 
       <style>{`
-        .works-layer {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          pointer-events: none;
-          will-change: transform;
-        }
         .work-card {
           transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
                       box-shadow 0.4s ease, border-color 0.4s ease;
@@ -514,12 +386,19 @@ export default function Works() {
           0%   { background-position: 0% 0; }
           100% { background-position: -200% 0; }
         }
+        @media (max-width: 980px) {
+          .works-header {
+            flex-direction: column !important;
+            gap: 16px !important;
+          }
+          .works-header > div:first-child {
+            width: auto !important;
+          }
+        }
         @media (max-width: 900px) {
           .works-grid { grid-template-columns: 1fr !important; }
-          .works-br { display: none; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .works-layer { transform: none !important; }
           .work-card,
           .work-card.is-live { transform: none !important; transition: none; }
           .work-card.is-live .wc-bar { animation: none; }
