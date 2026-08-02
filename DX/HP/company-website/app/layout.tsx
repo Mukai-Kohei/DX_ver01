@@ -7,14 +7,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
   title: {
-    default: "からくり | DX推進・デジタルマーケティング支援",
+    default: "からくり | DX・AX推進・デジタルマーケティング支援",
     template: "%s | からくり",
   },
   description:
-    "からくりは地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善・システム導入からSNS運用・MA・SEOまで、貴社固有の戦略を共に設計・実装します。",
+    "からくりは地方企業のDX推進・AX（AI Transformation）推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善・システム導入から生成AI活用、SNS運用・MA・SEOまで、貴社固有の戦略を共に設計・実装します。",
   keywords: [
     "からくり",
     "DX推進",
+    "AX推進",
+    "AI Transformation",
+    "生成AI活用",
+    "AI導入支援",
     "デジタルマーケティング",
     "地方企業",
     "DX支援",
@@ -41,9 +45,9 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     url: siteUrl,
     siteName: "からくり",
-    title: "からくり | DX推進・デジタルマーケティング支援",
+    title: "からくり | DX・AX推進・デジタルマーケティング支援",
     description:
-      "からくりは地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善からSNS・MA・SEOまで一気通貫でサポートします。",
+      "からくりは地方企業のDX推進・AX（AI Transformation）推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善から生成AI活用、SNS・MA・SEOまで一気通貫でサポートします。",
     images: [
       {
         url: "/images/manifesto.jpg",
@@ -56,9 +60,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "からくり | DX推進・デジタルマーケティング支援",
+    title: "からくり | DX・AX推進・デジタルマーケティング支援",
     description:
-      "からくりは地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。",
+      "からくりは地方企業のDX推進・AX（AI Transformation）推進・デジタルマーケティング支援を行う伴走型ITパートナー。",
     images: ["/images/manifesto.jpg"],
   },
 
@@ -76,10 +80,15 @@ const jsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/icon.svg`,
   description:
-    "地方企業のDX推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善・システム導入からSNS運用・MA・SEOまで貴社固有の戦略を共に設計・実装します。",
+    "地方企業のDX推進・AX（AI Transformation）推進・デジタルマーケティング支援を行う伴走型ITパートナー。業務改善・システム導入から生成AI活用、SNS運用・MA・SEOまで貴社固有の戦略を共に設計・実装します。",
   foundingDate: "2026",
   areaServed: "JP",
-  serviceType: ["DX推進支援", "デジタルマーケティング支援", "DX×マーケティング融合"],
+  serviceType: [
+    "DX推進支援",
+    "デジタルマーケティング支援",
+    "DX×マーケティング融合",
+    "AX（AI Transformation）推進支援",
+  ],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer service",

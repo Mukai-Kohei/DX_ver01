@@ -141,7 +141,7 @@ export default function Hero() {
             }}
           >
             <span style={{ width: '24px', height: '1px', background: 'var(--ink-mute)' }} />
-            SINCE 2026 / DX PARTNER
+            SINCE 2026 / DX × AX PARTNER
           </p>
           <h2
             style={{
@@ -166,7 +166,7 @@ export default function Hero() {
               color: 'var(--ink-mute)',
             }}
           >
-            DX推進、デジタルマーケティング、そしてその融合。
+            DX推進、デジタルマーケティング、そして生成AIによるAX推進。
             <br />
             地方企業の「次の一歩」と共に未来を創り上げる、伴走型のITパートナーです。
           </p>
@@ -187,7 +187,7 @@ export default function Hero() {
         }}
       >
         {[
-          { label: 'Business Areas', value: '03', unit: '領域' },
+          { label: 'Business Areas', value: '04', unit: '領域' },
           { label: 'Founded', value: '2026', unit: '' },
           { label: 'Approach', value: '伴走型支援', unit: '' },
           { label: 'Status', value: '受付中', unit: '' },

@@ -11,6 +11,7 @@ const services = [
     no: '01',
     titleHtml: 'DX <em>Solution</em>',
     ja: 'DX推進支援',
+    short: 'DX推進',
     desc: '業務フローのデジタル化から組織変革まで、貴社の課題に合わせたDX戦略を設計・実装します。',
     tags: ['業務改善', 'システム導入', '組織変革'],
     href: '/dx-solution',
@@ -22,6 +23,7 @@ const services = [
     no: '02',
     titleHtml: 'Digital <em>Marketing</em>',
     ja: 'デジタルマーケティング支援',
+    short: 'デジタルマーケティング',
     desc: 'SNS・MA・SEOを一体化したデータドリブンなマーケティング施策で、顧客獲得を最大化。',
     tags: ['SNS運用', 'MA', 'SEO'],
     href: '/digital-marketing',
@@ -33,6 +35,7 @@ const services = [
     no: '03',
     titleHtml: 'DX × <em>Marketing</em>',
     ja: 'DX×マーケティング融合',
+    short: 'DX×マーケ融合',
     desc: 'テクノロジーと顧客体験を融合させた独自アプローチで、地方企業に新たな成長モデルを提供。',
     tags: ['CX設計', 'データ活用', '成長戦略'],
     href: '/relationship',
@@ -40,14 +43,27 @@ const services = [
     accentSoft: 'rgba(15,118,110,0.22)',
     accentRing: 'rgba(20,184,166,0.55)',
   },
+  {
+    no: '04',
+    titleHtml: 'AX <em>Solution</em>',
+    ja: 'AX推進支援',
+    short: 'AX推進',
+    desc: '生成AIを業務に組み込み、属人化したノウハウを組織の資産へ。AI活用が前提のプロセスを設計します。',
+    tags: ['生成AI活用', '社内ナレッジ基盤', '業務自動化'],
+    href: '/ax-solution',
+    accent: '#b45309',
+    accentSoft: 'rgba(180,83,9,0.22)',
+    accentRing: 'rgba(251,191,36,0.60)',
+  },
 ];
+
+/** Angle between adjacent orbit nodes (degrees). */
+const NODE_ANGLE = 360 / services.length;
 
 export default function Business() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const orbitRingRef = useRef<HTMLDivElement>(null);
-  const inner0Ref = useRef<HTMLDivElement>(null);
-  const inner1Ref = useRef<HTMLDivElement>(null);
-  const inner2Ref = useRef<HTMLDivElement>(null);
+  const innerRefs = useRef<(HTMLDivElement | null)[]>([]);
   const cNumRef = useRef<HTMLSpanElement>(null);
   const [activeStep, setActiveStep] = useState(0);
   const activeRef = useRef(0);
@@ -60,17 +76,18 @@ export default function Business() {
     activeRef.current = newStep;
     setActiveStep(newStep);
 
-    // Always rotate the shortest way (max ±120° for 3 nodes)
-    let delta = (newStep - oldStep) * -120;
+    // Always rotate the shortest way around the ring
+    let delta = (newStep - oldStep) * -NODE_ANGLE;
     if (delta > 180) delta -= 360;
     if (delta < -180) delta += 360;
     rotationRef.current += delta;
     const R = rotationRef.current;
 
-    gsap.to(orbitRingRef.current, { rotation: R,        duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
-    gsap.to(inner0Ref.current,    { rotation: -R,       duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
-    gsap.to(inner1Ref.current,    { rotation: -R - 120, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
-    gsap.to(inner2Ref.current,    { rotation: -R - 240, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+    gsap.to(orbitRingRef.current, { rotation: R, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+    // Counter-rotate each node so its icon and label stay upright
+    innerRefs.current.forEach((el, i) => {
+      gsap.to(el, { rotation: -R - i * NODE_ANGLE, duration: 0.6, ease: 'power2.out', overwrite: 'auto' });
+    });
 
     if (cNumRef.current) {
       gsap.to(cNumRef.current, {
@@ -86,9 +103,9 @@ export default function Business() {
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.set(inner0Ref.current, { rotation: 0 });
-      gsap.set(inner1Ref.current, { rotation: -120 });
-      gsap.set(inner2Ref.current, { rotation: -240 });
+      innerRefs.current.forEach((el, i) => {
+        gsap.set(el, { rotation: -i * NODE_ANGLE });
+      });
 
       gsap.fromTo(
         sectionRef.current!.querySelectorAll('.service-row, .orbit-col'),
@@ -168,7 +185,26 @@ export default function Business() {
     </svg>
   );
 
-  const icons = [NetworkIcon, ChartIcon, GearIcon];
+  const AiIcon = ({ c }: { c: string }) => (
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+         stroke={c} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      {/* Chip body */}
+      <rect x="7" y="7" width="10" height="10" rx="2.2"/>
+      {/* Core */}
+      <circle cx="12" cy="12" r="1.6" fill={c} stroke="none"/>
+      {/* Pins */}
+      <line x1="10" y1="7"  x2="10" y2="3.6"/>
+      <line x1="14" y1="7"  x2="14" y2="3.6"/>
+      <line x1="10" y1="17" x2="10" y2="20.4"/>
+      <line x1="14" y1="17" x2="14" y2="20.4"/>
+      <line x1="7"  y1="10" x2="3.6"  y2="10"/>
+      <line x1="7"  y1="14" x2="3.6"  y2="14"/>
+      <line x1="17" y1="10" x2="20.4" y2="10"/>
+      <line x1="17" y1="14" x2="20.4" y2="14"/>
+    </svg>
+  );
+
+  const icons = [NetworkIcon, ChartIcon, GearIcon, AiIcon];
   const current = services[activeStep];
 
   return (
@@ -221,7 +257,7 @@ export default function Business() {
           <div style={{ flex: 1, paddingTop: '4px', maxWidth: '640px' }}>
             <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', color: 'var(--ink-sub)', lineHeight: 1.95, fontWeight: 400 }}>
               私たちが挑み続けるフィールド——DX推進による業務変革、デジタルマーケティングによる顧客体験の最大化、
-              そしてDX×マーケティングの融合が生む新たな価値創造。この3つの領域で、地域企業の未来を共に創ります。
+              その融合が生む新たな価値創造、そして生成AIを組み込むAX推進。この4つの領域で、地域企業の未来を共に創ります。
             </p>
           </div>
         </div>
@@ -287,15 +323,17 @@ export default function Business() {
                 <div ref={orbitRingRef} className="absolute inset-0">
                   {services.map((s, i) => {
                     const Icon = icons[i];
-                    const innerRef = i === 0 ? inner0Ref : i === 1 ? inner1Ref : inner2Ref;
                     const isActive = i === activeStep;
                     return (
                       <div
                         key={i}
                         className={`orbit-item ${isActive ? 'is-active' : 'is-dim'}`}
-                        style={{ '--a': `${i * 120}deg`, '--r': '150px' } as React.CSSProperties}
+                        style={{ '--a': `${i * NODE_ANGLE}deg`, '--r': '150px' } as React.CSSProperties}
                       >
-                        <div ref={innerRef} className="orbit-inner">
+                        <div
+                          ref={(el) => { innerRefs.current[i] = el; }}
+                          className="orbit-inner"
+                        >
                           <button
                             type="button"
                             onClick={() => rotateTo(i)}
@@ -321,7 +359,7 @@ export default function Business() {
                             fontSize: isActive ? '14px' : '10.5px',
                             letterSpacing: isActive ? '0.01em' : '0em',
                           }}>
-                            {s.ja.replace('支援', '').replace('融合', '')}
+                            {s.short}
                           </span>
                         </div>
                       </div>
