@@ -54,7 +54,7 @@ export default function Company() {
           duration: 0.7,
           stagger: 0.08,
           ease: 'power2.out',
-          scrollTrigger: { trigger: '.company-info', start: 'top 88%', once: true },
+          scrollTrigger: { trigger: '.company-info', start: 'top 90%', once: true },
         }
       );
     }, sectionRef);
@@ -96,18 +96,23 @@ export default function Company() {
       </span>
 
       <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
-
-        {/* ── Heading & statement (left) + photo (right) ── */}
+        {/*
+          One grid, two rows: the statement sits above the details table on the
+          left, and the photo occupies the whole right column across both rows.
+          Spanning a single image avoids repeating the only photo we have while
+          still filling the space beside the table.
+        */}
         <div
-          className="company-top"
+          className="company-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: '1fr minmax(0, 440px)',
-            gap: 'clamp(32px, 4.5vw, 72px)',
-            alignItems: 'center',
+            columnGap: 'clamp(32px, 4.5vw, 72px)',
+            rowGap: 'clamp(40px, 4.5vw, 64px)',
           }}
         >
-          <div>
+          {/* Left, row 1 — heading + statement */}
+          <div style={{ gridColumn: 1, gridRow: 1, alignSelf: 'center' }}>
             <p
               style={{
                 fontFamily: 'var(--f-mono)',
@@ -179,13 +184,17 @@ export default function Company() {
             </p>
           </div>
 
+          {/* Right — photo spanning both rows */}
           <div
             ref={imgRef}
             className="company-img-wrap"
             style={{
               opacity: 0,
+              gridColumn: 2,
+              gridRow: '1 / span 2',
+              alignSelf: 'stretch',
               position: 'relative',
-              height: 'clamp(320px, 38vw, 520px)',
+              minHeight: 'clamp(340px, 40vw, 560px)',
               borderRadius: '6px',
               overflow: 'hidden',
             }}
@@ -198,63 +207,53 @@ export default function Company() {
               sizes="(max-width: 900px) 100vw, 440px"
             />
           </div>
-        </div>
 
-        {/* ── Company details — same grid as above, so the table's right edge
-             lines up with the statement column rather than running full width ── */}
-        <div
-          className="company-bottom"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr minmax(0, 440px)',
-            gap: 'clamp(32px, 4.5vw, 72px)',
-            marginTop: 'clamp(44px, 4.5vw, 68px)',
-          }}
-        >
-        <dl
-          className="company-info"
-          style={{ borderTop: '1px solid var(--hair)' }}
-        >
-          {companyInfo.map((info, index) => (
-            <div
-              key={index}
-              className="company-row"
-              style={{
-                display: 'flex',
-                gap: '32px',
-                padding: '18px 4px',
-                borderBottom: '1px solid var(--hair)',
-                alignItems: 'flex-start',
-              }}
-            >
-              <dt
+          {/* Left, row 2 — compact details table */}
+          <dl
+            className="company-info"
+            style={{ gridColumn: 1, gridRow: 2, borderTop: '1px solid var(--hair)', margin: 0 }}
+          >
+            {companyInfo.map((info, index) => (
+              <div
+                key={index}
+                className="company-row"
                 style={{
-                  width: '140px',
-                  flexShrink: 0,
-                  fontFamily: 'var(--f-mono)',
-                  fontSize: '11px',
-                  letterSpacing: '0.08em',
-                  color: 'var(--ink-mute)',
-                  textTransform: 'uppercase',
-                  paddingTop: '3px',
+                  display: 'flex',
+                  gap: '24px',
+                  padding: '12px 4px',
+                  borderBottom: '1px solid var(--hair)',
+                  alignItems: 'flex-start',
                 }}
               >
-                {info.label}
-              </dt>
-              <dd
-                style={{
-                  fontFamily: 'var(--f-jp)',
-                  fontSize: '14px',
-                  color: 'var(--ink)',
-                  lineHeight: 1.8,
-                  fontWeight: 500,
-                }}
-              >
-                {info.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
+                <dt
+                  style={{
+                    width: '116px',
+                    flexShrink: 0,
+                    fontFamily: 'var(--f-mono)',
+                    fontSize: '10px',
+                    letterSpacing: '0.08em',
+                    color: 'var(--ink-mute)',
+                    textTransform: 'uppercase',
+                    paddingTop: '4px',
+                  }}
+                >
+                  {info.label}
+                </dt>
+                <dd
+                  style={{
+                    fontFamily: 'var(--f-jp)',
+                    fontSize: '13.5px',
+                    color: 'var(--ink)',
+                    lineHeight: 1.75,
+                    fontWeight: 500,
+                    margin: 0,
+                  }}
+                >
+                  {info.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
 
@@ -267,21 +266,22 @@ export default function Company() {
           background: rgba(46,110,255,0.045);
         }
         @media (max-width: 900px) {
-          .company-top,
-          .company-bottom {
+          .company-grid {
             grid-template-columns: 1fr !important;
           }
-          .company-img-wrap {
-            height: clamp(220px, 52vw, 340px) !important;
-            order: -1;
+          /* Let the three blocks flow in source order once stacked. */
+          .company-grid > * {
+            grid-column: 1 !important;
+            grid-row: auto !important;
           }
-          .company-row .company-dt,
-          .company-row dt { width: 110px !important; }
+          .company-img-wrap {
+            min-height: clamp(220px, 52vw, 340px) !important;
+          }
         }
         @media (max-width: 560px) {
           .company-row {
             flex-direction: column;
-            gap: 6px !important;
+            gap: 4px !important;
           }
           .company-row dt { width: auto !important; }
         }
