@@ -24,7 +24,7 @@ export default function Company() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         imgRef.current,
-        { opacity: 0, x: -24 },
+        { opacity: 0, x: 24 },
         {
           opacity: 1,
           x: 0,
@@ -97,36 +97,16 @@ export default function Company() {
 
       <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
 
-        {/* ── Photo (left) + heading & statement (right) ── */}
+        {/* ── Heading & statement (left) + photo (right) ── */}
         <div
           className="company-top"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'minmax(0, 440px) 1fr',
+            gridTemplateColumns: '1fr minmax(0, 440px)',
             gap: 'clamp(32px, 4.5vw, 72px)',
             alignItems: 'center',
           }}
         >
-          <div
-            ref={imgRef}
-            className="company-img-wrap"
-            style={{
-              opacity: 0,
-              position: 'relative',
-              height: 'clamp(320px, 38vw, 520px)',
-              borderRadius: '6px',
-              overflow: 'hidden',
-            }}
-          >
-            <Image
-              src="/images/manifesto.jpg"
-              alt="日本の地方の風景"
-              fill
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
-              sizes="(max-width: 900px) 100vw, 440px"
-            />
-          </div>
-
           <div>
             <p
               style={{
@@ -198,6 +178,26 @@ export default function Company() {
               — 代表取締役 舟木 南生
             </p>
           </div>
+
+          <div
+            ref={imgRef}
+            className="company-img-wrap"
+            style={{
+              opacity: 0,
+              position: 'relative',
+              height: 'clamp(320px, 38vw, 520px)',
+              borderRadius: '6px',
+              overflow: 'hidden',
+            }}
+          >
+            <Image
+              src="/images/manifesto.jpg"
+              alt="日本の地方の風景"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              sizes="(max-width: 900px) 100vw, 440px"
+            />
+          </div>
         </div>
 
         {/* ── Company details ── */}
@@ -264,6 +264,7 @@ export default function Company() {
           }
           .company-img-wrap {
             height: clamp(220px, 52vw, 340px) !important;
+            order: -1;
           }
           .company-row .company-dt,
           .company-row dt { width: 110px !important; }
