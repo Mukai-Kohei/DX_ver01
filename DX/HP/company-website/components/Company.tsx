@@ -30,31 +30,30 @@ export default function Company() {
           x: 0,
           duration: 0.9,
           ease: 'power2.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', once: true },
+          scrollTrigger: { trigger: '.company-grid', start: 'top 85%', once: true },
         }
       );
       gsap.fromTo(
         quoteRef.current,
-        { opacity: 0, y: 28 },
+        { opacity: 0, y: 24 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.9,
+          duration: 0.85,
           ease: 'power3.out',
-          delay: 0.15,
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', once: true },
+          scrollTrigger: { trigger: '.company-grid', start: 'top 85%', once: true },
         }
       );
       gsap.fromTo(
         sectionRef.current!.querySelectorAll('.company-row'),
-        { opacity: 0, y: 16 },
+        { opacity: 0, y: 14 },
         {
           opacity: 1,
           y: 0,
           duration: 0.7,
-          stagger: 0.08,
+          stagger: 0.07,
           ease: 'power2.out',
-          scrollTrigger: { trigger: '.company-info', start: 'top 90%', once: true },
+          scrollTrigger: { trigger: '.company-info', start: 'top 92%', once: true },
         }
       );
     }, sectionRef);
@@ -96,23 +95,12 @@ export default function Company() {
       </span>
 
       <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
-        {/*
-          One grid, two rows: the statement sits above the details table on the
-          left, and the photo occupies the whole right column across both rows.
-          Spanning a single image avoids repeating the only photo we have while
-          still filling the space beside the table.
-        */}
+        {/* Header row — same structure as the Business and Works sections */}
         <div
-          className="company-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr minmax(0, 440px)',
-            columnGap: 'clamp(32px, 4.5vw, 72px)',
-            rowGap: 'clamp(40px, 4.5vw, 64px)',
-          }}
+          className="company-header"
+          style={{ display: 'flex', gap: '40px', marginBottom: '52px', alignItems: 'flex-start' }}
         >
-          {/* Left, row 1 — heading + statement */}
-          <div style={{ gridColumn: 1, gridRow: 1, alignSelf: 'center' }}>
+          <div style={{ width: '180px', flexShrink: 0 }}>
             <p
               style={{
                 fontFamily: 'var(--f-mono)',
@@ -129,27 +117,52 @@ export default function Company() {
               style={{
                 fontFamily: 'var(--f-jp)',
                 fontWeight: 700,
-                fontSize: 'clamp(22px, 2.4vw, 30px)',
+                fontSize: 'clamp(32px, 4vw, 52px)',
                 color: 'var(--ink)',
-                lineHeight: 1.3,
+                lineHeight: 1.2,
                 letterSpacing: '-0.02em',
-                marginBottom: '28px',
+                whiteSpace: 'nowrap',
               }}
             >
               企業情報
             </h2>
+          </div>
+          <div style={{ flex: 1, paddingTop: '4px', maxWidth: '640px' }}>
+            <p
+              style={{
+                fontFamily: 'var(--f-jp)',
+                fontSize: '15px',
+                color: 'var(--ink-sub)',
+                lineHeight: 1.9,
+              }}
+            >
+              地方企業の「次の一歩」と共に未来を創り上げる、伴走型のITパートナーとして事業を展開しています。
+            </p>
+          </div>
+        </div>
 
+        {/* Statement + details (left) / photo (right) */}
+        <div
+          className="company-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr minmax(0, 440px)',
+            gap: 'clamp(32px, 4.5vw, 72px)',
+            alignItems: 'stretch',
+          }}
+        >
+          <div>
             <blockquote
               ref={quoteRef}
               style={{
                 opacity: 0,
                 fontFamily: 'var(--f-jp)',
                 fontWeight: 700,
-                fontSize: 'clamp(24px, 3vw, 42px)',
-                lineHeight: 1.5,
+                fontSize: 'clamp(22px, 2.6vw, 34px)',
+                lineHeight: 1.55,
                 color: 'var(--ink)',
                 letterSpacing: '-0.03em',
-                margin: 0,
+                margin: '0 0 20px',
               }}
             >
               地方には、まだ語られて
@@ -163,8 +176,8 @@ export default function Company() {
                 fontSize: '14px',
                 lineHeight: 1.95,
                 color: 'var(--ink-sub)',
-                marginTop: '24px',
-                maxWidth: '520px',
+                maxWidth: '540px',
+                marginBottom: '14px',
               }}
             >
               大都市に集中するDX推進の波は、地方企業の多くにまだ届いていません。
@@ -173,26 +186,67 @@ export default function Company() {
             </p>
             <p
               style={{
-                marginTop: '18px',
                 fontFamily: 'var(--f-mono)',
                 fontSize: '11px',
                 color: 'var(--ink-mute)',
                 letterSpacing: '0.06em',
+                marginBottom: 'clamp(32px, 3.5vw, 48px)',
               }}
             >
               — 代表取締役 舟木 南生
             </p>
+
+            {/* Details table */}
+            <dl className="company-info" style={{ borderTop: '1px solid var(--hair)', margin: 0 }}>
+              {companyInfo.map((info, index) => (
+                <div
+                  key={index}
+                  className="company-row"
+                  style={{
+                    display: 'flex',
+                    gap: '24px',
+                    padding: '12px 4px',
+                    borderBottom: '1px solid var(--hair)',
+                    alignItems: 'flex-start',
+                  }}
+                >
+                  <dt
+                    style={{
+                      width: '116px',
+                      flexShrink: 0,
+                      fontFamily: 'var(--f-mono)',
+                      fontSize: '10px',
+                      letterSpacing: '0.08em',
+                      color: 'var(--ink-mute)',
+                      textTransform: 'uppercase',
+                      paddingTop: '4px',
+                    }}
+                  >
+                    {info.label}
+                  </dt>
+                  <dd
+                    style={{
+                      fontFamily: 'var(--f-jp)',
+                      fontSize: '13.5px',
+                      color: 'var(--ink)',
+                      lineHeight: 1.75,
+                      fontWeight: 500,
+                      margin: 0,
+                    }}
+                  >
+                    {info.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
-          {/* Right — photo spanning both rows */}
+          {/* Photo — stretches to the left column's height */}
           <div
             ref={imgRef}
             className="company-img-wrap"
             style={{
               opacity: 0,
-              gridColumn: 2,
-              gridRow: '1 / span 2',
-              alignSelf: 'stretch',
               position: 'relative',
               minHeight: 'clamp(340px, 40vw, 560px)',
               borderRadius: '6px',
@@ -207,53 +261,6 @@ export default function Company() {
               sizes="(max-width: 900px) 100vw, 440px"
             />
           </div>
-
-          {/* Left, row 2 — compact details table */}
-          <dl
-            className="company-info"
-            style={{ gridColumn: 1, gridRow: 2, borderTop: '1px solid var(--hair)', margin: 0 }}
-          >
-            {companyInfo.map((info, index) => (
-              <div
-                key={index}
-                className="company-row"
-                style={{
-                  display: 'flex',
-                  gap: '24px',
-                  padding: '12px 4px',
-                  borderBottom: '1px solid var(--hair)',
-                  alignItems: 'flex-start',
-                }}
-              >
-                <dt
-                  style={{
-                    width: '116px',
-                    flexShrink: 0,
-                    fontFamily: 'var(--f-mono)',
-                    fontSize: '10px',
-                    letterSpacing: '0.08em',
-                    color: 'var(--ink-mute)',
-                    textTransform: 'uppercase',
-                    paddingTop: '4px',
-                  }}
-                >
-                  {info.label}
-                </dt>
-                <dd
-                  style={{
-                    fontFamily: 'var(--f-jp)',
-                    fontSize: '13.5px',
-                    color: 'var(--ink)',
-                    lineHeight: 1.75,
-                    fontWeight: 500,
-                    margin: 0,
-                  }}
-                >
-                  {info.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </div>
 
@@ -265,17 +272,22 @@ export default function Company() {
           transform: translateX(6px);
           background: rgba(46,110,255,0.045);
         }
+        @media (max-width: 980px) {
+          .company-header {
+            flex-direction: column !important;
+            gap: 16px !important;
+          }
+          .company-header > div:first-child {
+            width: auto !important;
+          }
+        }
         @media (max-width: 900px) {
           .company-grid {
             grid-template-columns: 1fr !important;
           }
-          /* Let the three blocks flow in source order once stacked. */
-          .company-grid > * {
-            grid-column: 1 !important;
-            grid-row: auto !important;
-          }
           .company-img-wrap {
             min-height: clamp(220px, 52vw, 340px) !important;
+            order: -1;
           }
         }
         @media (max-width: 560px) {

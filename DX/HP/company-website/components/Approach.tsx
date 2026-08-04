@@ -139,7 +139,7 @@ export default function Approach() {
             — Approach
           </p>
           <div style={{ display: 'flex', gap: '48px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-            <h2 style={{ fontFamily: 'var(--f-jp)', fontWeight: 700, fontSize: 'clamp(32px, 4vw, 56px)', color: 'var(--ink)', lineHeight: 1.2, letterSpacing: '-0.03em', flexShrink: 0 }}>
+            <h2 style={{ fontFamily: 'var(--f-jp)', fontWeight: 700, fontSize: 'clamp(32px, 4vw, 52px)', color: 'var(--ink)', lineHeight: 1.2, letterSpacing: '-0.02em', flexShrink: 0 }}>
               私たちの<br />進め方
             </h2>
             <p style={{ fontFamily: 'var(--f-jp)', fontSize: '15px', color: 'var(--ink-sub)', lineHeight: 1.9, flex: 1, minWidth: '260px', paddingBottom: '6px' }}>
