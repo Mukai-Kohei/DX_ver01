@@ -96,49 +96,32 @@ export default function Company() {
 
       <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
         {/* Header row — same structure as the Business and Works sections */}
-        <div
-          className="company-header"
-          style={{ display: 'flex', gap: '40px', marginBottom: '52px', alignItems: 'flex-start' }}
-        >
-          <div style={{ width: '180px', flexShrink: 0 }}>
-            <p
-              style={{
-                fontFamily: 'var(--f-mono)',
-                fontSize: '10px',
-                letterSpacing: '0.16em',
-                color: 'var(--accent)',
-                textTransform: 'uppercase',
-                marginBottom: '10px',
-              }}
-            >
-              — Company
-            </p>
-            <h2
-              style={{
-                fontFamily: 'var(--f-jp)',
-                fontWeight: 700,
-                fontSize: 'clamp(32px, 4vw, 52px)',
-                color: 'var(--ink)',
-                lineHeight: 1.2,
-                letterSpacing: '-0.02em',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              企業情報
-            </h2>
-          </div>
-          <div style={{ flex: 1, paddingTop: '4px', maxWidth: '640px' }}>
-            <p
-              style={{
-                fontFamily: 'var(--f-jp)',
-                fontSize: '15px',
-                color: 'var(--ink-sub)',
-                lineHeight: 1.9,
-              }}
-            >
-              地方企業の「次の一歩」と共に未来を創り上げる、伴走型のITパートナーとして事業を展開しています。
-            </p>
-          </div>
+        <div className="company-header" style={{ marginBottom: '52px' }}>
+          <p
+            style={{
+              fontFamily: 'var(--f-mono)',
+              fontSize: '10px',
+              letterSpacing: '0.16em',
+              color: 'var(--accent)',
+              textTransform: 'uppercase',
+              marginBottom: '10px',
+            }}
+          >
+            — Company
+          </p>
+          <h2
+            style={{
+              fontFamily: 'var(--f-jp)',
+              fontWeight: 700,
+              fontSize: 'clamp(32px, 4vw, 52px)',
+              color: 'var(--ink)',
+              lineHeight: 1.2,
+              letterSpacing: '-0.02em',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            企業情報
+          </h2>
         </div>
 
         {/* Statement + details (left) / photo (right) */}
@@ -271,15 +254,6 @@ export default function Company() {
         .company-row:hover {
           transform: translateX(6px);
           background: rgba(46,110,255,0.045);
-        }
-        @media (max-width: 980px) {
-          .company-header {
-            flex-direction: column !important;
-            gap: 16px !important;
-          }
-          .company-header > div:first-child {
-            width: auto !important;
-          }
         }
         @media (max-width: 900px) {
           .company-grid {
