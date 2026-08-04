@@ -23,6 +23,17 @@ export default function Company() {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
+        imgRef.current,
+        { opacity: 0, x: -24 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.9,
+          ease: 'power2.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', once: true },
+        }
+      );
+      gsap.fromTo(
         quoteRef.current,
         { opacity: 0, y: 28 },
         {
@@ -30,18 +41,7 @@ export default function Company() {
           y: 0,
           duration: 0.9,
           ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', once: true },
-        }
-      );
-      gsap.fromTo(
-        imgRef.current,
-        { opacity: 0, x: 24 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.9,
-          ease: 'power2.out',
-          delay: 0.1,
+          delay: 0.15,
           scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', once: true },
         }
       );
@@ -54,7 +54,7 @@ export default function Company() {
           duration: 0.7,
           stagger: 0.08,
           ease: 'power2.out',
-          scrollTrigger: { trigger: '.company-info', start: 'top 85%', once: true },
+          scrollTrigger: { trigger: '.company-info', start: 'top 88%', once: true },
         }
       );
     }, sectionRef);
@@ -97,24 +97,70 @@ export default function Company() {
 
       <div className="container-custom" style={{ position: 'relative', zIndex: 1 }}>
 
-        {/* ── Manifesto ── */}
+        {/* ── Photo (left) + heading & statement (right) ── */}
         <div
-          className="manifesto-layout"
+          className="company-top"
           style={{
             display: 'grid',
-            gridTemplateColumns: '1fr minmax(0, 340px)',
-            gap: 'clamp(32px, 4vw, 64px)',
+            gridTemplateColumns: 'minmax(0, 440px) 1fr',
+            gap: 'clamp(32px, 4.5vw, 72px)',
             alignItems: 'center',
           }}
         >
+          <div
+            ref={imgRef}
+            className="company-img-wrap"
+            style={{
+              opacity: 0,
+              position: 'relative',
+              height: 'clamp(320px, 38vw, 520px)',
+              borderRadius: '6px',
+              overflow: 'hidden',
+            }}
+          >
+            <Image
+              src="/images/manifesto.jpg"
+              alt="日本の地方の風景"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+              sizes="(max-width: 900px) 100vw, 440px"
+            />
+          </div>
+
           <div>
+            <p
+              style={{
+                fontFamily: 'var(--f-mono)',
+                fontSize: '10px',
+                letterSpacing: '0.16em',
+                color: 'var(--accent)',
+                textTransform: 'uppercase',
+                marginBottom: '10px',
+              }}
+            >
+              — Company
+            </p>
+            <h2
+              style={{
+                fontFamily: 'var(--f-jp)',
+                fontWeight: 700,
+                fontSize: 'clamp(22px, 2.4vw, 30px)',
+                color: 'var(--ink)',
+                lineHeight: 1.3,
+                letterSpacing: '-0.02em',
+                marginBottom: '28px',
+              }}
+            >
+              企業情報
+            </h2>
+
             <blockquote
               ref={quoteRef}
               style={{
                 opacity: 0,
                 fontFamily: 'var(--f-jp)',
                 fontWeight: 700,
-                fontSize: 'clamp(24px, 3.2vw, 44px)',
+                fontSize: 'clamp(24px, 3vw, 42px)',
                 lineHeight: 1.5,
                 color: 'var(--ink)',
                 letterSpacing: '-0.03em',
@@ -125,6 +171,7 @@ export default function Company() {
               <br />
               いない事業がある。
             </blockquote>
+
             <p
               style={{
                 fontFamily: 'var(--f-jp)',
@@ -151,110 +198,56 @@ export default function Company() {
               — 代表取締役 舟木 南生
             </p>
           </div>
-
-          <div
-            ref={imgRef}
-            className="manifesto-img-wrap"
-            style={{
-              opacity: 0,
-              position: 'relative',
-              height: 'clamp(220px, 26vw, 320px)',
-              borderRadius: '6px',
-              overflow: 'hidden',
-            }}
-          >
-            <Image
-              src="/images/manifesto.jpg"
-              alt="日本の地方の風景"
-              fill
-              style={{ objectFit: 'cover', objectPosition: 'center' }}
-              sizes="(max-width: 900px) 100vw, 340px"
-            />
-          </div>
         </div>
 
-        {/* ── Company info ── */}
-        <div
-          className="company-info company-layout"
+        {/* ── Company details ── */}
+        <dl
+          className="company-info"
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1.4fr',
-            gap: 'clamp(28px, 4vw, 60px)',
-            alignItems: 'flex-start',
+            borderTop: '1px solid var(--hair)',
             marginTop: 'clamp(44px, 4.5vw, 68px)',
           }}
         >
-          {/* Left */}
-          <div>
-            <p
+          {companyInfo.map((info, index) => (
+            <div
+              key={index}
+              className="company-row"
               style={{
-                fontFamily: 'var(--f-mono)',
-                fontSize: '10px',
-                letterSpacing: '0.16em',
-                color: 'var(--accent)',
-                textTransform: 'uppercase',
-                marginBottom: '12px',
+                display: 'flex',
+                gap: '32px',
+                padding: '18px 4px',
+                borderBottom: '1px solid var(--hair)',
+                alignItems: 'flex-start',
               }}
             >
-              — Company
-            </p>
-            <h2
-              style={{
-                fontFamily: 'var(--f-jp)',
-                fontWeight: 700,
-                fontSize: 'clamp(28px, 3.2vw, 44px)',
-                color: 'var(--ink)',
-                lineHeight: 1.2,
-                letterSpacing: '-0.03em',
-              }}
-            >
-              企業情報
-            </h2>
-          </div>
-
-          {/* Right: Table */}
-          <dl style={{ borderTop: '1px solid var(--hair)' }}>
-            {companyInfo.map((info, index) => (
-              <div
-                key={index}
-                className="company-row"
+              <dt
                 style={{
-                  display: 'flex',
-                  gap: '32px',
-                  padding: '18px 4px',
-                  borderBottom: '1px solid var(--hair)',
-                  alignItems: 'flex-start',
+                  width: '160px',
+                  flexShrink: 0,
+                  fontFamily: 'var(--f-mono)',
+                  fontSize: '11px',
+                  letterSpacing: '0.08em',
+                  color: 'var(--ink-mute)',
+                  textTransform: 'uppercase',
+                  paddingTop: '3px',
                 }}
               >
-                <dt
-                  style={{
-                    width: '128px',
-                    flexShrink: 0,
-                    fontFamily: 'var(--f-mono)',
-                    fontSize: '11px',
-                    letterSpacing: '0.08em',
-                    color: 'var(--ink-mute)',
-                    textTransform: 'uppercase',
-                    paddingTop: '3px',
-                  }}
-                >
-                  {info.label}
-                </dt>
-                <dd
-                  style={{
-                    fontFamily: 'var(--f-jp)',
-                    fontSize: '14px',
-                    color: 'var(--ink)',
-                    lineHeight: 1.8,
-                    fontWeight: 500,
-                  }}
-                >
-                  {info.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+                {info.label}
+              </dt>
+              <dd
+                style={{
+                  fontFamily: 'var(--f-jp)',
+                  fontSize: '14px',
+                  color: 'var(--ink)',
+                  lineHeight: 1.8,
+                  fontWeight: 500,
+                }}
+              >
+                {info.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
 
       <style>{`
@@ -266,17 +259,21 @@ export default function Company() {
           background: rgba(46,110,255,0.045);
         }
         @media (max-width: 900px) {
-          .manifesto-layout {
+          .company-top {
             grid-template-columns: 1fr !important;
           }
-          .manifesto-img-wrap {
-            height: clamp(200px, 46vw, 300px) !important;
-            order: -1;
+          .company-img-wrap {
+            height: clamp(220px, 52vw, 340px) !important;
           }
-          .company-layout {
-            grid-template-columns: 1fr !important;
-            gap: 24px !important;
+          .company-row .company-dt,
+          .company-row dt { width: 110px !important; }
+        }
+        @media (max-width: 560px) {
+          .company-row {
+            flex-direction: column;
+            gap: 6px !important;
           }
+          .company-row dt { width: auto !important; }
         }
         @media (prefers-reduced-motion: reduce) {
           .company-row,
