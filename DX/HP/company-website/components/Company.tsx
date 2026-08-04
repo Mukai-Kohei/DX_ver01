@@ -200,13 +200,20 @@ export default function Company() {
           </div>
         </div>
 
-        {/* ── Company details ── */}
-        <dl
-          className="company-info"
+        {/* ── Company details — same grid as above, so the table's right edge
+             lines up with the statement column rather than running full width ── */}
+        <div
+          className="company-bottom"
           style={{
-            borderTop: '1px solid var(--hair)',
+            display: 'grid',
+            gridTemplateColumns: '1fr minmax(0, 440px)',
+            gap: 'clamp(32px, 4.5vw, 72px)',
             marginTop: 'clamp(44px, 4.5vw, 68px)',
           }}
+        >
+        <dl
+          className="company-info"
+          style={{ borderTop: '1px solid var(--hair)' }}
         >
           {companyInfo.map((info, index) => (
             <div
@@ -222,7 +229,7 @@ export default function Company() {
             >
               <dt
                 style={{
-                  width: '160px',
+                  width: '140px',
                   flexShrink: 0,
                   fontFamily: 'var(--f-mono)',
                   fontSize: '11px',
@@ -248,6 +255,7 @@ export default function Company() {
             </div>
           ))}
         </dl>
+        </div>
       </div>
 
       <style>{`
@@ -259,7 +267,8 @@ export default function Company() {
           background: rgba(46,110,255,0.045);
         }
         @media (max-width: 900px) {
-          .company-top {
+          .company-top,
+          .company-bottom {
             grid-template-columns: 1fr !important;
           }
           .company-img-wrap {
